@@ -1,0 +1,1 @@
+{ "sourceId" : "t352", "valueRef" : { "s" : "EventBson", "f" : ["id"], "v" : ["40"], "n" : "tbd_tvalues" }, "timeMLDocumentFunction" : "NONE", "id" : "69", "timeMLType" : "DURATION", "tokenSpan" : { "r" : { "s" : "EventBson", "f" : ["name"], "v" : ["AP900816-0139.tml"], "n" : "tbd_docs" }, "s" : 0, "e" : 3, "sI" : 50 }, "temporalFunction" : false }

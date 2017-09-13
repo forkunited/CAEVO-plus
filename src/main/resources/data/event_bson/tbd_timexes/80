@@ -1,0 +1,1 @@
+{ "sourceId" : "t121", "valueRef" : { "s" : "EventBson", "f" : ["id"], "v" : ["48"], "n" : "tbd_tvalues" }, "timeMLDocumentFunction" : "NONE", "id" : "80", "timeMLType" : "DATE", "tokenSpan" : { "r" : { "s" : "EventBson", "f" : ["name"], "v" : ["APW19980213.1310.tml"], "n" : "tbd_docs" }, "s" : 12, "e" : 13, "sI" : 9 }, "temporalFunction" : false }

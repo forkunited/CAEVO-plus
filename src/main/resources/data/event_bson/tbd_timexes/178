@@ -1,0 +1,1 @@
+{ "sourceId" : "t0", "valueRef" : { "s" : "EventBson", "f" : ["id"], "v" : ["136"], "n" : "tbd_tvalues" }, "timeMLDocumentFunction" : "CREATION_TIME", "id" : "178", "timeMLType" : "DATE", "tokenSpan" : { "r" : { "s" : "EventBson", "f" : ["name"], "v" : ["CNN19980222.1130.0084.tml"], "n" : "tbd_docs" }, "s" : -1, "e" : 0, "sI" : -1 }, "temporalFunction" : false }

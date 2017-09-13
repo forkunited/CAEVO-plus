@@ -1,0 +1,6 @@
+{ "collection" : "tbd_docs", "serializer" : "DocumentNLPBSON" }
+{ "collection" : "tbd_ementions", "serializer" : "JSONBSONEventMention" }
+{ "collection" : "tbd_events", "serializer" : "JSONBSONEvent" }
+{ "collection" : "tbd_timexes", "serializer" : "JSONBSONTimeExpression" }
+{ "collection" : "tbd_tvalues", "serializer" : "JSONBSONNormalizedTimeValue" }
+{ "collection" : "tbd_tlinks", "serializer" : "JSONBSONTLink" }
