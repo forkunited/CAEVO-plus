@@ -1,0 +1,19 @@
+context modelsEventTimeTLinkDet = EventTimeTLink(initScript="/tlinkEventTime/methods/Deterministic_TBD.ctx", initOnce="true", initOverrideByName="true");
+
+classify_method adjETB = LabelMapping(method=${modelsEventTimeTLinkDet.adjETSieveUM}, labelMapping="OnlyB");
+classify_method reportingDCTB = LabelMapping(method=${modelsEventTimeTLinkDet.reportingDCTSieveUM}, labelMapping="OnlyB");
+
+classify_method adjETA = LabelMapping(method=${modelsEventTimeTLinkDet.adjETSieveUM}, labelMapping="OnlyA");
+classify_method reportingDCTA = LabelMapping(method=${modelsEventTimeTLinkDet.reportingDCTSieveUM}, labelMapping="OnlyA");
+
+classify_method adjETI = LabelMapping(method=${modelsEventTimeTLinkDet.adjETSieveUM}, labelMapping="OnlyI");
+classify_method reportingDCTI = LabelMapping(method=${modelsEventTimeTLinkDet.reportingDCTSieveUM}, labelMapping="OnlyI");
+
+classify_method adjETII = LabelMapping(method=${modelsEventTimeTLinkDet.adjETSieveUM}, labelMapping="OnlyII");
+classify_method reportingDCTII = LabelMapping(method=${modelsEventTimeTLinkDet.reportingDCTSieveUM}, labelMapping="OnlyII");
+
+classify_method adjETS = LabelMapping(method=${modelsEventTimeTLinkDet.adjETSieveUM}, labelMapping="OnlyS");
+classify_method reportingDCTS = LabelMapping(method=${modelsEventTimeTLinkDet.reportingDCTSieveUM}, labelMapping="OnlyS");
+
+classify_method adjETV = LabelMapping(method=${modelsEventTimeTLinkDet.adjETSieveUM}, labelMapping="OnlyV");
+classify_method reportingDCTV = LabelMapping(method=${modelsEventTimeTLinkDet.reportingDCTSieveUM}, labelMapping="OnlyV");

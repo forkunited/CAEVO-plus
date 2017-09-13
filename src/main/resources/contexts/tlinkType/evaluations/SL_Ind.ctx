@@ -1,0 +1,243 @@
+context trainDevTestDataTlinkType = TLinkType(initScript="/tlinkType/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context modelsTlinkTypeSlInd = TLinkType(initScript="/tlinkType/methods/SL_Ind.ctx", initOnce="true", initOverrideByName="true");
+
+classify_eval devSlDCTBPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slDCTB}, mode="MICRO");
+classify_eval devSlDCTBRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slDCTB}, mode="MICRO");
+classify_eval testSlDCTBPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slDCTB}, mode="MICRO");
+classify_eval testSlDCTBRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slDCTB}, mode="MICRO");
+classify_eval devSlDCTAPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slDCTA}, mode="MICRO");
+classify_eval devSlDCTARecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slDCTA}, mode="MICRO");
+classify_eval testSlDCTAPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slDCTA}, mode="MICRO");
+classify_eval testSlDCTARecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slDCTA}, mode="MICRO");
+classify_eval devSlDCTIPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slDCTI}, mode="MICRO");
+classify_eval devSlDCTIRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slDCTI}, mode="MICRO");
+classify_eval testSlDCTIPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slDCTI}, mode="MICRO");
+classify_eval testSlDCTIRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slDCTI}, mode="MICRO");
+classify_eval devSlDCTIIPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slDCTII}, mode="MICRO");
+classify_eval devSlDCTIIRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slDCTII}, mode="MICRO");
+classify_eval testSlDCTIIPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slDCTII}, mode="MICRO");
+classify_eval testSlDCTIIRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slDCTII}, mode="MICRO");
+classify_eval devSlDCTSPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slDCTS}, mode="MICRO");
+classify_eval devSlDCTSRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slDCTS}, mode="MICRO");
+classify_eval testSlDCTSPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slDCTS}, mode="MICRO");
+classify_eval testSlDCTSRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slDCTS}, mode="MICRO");
+classify_eval devSlDCTVPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slDCTV}, mode="MICRO");
+classify_eval devSlDCTVRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slDCTV}, mode="MICRO");
+classify_eval testSlDCTVPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slDCTV}, mode="MICRO");
+classify_eval testSlDCTVRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slDCTV}, mode="MICRO");
+
+
+classify_eval devSlETWSBPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETWSB}, mode="MICRO");
+classify_eval devSlETWSBRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETWSB}, mode="MICRO");
+classify_eval testSlETWSBPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETWSB}, mode="MICRO");
+classify_eval testSlETWSBRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETWSB}, mode="MICRO");
+classify_eval devSlETWSAPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETWSA}, mode="MICRO");
+classify_eval devSlETWSARecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETWSA}, mode="MICRO");
+classify_eval testSlETWSAPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETWSA}, mode="MICRO");
+classify_eval testSlETWSARecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETWSA}, mode="MICRO");
+classify_eval devSlETWSIPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETWSI}, mode="MICRO");
+classify_eval devSlETWSIRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETWSI}, mode="MICRO");
+classify_eval testSlETWSIPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETWSI}, mode="MICRO");
+classify_eval testSlETWSIRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETWSI}, mode="MICRO");
+classify_eval devSlETWSIIPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETWSII}, mode="MICRO");
+classify_eval devSlETWSIIRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETWSII}, mode="MICRO");
+classify_eval testSlETWSIIPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETWSII}, mode="MICRO");
+classify_eval testSlETWSIIRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETWSII}, mode="MICRO");
+classify_eval devSlETWSSPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETWSS}, mode="MICRO");
+classify_eval devSlETWSSRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETWSS}, mode="MICRO");
+classify_eval testSlETWSSPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETWSS}, mode="MICRO");
+classify_eval testSlETWSSRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETWSS}, mode="MICRO");
+classify_eval devSlETWSVPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETWSV}, mode="MICRO");
+classify_eval devSlETWSVRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETWSV}, mode="MICRO");
+classify_eval testSlETWSVPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETWSV}, mode="MICRO");
+classify_eval testSlETWSVRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETWSV}, mode="MICRO");
+
+
+classify_eval devSlEEWSBPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEWSB}, mode="MICRO");
+classify_eval devSlEEWSBRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEWSB}, mode="MICRO");
+classify_eval testSlEEWSBPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEWSB}, mode="MICRO");
+classify_eval testSlEEWSBRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEWSB}, mode="MICRO");
+classify_eval devSlEEWSAPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEWSA}, mode="MICRO");
+classify_eval devSlEEWSARecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEWSA}, mode="MICRO");
+classify_eval testSlEEWSAPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEWSA}, mode="MICRO");
+classify_eval testSlEEWSARecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEWSA}, mode="MICRO");
+classify_eval devSlEEWSIPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEWSI}, mode="MICRO");
+classify_eval devSlEEWSIRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEWSI}, mode="MICRO");
+classify_eval testSlEEWSIPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEWSI}, mode="MICRO");
+classify_eval testSlEEWSIRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEWSI}, mode="MICRO");
+classify_eval devSlEEWSIIPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEWSII}, mode="MICRO");
+classify_eval devSlEEWSIIRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEWSII}, mode="MICRO");
+classify_eval testSlEEWSIIPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEWSII}, mode="MICRO");
+classify_eval testSlEEWSIIRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEWSII}, mode="MICRO");
+classify_eval devSlEEWSSPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEWSS}, mode="MICRO");
+classify_eval devSlEEWSSRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEWSS}, mode="MICRO");
+classify_eval testSlEEWSSPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEWSS}, mode="MICRO");
+classify_eval testSlEEWSSRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEWSS}, mode="MICRO");
+classify_eval devSlEEWSVPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEWSV}, mode="MICRO");
+classify_eval devSlEEWSVRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEWSV}, mode="MICRO");
+classify_eval testSlEEWSVPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEWSV}, mode="MICRO");
+classify_eval testSlEEWSVRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEWSV}, mode="MICRO");
+
+
+classify_eval devSlEEDBPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEDB}, mode="MICRO");
+classify_eval devSlEEDBRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEDB}, mode="MICRO");
+classify_eval testSlEEDBPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEDB}, mode="MICRO");
+classify_eval testSlEEDBRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEDB}, mode="MICRO");
+classify_eval devSlEEDAPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEDA}, mode="MICRO");
+classify_eval devSlEEDARecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEDA}, mode="MICRO");
+classify_eval testSlEEDAPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEDA}, mode="MICRO");
+classify_eval testSlEEDARecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEDA}, mode="MICRO");
+classify_eval devSlEEDIPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEDI}, mode="MICRO");
+classify_eval devSlEEDIRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEDI}, mode="MICRO");
+classify_eval testSlEEDIPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEDI}, mode="MICRO");
+classify_eval testSlEEDIRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEDI}, mode="MICRO");
+classify_eval devSlEEDIIPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEDII}, mode="MICRO");
+classify_eval devSlEEDIIRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEDII}, mode="MICRO");
+classify_eval testSlEEDIIPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEDII}, mode="MICRO");
+classify_eval testSlEEDIIRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEDII}, mode="MICRO");
+classify_eval devSlEEDSPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEDS}, mode="MICRO");
+classify_eval devSlEEDSRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEDS}, mode="MICRO");
+classify_eval testSlEEDSPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEDS}, mode="MICRO");
+classify_eval testSlEEDSRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEDS}, mode="MICRO");
+classify_eval devSlEEDVPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEDV}, mode="MICRO");
+classify_eval devSlEEDVRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEDV}, mode="MICRO");
+classify_eval testSlEEDVPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEDV}, mode="MICRO");
+classify_eval testSlEEDVRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEDV}, mode="MICRO");
+
+classify_eval devSlEEBSBPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEBSB}, mode="MICRO");
+classify_eval devSlEEBSBRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEBSB}, mode="MICRO");
+classify_eval testSlEEBSBPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEBSB}, mode="MICRO");
+classify_eval testSlEEBSBRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEBSB}, mode="MICRO");
+classify_eval devSlEEBSAPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEBSA}, mode="MICRO");
+classify_eval devSlEEBSARecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEBSA}, mode="MICRO");
+classify_eval testSlEEBSAPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEBSA}, mode="MICRO");
+classify_eval testSlEEBSARecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEBSA}, mode="MICRO");
+classify_eval devSlEEBSIPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEBSI}, mode="MICRO");
+classify_eval devSlEEBSIRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEBSI}, mode="MICRO");
+classify_eval testSlEEBSIPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEBSI}, mode="MICRO");
+classify_eval testSlEEBSIRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEBSI}, mode="MICRO");
+classify_eval devSlEEBSIIPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEBSII}, mode="MICRO");
+classify_eval devSlEEBSIIRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEBSII}, mode="MICRO");
+classify_eval testSlEEBSIIPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEBSII}, mode="MICRO");
+classify_eval testSlEEBSIIRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEBSII}, mode="MICRO");
+classify_eval devSlEEBSSPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEBSS}, mode="MICRO");
+classify_eval devSlEEBSSRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEBSS}, mode="MICRO");
+classify_eval testSlEEBSSPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEBSS}, mode="MICRO");
+classify_eval testSlEEBSSRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEBSS}, mode="MICRO");
+classify_eval devSlEEBSVPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEBSV}, mode="MICRO");
+classify_eval devSlEEBSVRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slEEBSV}, mode="MICRO");
+classify_eval testSlEEBSVPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEBSV}, mode="MICRO");
+classify_eval testSlEEBSVRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slEEBSV}, mode="MICRO");
+
+classify_eval devSlETBSBPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETBSB}, mode="MICRO");
+classify_eval devSlETBSBRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETBSB}, mode="MICRO");
+classify_eval testSlETBSBPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETBSB}, mode="MICRO");
+classify_eval testSlETBSBRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETBSB}, mode="MICRO");
+classify_eval devSlETBSAPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETBSA}, mode="MICRO");
+classify_eval devSlETBSARecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETBSA}, mode="MICRO");
+classify_eval testSlETBSAPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETBSA}, mode="MICRO");
+classify_eval testSlETBSARecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETBSA}, mode="MICRO");
+classify_eval devSlETBSIPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETBSI}, mode="MICRO");
+classify_eval devSlETBSIRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETBSI}, mode="MICRO");
+classify_eval testSlETBSIPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETBSI}, mode="MICRO");
+classify_eval testSlETBSIRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETBSI}, mode="MICRO");
+classify_eval devSlETBSIIPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETBSII}, mode="MICRO");
+classify_eval devSlETBSIIRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETBSII}, mode="MICRO");
+classify_eval testSlETBSIIPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETBSII}, mode="MICRO");
+classify_eval testSlETBSIIRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETBSII}, mode="MICRO");
+classify_eval devSlETBSSPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETBSS}, mode="MICRO");
+classify_eval devSlETBSSRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETBSS}, mode="MICRO");
+classify_eval testSlETBSSPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETBSS}, mode="MICRO");
+classify_eval testSlETBSSRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETBSS}, mode="MICRO");
+classify_eval devSlETBSVPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETBSV}, mode="MICRO");
+classify_eval devSlETBSVRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeSlInd.slETBSV}, mode="MICRO");
+classify_eval testSlETBSVPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETBSV}, mode="MICRO");
+classify_eval testSlETBSVRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeSlInd.slETBSV}, mode="MICRO");
+
+
+
+
+
+
+
+
+classify_eval trainDevSlDCTBPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slDCTB}, mode="MICRO");
+classify_eval trainDevSlDCTBRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slDCTB}, mode="MICRO");
+classify_eval trainDevSlDCTAPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slDCTA}, mode="MICRO");
+classify_eval trainDevSlDCTARecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slDCTA}, mode="MICRO");
+classify_eval trainDevSlDCTIPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slDCTI}, mode="MICRO");
+classify_eval trainDevSlDCTIRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slDCTI}, mode="MICRO");
+classify_eval trainDevSlDCTIIPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slDCTII}, mode="MICRO");
+classify_eval trainDevSlDCTIIRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slDCTII}, mode="MICRO");
+classify_eval trainDevSlDCTSPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slDCTS}, mode="MICRO");
+classify_eval trainDevSlDCTSRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slDCTS}, mode="MICRO");
+classify_eval trainDevSlDCTVPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slDCTV}, mode="MICRO");
+classify_eval trainDevSlDCTVRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slDCTV}, mode="MICRO");
+
+
+classify_eval trainDevSlETWSBPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETWSB}, mode="MICRO");
+classify_eval trainDevSlETWSBRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETWSB}, mode="MICRO");
+classify_eval trainDevSlETWSAPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETWSA}, mode="MICRO");
+classify_eval trainDevSlETWSARecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETWSA}, mode="MICRO");
+classify_eval trainDevSlETWSIPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETWSI}, mode="MICRO");
+classify_eval trainDevSlETWSIRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETWSI}, mode="MICRO");
+classify_eval trainDevSlETWSIIPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETWSII}, mode="MICRO");
+classify_eval trainDevSlETWSIIRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETWSII}, mode="MICRO");
+classify_eval trainDevSlETWSSPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETWSS}, mode="MICRO");
+classify_eval trainDevSlETWSSRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETWSS}, mode="MICRO");
+classify_eval trainDevSlETWSVPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETWSV}, mode="MICRO");
+classify_eval trainDevSlETWSVRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETWSV}, mode="MICRO");
+
+
+classify_eval trainDevSlEEWSBPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEWSB}, mode="MICRO");
+classify_eval trainDevSlEEWSBRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEWSB}, mode="MICRO");
+classify_eval trainDevSlEEWSAPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEWSA}, mode="MICRO");
+classify_eval trainDevSlEEWSARecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEWSA}, mode="MICRO");
+classify_eval trainDevSlEEWSIPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEWSI}, mode="MICRO");
+classify_eval trainDevSlEEWSIRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEWSI}, mode="MICRO");
+classify_eval trainDevSlEEWSIIPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEWSII}, mode="MICRO");
+classify_eval trainDevSlEEWSIIRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEWSII}, mode="MICRO");
+classify_eval trainDevSlEEWSSPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEWSS}, mode="MICRO");
+classify_eval trainDevSlEEWSSRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEWSS}, mode="MICRO");
+classify_eval trainDevSlEEWSVPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEWSV}, mode="MICRO");
+classify_eval trainDevSlEEWSVRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEWSV}, mode="MICRO");
+
+
+classify_eval trainDevSlEEDBPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEDB}, mode="MICRO");
+classify_eval trainDevSlEEDBRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEDB}, mode="MICRO");
+classify_eval trainDevSlEEDAPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEDA}, mode="MICRO");
+classify_eval trainDevSlEEDARecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEDA}, mode="MICRO");
+classify_eval trainDevSlEEDIPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEDI}, mode="MICRO");
+classify_eval trainDevSlEEDIRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEDI}, mode="MICRO");
+classify_eval trainDevSlEEDIIPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEDII}, mode="MICRO");
+classify_eval trainDevSlEEDIIRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEDII}, mode="MICRO");
+classify_eval trainDevSlEEDSPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEDS}, mode="MICRO");
+classify_eval trainDevSlEEDSRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEDS}, mode="MICRO");
+classify_eval trainDevSlEEDVPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEDV}, mode="MICRO");
+classify_eval trainDevSlEEDVRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEDV}, mode="MICRO");
+
+classify_eval trainDevSlEEBSBPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEBSB}, mode="MICRO");
+classify_eval trainDevSlEEBSBRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEBSB}, mode="MICRO");
+classify_eval trainDevSlEEBSAPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEBSA}, mode="MICRO");
+classify_eval trainDevSlEEBSARecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEBSA}, mode="MICRO");
+classify_eval trainDevSlEEBSIPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEBSI}, mode="MICRO");
+classify_eval trainDevSlEEBSIRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEBSI}, mode="MICRO");
+classify_eval trainDevSlEEBSIIPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEBSII}, mode="MICRO");
+classify_eval trainDevSlEEBSIIRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEBSII}, mode="MICRO");
+classify_eval trainDevSlEEBSSPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEBSS}, mode="MICRO");
+classify_eval trainDevSlEEBSSRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEBSS}, mode="MICRO");
+classify_eval trainDevSlEEBSVPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEBSV}, mode="MICRO");
+classify_eval trainDevSlEEBSVRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slEEBSV}, mode="MICRO");
+
+classify_eval trainDevSlETBSBPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETBSB}, mode="MICRO");
+classify_eval trainDevSlETBSBRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETBSB}, mode="MICRO");
+classify_eval trainDevSlETBSAPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETBSA}, mode="MICRO");
+classify_eval trainDevSlETBSARecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETBSA}, mode="MICRO");
+classify_eval trainDevSlETBSIPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETBSI}, mode="MICRO");
+classify_eval trainDevSlETBSIRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETBSI}, mode="MICRO");
+classify_eval trainDevSlETBSIIPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETBSII}, mode="MICRO");
+classify_eval trainDevSlETBSIIRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETBSII}, mode="MICRO");
+classify_eval trainDevSlETBSSPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETBSS}, mode="MICRO");
+classify_eval trainDevSlETBSSRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETBSS}, mode="MICRO");
+classify_eval trainDevSlETBSVPrecision = Precision(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETBSV}, mode="MICRO");
+classify_eval trainDevSlETBSVRecall = Recall(task=${trainDevTestDataTlinkType.trainDevTask}, method=${modelsTlinkTypeSlInd.slETBSV}, mode="MICRO");

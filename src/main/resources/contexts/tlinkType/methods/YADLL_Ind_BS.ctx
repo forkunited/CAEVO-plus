@@ -1,0 +1,43 @@
+context modelsTlinkTypeYadll = TLinkType(initScript="/tlinkType/methods/YADLL_LR_CAEVO_BS.ctx", initOnce="true", initOverrideByName="true");
+
+classify_method yadllDCTB = LabelMapping(method=${modelsTlinkTypeYadll.yadllDCT}, labelMapping="OnlyB");
+classify_method yadllETWSB = LabelMapping(method=${modelsTlinkTypeYadll.yadllETWS}, labelMapping="OnlyB");
+classify_method yadllEEWSB = LabelMapping(method=${modelsTlinkTypeYadll.yadllEEWS}, labelMapping="OnlyB");
+classify_method yadllEEDB = LabelMapping(method=${modelsTlinkTypeYadll.yadllEED}, labelMapping="OnlyB");
+classify_method yadllEEBSB = LabelMapping(method=${modelsTlinkTypeYadll.yadllEEBS}, labelMapping="OnlyB");
+classify_method yadllETBSB = LabelMapping(method=${modelsTlinkTypeYadll.yadllETBS}, labelMapping="OnlyB");
+
+classify_method yadllDCTA = LabelMapping(method=${modelsTlinkTypeYadll.yadllDCT}, labelMapping="OnlyA");
+classify_method yadllETWSA = LabelMapping(method=${modelsTlinkTypeYadll.yadllETWS}, labelMapping="OnlyA");
+classify_method yadllEEWSA = LabelMapping(method=${modelsTlinkTypeYadll.yadllEEWS}, labelMapping="OnlyA");
+classify_method yadllEEDA = LabelMapping(method=${modelsTlinkTypeYadll.yadllEED}, labelMapping="OnlyA");
+classify_method yadllEEBSA = LabelMapping(method=${modelsTlinkTypeYadll.yadllEEBS}, labelMapping="OnlyA");
+classify_method yadllETBSA = LabelMapping(method=${modelsTlinkTypeYadll.yadllETBS}, labelMapping="OnlyA");
+
+classify_method yadllDCTI = LabelMapping(method=${modelsTlinkTypeYadll.yadllDCT}, labelMapping="OnlyI");
+classify_method yadllETWSI = LabelMapping(method=${modelsTlinkTypeYadll.yadllETWS}, labelMapping="OnlyI");
+classify_method yadllEEWSI = LabelMapping(method=${modelsTlinkTypeYadll.yadllEEWS}, labelMapping="OnlyI");
+classify_method yadllEEDI = LabelMapping(method=${modelsTlinkTypeYadll.yadllEED}, labelMapping="OnlyI");
+classify_method yadllEEBSI = LabelMapping(method=${modelsTlinkTypeYadll.yadllEEBS}, labelMapping="OnlyI");
+classify_method yadllETBSI = LabelMapping(method=${modelsTlinkTypeYadll.yadllETBS}, labelMapping="OnlyI");
+
+classify_method yadllDCTII = LabelMapping(method=${modelsTlinkTypeYadll.yadllDCT}, labelMapping="OnlyII");
+classify_method yadllETWSII = LabelMapping(method=${modelsTlinkTypeYadll.yadllETWS}, labelMapping="OnlyII");
+classify_method yadllEEWSII = LabelMapping(method=${modelsTlinkTypeYadll.yadllEEWS}, labelMapping="OnlyII");
+classify_method yadllEEDII = LabelMapping(method=${modelsTlinkTypeYadll.yadllEED}, labelMapping="OnlyII");
+classify_method yadllEEBSII = LabelMapping(method=${modelsTlinkTypeYadll.yadllEEBS}, labelMapping="OnlyII");
+classify_method yadllETBSII = LabelMapping(method=${modelsTlinkTypeYadll.yadllETBS}, labelMapping="OnlyII");
+
+classify_method yadllDCTS = LabelMapping(method=${modelsTlinkTypeYadll.yadllDCT}, labelMapping="OnlyS");
+classify_method yadllETWSS = LabelMapping(method=${modelsTlinkTypeYadll.yadllETWS}, labelMapping="OnlyS");
+classify_method yadllEEWSS = LabelMapping(method=${modelsTlinkTypeYadll.yadllEEWS}, labelMapping="OnlyS");
+classify_method yadllEEDS = LabelMapping(method=${modelsTlinkTypeYadll.yadllEED}, labelMapping="OnlyS");
+classify_method yadllEEBSS = LabelMapping(method=${modelsTlinkTypeYadll.yadllEEBS}, labelMapping="OnlyS");
+classify_method yadllETBSS = LabelMapping(method=${modelsTlinkTypeYadll.yadllETBS}, labelMapping="OnlyS");
+
+classify_method yadllDCTV = LabelMapping(method=${modelsTlinkTypeYadll.yadllDCT}, labelMapping="OnlyV");
+classify_method yadllETWSV = LabelMapping(method=${modelsTlinkTypeYadll.yadllETWS}, labelMapping="OnlyV");
+classify_method yadllEEWSV = LabelMapping(method=${modelsTlinkTypeYadll.yadllEEWS}, labelMapping="OnlyV");
+classify_method yadllEEDV = LabelMapping(method=${modelsTlinkTypeYadll.yadllEED}, labelMapping="OnlyV");
+classify_method yadllEEBSV = LabelMapping(method=${modelsTlinkTypeYadll.yadllEEBS}, labelMapping="OnlyV");
+classify_method yadllETBSV = LabelMapping(method=${modelsTlinkTypeYadll.yadllETBS}, labelMapping="OnlyV");

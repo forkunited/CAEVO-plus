@@ -1,0 +1,24 @@
+context dataParamsEventCoref = EventCoref(initScript="/corefEvent/data/parameters/ACE2005.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDocsEventCoref = EventCoref(initScript="/util/data/docs/ACE2005.ctx", initOnce="true", initOverrideByName="true");
+
+data trainData = EventCoref(storage="EventBson", documents=${dataParamsEventCoref.trainDocs}, filter=${trainDevTestDocsEventCoref.devTestDocs}, filterType="EXCLUDE", labelMode=${dataParamsEventCoref.trainLabelMode}, clusterMode=${dataParamsEventCoref.trainClusterMode});
+data devData = EventCoref(storage="EventBson", documents=${dataParamsEventCoref.devDocs}, filter=${trainDevTestDocsEventCoref.devDocs}, filterType="INTERSECT", labelMode=${dataParamsEventCoref.devLabelMode}, clusterMode=${dataParamsEventCoref.devClusterMode});
+data testData = EventCoref(storage="EventBson", documents=${dataParamsEventCoref.testDocs}, filter=${trainDevTestDocsEventCoref.testDocs}, filterType="INTERSECT", labelMode=${dataParamsEventCoref.testLabelMode}, clusterMode=${dataParamsEventCoref.testClusterMode});
+
+value countTBDEventCorefTrainData = SizeData(data=${trainData});
+value countTBDEventCorefDevData = SizeData(data=${devData});
+value countTBDEventCorefTestData = SizeData(data=${testData});
+value debugTrainData = OutputDebug(refs=(${countTBDEventCorefTrainData}));
+value debugDevData = OutputDebug(refs=(${countTBDEventCorefDevData}));
+value debugTestData = OutputDebug(refs=(${countTBDEventCorefTestData}));
+
+classify_task devTask = Classification(data=${devData});
+classify_task testTask = Classification(data=${testData});
+
+structurizer docStruct = GraphEventPairByDocument(labelMapping="TBD", graphEdgeMutexFn="EventRelationMutex");
+structurizer docStructConserve = GraphEventPairByDocument(labelMapping="TBD", graphOverwriteOperator="CONSERVE", graphEdgeMutexFn="EventRelationMutex");
+structurizer docStructMulti = GraphEventPairByDocument(graphEdgeMode="MULTI", graphNodeMode="MULTI", labelMapping="TBD", graphEdgeMutexFn="EventRelationMutex");
+
+structurizer struct = GraphEventPair(labelMapping="TBD", graphEdgeMutexFn="EventRelationMutex");
+structurizer structConserve = GraphEventPair(labelMapping="TBD", graphOverwriteOperator="CONSERVE", graphEdgeMutexFn="EventRelationMutex");
+structurizer structMulti = GraphEventPair(graphEdgeMode="MULTI", graphNodeMode="MULTI", labelMapping="TBD", graphEdgeMutexFn="EventRelationMutex");

@@ -1,0 +1,11 @@
+context dataParamsEventBinary = TokenSpansBoolean(initScript="/binaryEvent/data/parameters/TBD.ctx", initOnce="true", initOverrideByName="true");
+context featureSetsEventBinary = TokenSpansBoolean(initScript="/binaryEvent/featureSets/Default.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataEventBinary = TokenSpansBoolean(initScript="/binaryEvent/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+
+data_features trainMatrix = DataFeatureMatrix(data=${trainDevTestDataEventBinary.trainData}, features=${featureSetsEventBinary.fs});
+
+model sl=StanfordLinear() { array validLabels=${dataParamsEventBinary.labels}; };
+
+evaluation acc=Accuracy();
+classify_method methodInit = SupervisedModel(model=${sl}, data=${trainMatrix}, trainEvaluation=${acc});
+classify_method method = InitClassifyMethod(devData=${trainDevTestDataEventBinary.devData}, method=${methodInit});

@@ -1,0 +1,25 @@
+value trainDocs="ace_docs";
+value devDocs="ace_docs";
+value testDocs="ace_docs";
+value trainTlinks="";
+value devTlinks="";
+value testTlinks="";
+value trainLabelMode="ALL_AS_UNLABELED";
+value devLabelMode="ALL_AS_UNLABELED";
+value testLabelMode="ALL_AS_UNLABELED";
+value trainMaxSentDist="1";
+value devMaxSentDist="1";
+value testMaxSentDist="1";
+value trainCrossDocMode="NONE";
+value devCrossDocMode="NONE";
+value testCrossDocMode="NONE";
+value trainClusterMode="POST";
+value devClusterMode="POST";
+value testClusterMode="POST";
+value trainLM="TBD";
+value devLM="TBD";
+value testLM="TBD";
+
+array labels = ("BEFORE", "AFTER", "INCLUDES", "IS_INCLUDED", "SIMULTANEOUS", "VAGUE");
+value labelCount = SizeArray(array=${labels});
+

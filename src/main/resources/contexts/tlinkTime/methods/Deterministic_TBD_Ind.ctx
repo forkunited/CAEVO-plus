@@ -1,0 +1,21 @@
+context modelsTimeTLinkDet = TimeTLink(initScript="/tlinkTime/methods/Deterministic_TBD.ctx", initOnce="true", initOverrideByName="true");
+
+classify_method timeTimeB = LabelMapping(method=${modelsTimeTLinkDet.timeTimeSieveUM}, labelMapping="OnlyB");
+classify_method wordNetB = LabelMapping(method=${modelsTimeTLinkDet.wordNetSieveUM}, labelMapping="OnlyB");
+
+classify_method timeTimeA = LabelMapping(method=${modelsTimeTLinkDet.timeTimeSieveUM}, labelMapping="OnlyA");
+classify_method wordNetA = LabelMapping(method=${modelsTimeTLinkDet.wordNetSieveUM}, labelMapping="OnlyA");
+
+classify_method timeTimeI = LabelMapping(method=${modelsTimeTLinkDet.timeTimeSieveUM}, labelMapping="OnlyI");
+classify_method wordNetI = LabelMapping(method=${modelsTimeTLinkDet.wordNetSieveUM}, labelMapping="OnlyI");
+
+classify_method timeTimeII = LabelMapping(method=${modelsTimeTLinkDet.timeTimeSieveUM}, labelMapping="OnlyII");
+classify_method wordNetII = LabelMapping(method=${modelsTimeTLinkDet.wordNetSieveUM}, labelMapping="OnlyII");
+
+classify_method timeTimeS = LabelMapping(method=${modelsTimeTLinkDet.timeTimeSieveUM}, labelMapping="OnlyS");
+classify_method wordNetS = LabelMapping(method=${modelsTimeTLinkDet.wordNetSieveUM}, labelMapping="OnlyS");
+
+classify_method timeTimeV = LabelMapping(method=${modelsTimeTLinkDet.timeTimeSieveUM}, labelMapping="OnlyV");
+classify_method wordNetV = LabelMapping(method=${modelsTimeTLinkDet.wordNetSieveUM}, labelMapping="OnlyV");
+
+

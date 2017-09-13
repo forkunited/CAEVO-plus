@@ -1,0 +1,62 @@
+context trainDevTestDataEventAttribute = EventMentionString(initScript="/attributeEvent/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context methodEventAttribute = EventMentionString(initScript="/attributeEvent/methods/StanfordLinear.ctx", initOnce="true", initOverrideByName="true");
+
+classify_eval devTenseAccuracy = Accuracy(task=${trainDevTestDataEventAttribute.devTaskTense}, method=${methodEventAttribute.methodTense});       
+classify_eval devTenseF = F(task=${trainDevTestDataEventAttribute.devTaskTense}, method=${methodEventAttribute.methodTense}, Beta="1", mode="MACRO_WEIGHTED");
+classify_eval devTensePrecision = Precision(task=${trainDevTestDataEventAttribute.devTaskTense}, method=${methodEventAttribute.methodTense}, mode="MACRO_WEIGHTED");
+classify_eval devTenseRecall = Recall(task=${trainDevTestDataEventAttribute.devTaskTense}, method=${methodEventAttribute.methodTense}, mode="MACRO_WEIGHTED");
+classify_eval devTenseConfusionMatrix = ConfusionMatrix(task=${trainDevTestDataEventAttribute.devTaskTense}, method=${methodEventAttribute.methodTense});
+
+classify_eval testTenseAccuracy = Accuracy(task=${trainDevTestDataEventAttribute.testTaskTense}, method=${methodEventAttribute.methodTense});       
+classify_eval testTenseF = F(task=${trainDevTestDataEventAttribute.testTaskTense}, method=${methodEventAttribute.methodTense}, Beta="1", mode="MACRO_WEIGHTED");
+classify_eval testTensePrecision = Precision(task=${trainDevTestDataEventAttribute.testTaskTense}, method=${methodEventAttribute.methodTense}, mode="MACRO_WEIGHTED");
+classify_eval testTenseRecall = Recall(task=${trainDevTestDataEventAttribute.testTaskTense}, method=${methodEventAttribute.methodTense}, mode="MACRO_WEIGHTED");
+classify_eval testTenseConfusionMatrix = ConfusionMatrix(task=${trainDevTestDataEventAttribute.testTaskTense}, method=${methodEventAttribute.methodTense});
+
+classify_eval devAspectAccuracy = Accuracy(task=${trainDevTestDataEventAttribute.devTaskAspect}, method=${methodEventAttribute.methodAspect});       
+classify_eval devAspectF = F(task=${trainDevTestDataEventAttribute.devTaskAspect}, method=${methodEventAttribute.methodAspect}, Beta="1", mode="MACRO_WEIGHTED");
+classify_eval devAspectPrecision = Precision(task=${trainDevTestDataEventAttribute.devTaskAspect}, method=${methodEventAttribute.methodAspect}, mode="MACRO_WEIGHTED");
+classify_eval devAspectRecall = Recall(task=${trainDevTestDataEventAttribute.devTaskAspect}, method=${methodEventAttribute.methodAspect}, mode="MACRO_WEIGHTED");
+classify_eval devAspectConfusionMatrix = ConfusionMatrix(task=${trainDevTestDataEventAttribute.devTaskAspect}, method=${methodEventAttribute.methodAspect});
+
+classify_eval testAspectAccuracy = Accuracy(task=${trainDevTestDataEventAttribute.testTaskAspect}, method=${methodEventAttribute.methodAspect});       
+classify_eval testAspectF = F(task=${trainDevTestDataEventAttribute.testTaskAspect}, method=${methodEventAttribute.methodAspect}, Beta="1", mode="MACRO_WEIGHTED");
+classify_eval testAspectPrecision = Precision(task=${trainDevTestDataEventAttribute.testTaskAspect}, method=${methodEventAttribute.methodAspect}, mode="MACRO_WEIGHTED");
+classify_eval testAspectRecall = Recall(task=${trainDevTestDataEventAttribute.testTaskAspect}, method=${methodEventAttribute.methodAspect}, mode="MACRO_WEIGHTED");
+classify_eval testAspectConfusionMatrix = ConfusionMatrix(task=${trainDevTestDataEventAttribute.testTaskAspect}, method=${methodEventAttribute.methodAspect});
+
+classify_eval devClassAccuracy = Accuracy(task=${trainDevTestDataEventAttribute.devTaskClass}, method=${methodEventAttribute.methodClass});       
+classify_eval devClassF = F(task=${trainDevTestDataEventAttribute.devTaskClass}, method=${methodEventAttribute.methodClass}, Beta="1", mode="MACRO_WEIGHTED");
+classify_eval devClassPrecision = Precision(task=${trainDevTestDataEventAttribute.devTaskClass}, method=${methodEventAttribute.methodClass}, mode="MACRO_WEIGHTED");
+classify_eval devClassRecall = Recall(task=${trainDevTestDataEventAttribute.devTaskClass}, method=${methodEventAttribute.methodClass}, mode="MACRO_WEIGHTED");
+classify_eval devClassConfusionMatrix = ConfusionMatrix(task=${trainDevTestDataEventAttribute.devTaskClass}, method=${methodEventAttribute.methodClass});
+
+classify_eval testClassAccuracy = Accuracy(task=${trainDevTestDataEventAttribute.testTaskClass}, method=${methodEventAttribute.methodClass});       
+classify_eval testClassF = F(task=${trainDevTestDataEventAttribute.testTaskClass}, method=${methodEventAttribute.methodClass}, Beta="1", mode="MACRO_WEIGHTED");
+classify_eval testClassPrecision = Precision(task=${trainDevTestDataEventAttribute.testTaskClass}, method=${methodEventAttribute.methodClass}, mode="MACRO_WEIGHTED");
+classify_eval testClassRecall = Recall(task=${trainDevTestDataEventAttribute.testTaskClass}, method=${methodEventAttribute.methodClass}, mode="MACRO_WEIGHTED");
+classify_eval testClassConfusionMatrix = ConfusionMatrix(task=${trainDevTestDataEventAttribute.testTaskClass}, method=${methodEventAttribute.methodClass});
+
+classify_eval devModalityAccuracy = Accuracy(task=${trainDevTestDataEventAttribute.devTaskModality}, method=${methodEventAttribute.methodModality});       
+classify_eval devModalityF = F(task=${trainDevTestDataEventAttribute.devTaskModality}, method=${methodEventAttribute.methodModality}, Beta="1", mode="MACRO_WEIGHTED");
+classify_eval devModalityPrecision = Precision(task=${trainDevTestDataEventAttribute.devTaskModality}, method=${methodEventAttribute.methodModality}, mode="MACRO_WEIGHTED");
+classify_eval devModalityRecall = Recall(task=${trainDevTestDataEventAttribute.devTaskModality}, method=${methodEventAttribute.methodModality}, mode="MACRO_WEIGHTED");
+classify_eval devModalityConfusionMatrix = ConfusionMatrix(task=${trainDevTestDataEventAttribute.devTaskModality}, method=${methodEventAttribute.methodModality});
+
+classify_eval testModalityAccuracy = Accuracy(task=${trainDevTestDataEventAttribute.testTaskModality}, method=${methodEventAttribute.methodModality});       
+classify_eval testModalityF = F(task=${trainDevTestDataEventAttribute.testTaskModality}, method=${methodEventAttribute.methodModality}, Beta="1", mode="MACRO_WEIGHTED");
+classify_eval testModalityPrecision = Precision(task=${trainDevTestDataEventAttribute.testTaskModality}, method=${methodEventAttribute.methodModality}, mode="MACRO_WEIGHTED");
+classify_eval testModalityRecall = Recall(task=${trainDevTestDataEventAttribute.testTaskModality}, method=${methodEventAttribute.methodModality}, mode="MACRO_WEIGHTED");
+classify_eval testModalityConfusionMatrix = ConfusionMatrix(task=${trainDevTestDataEventAttribute.testTaskModality}, method=${methodEventAttribute.methodModality});
+
+classify_eval devPolarityAccuracy = Accuracy(task=${trainDevTestDataEventAttribute.devTaskPolarity}, method=${methodEventAttribute.methodPolarity});       
+classify_eval devPolarityF = F(task=${trainDevTestDataEventAttribute.devTaskPolarity}, method=${methodEventAttribute.methodPolarity}, Beta="1", mode="MACRO_WEIGHTED");
+classify_eval devPolarityPrecision = Precision(task=${trainDevTestDataEventAttribute.devTaskPolarity}, method=${methodEventAttribute.methodPolarity}, mode="MACRO_WEIGHTED");
+classify_eval devPolarityRecall = Recall(task=${trainDevTestDataEventAttribute.devTaskPolarity}, method=${methodEventAttribute.methodPolarity}, mode="MACRO_WEIGHTED");
+classify_eval devPolarityConfusionMatrix = ConfusionMatrix(task=${trainDevTestDataEventAttribute.devTaskPolarity}, method=${methodEventAttribute.methodPolarity});
+
+classify_eval testPolarityAccuracy = Accuracy(task=${trainDevTestDataEventAttribute.testTaskPolarity}, method=${methodEventAttribute.methodPolarity});       
+classify_eval testPolarityF = F(task=${trainDevTestDataEventAttribute.testTaskPolarity}, method=${methodEventAttribute.methodPolarity}, Beta="1", mode="MACRO_WEIGHTED");
+classify_eval testPolarityPrecision = Precision(task=${trainDevTestDataEventAttribute.testTaskPolarity}, method=${methodEventAttribute.methodPolarity}, mode="MACRO_WEIGHTED");
+classify_eval testPolarityRecall = Recall(task=${trainDevTestDataEventAttribute.testTaskPolarity}, method=${methodEventAttribute.methodPolarity}, mode="MACRO_WEIGHTED");
+classify_eval testPolarityConfusionMatrix = ConfusionMatrix(task=${trainDevTestDataEventAttribute.testTaskPolarity}, method=${methodEventAttribute.methodPolarity});

@@ -1,0 +1,15 @@
+context modelsEventTLinkYadll = EventTLink(initScript="/tlinkEvent/methods/YADLL_LR_CAEVO_Simple.ctx", initOnce="true", initOverrideByName="true");
+
+classify_method yadllWSB = LabelMapping(method=${modelsEventTLinkYadll.yadllWS}, labelMapping="OnlyB");
+classify_method yadllWSA = LabelMapping(method=${modelsEventTLinkYadll.yadllWS}, labelMapping="OnlyA");
+classify_method yadllWSI = LabelMapping(method=${modelsEventTLinkYadll.yadllWS}, labelMapping="OnlyI");
+classify_method yadllWSII = LabelMapping(method=${modelsEventTLinkYadll.yadllWS}, labelMapping="OnlyII");
+classify_method yadllWSS = LabelMapping(method=${modelsEventTLinkYadll.yadllWS}, labelMapping="OnlyS");
+classify_method yadllWSV = LabelMapping(method=${modelsEventTLinkYadll.yadllWS}, labelMapping="OnlyV");
+
+classify_method yadllEEDB = LabelMapping(method=${modelsEventTLinkYadll.yadllEED}, labelMapping="OnlyB");
+classify_method yadllEEDA = LabelMapping(method=${modelsEventTLinkYadll.yadllEED}, labelMapping="OnlyA");
+classify_method yadllEEDI = LabelMapping(method=${modelsEventTLinkYadll.yadllEED}, labelMapping="OnlyI");
+classify_method yadllEEDII = LabelMapping(method=${modelsEventTLinkYadll.yadllEED}, labelMapping="OnlyII");
+classify_method yadllEEDS = LabelMapping(method=${modelsEventTLinkYadll.yadllEED}, labelMapping="OnlyS");
+classify_method yadllEEDV = LabelMapping(method=${modelsEventTLinkYadll.yadllEED}, labelMapping="OnlyV");

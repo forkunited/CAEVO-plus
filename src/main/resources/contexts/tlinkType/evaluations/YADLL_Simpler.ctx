@@ -1,0 +1,18 @@
+context trainDevTestDataTlinkType = TLinkType(initScript="/tlinkType/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context modelsTlinkTypeYadll = TLinkType(initScript="/tlinkType/methods/YADLL_LR_Simpler.ctx", initOnce="true", initOverrideByName="true");
+
+classify_eval devYadllETPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeYadll.yadllET}, mode="MICRO");
+classify_eval devYadllETRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeYadll.yadllET}, mode="MICRO");
+classify_eval testYadllETPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeYadll.yadllET}, mode="MICRO");
+classify_eval testYadllETRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeYadll.yadllET}, mode="MICRO");
+
+classify_eval devYadllEEPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeYadll.yadllEE}, mode="MICRO");
+classify_eval devYadllEERecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeYadll.yadllEE}, mode="MICRO");
+classify_eval testYadllEEPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeYadll.yadllEE}, mode="MICRO");
+classify_eval testYadllEERecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeYadll.yadllEE}, mode="MICRO");
+
+classify_eval devYadllTTPrecision = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeYadll.yadllTT}, mode="MICRO");
+classify_eval devYadllTTRecall = Recall(task=${trainDevTestDataTlinkType.devTask}, method=${modelsTlinkTypeYadll.yadllTT}, mode="MICRO");
+classify_eval testYadllTTPrecision = Precision(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeYadll.yadllTT}, mode="MICRO");
+classify_eval testYadllTTRecall = Recall(task=${trainDevTestDataTlinkType.testTask}, method=${modelsTlinkTypeYadll.yadllTT}, mode="MICRO");
+

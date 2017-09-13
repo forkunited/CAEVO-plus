@@ -1,0 +1,12 @@
+context trainDevTestDataEventTLink = EventTLink(initScript="/tlinkEvent/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataEventTimeTLink = EventTimeTLink(initScript="/tlinkEventTime/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataTimeTLink = TimeTLink(initScript="/tlinkTime/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context modelsJointTLinkSieve = EventTimeTLink(initScript="/tlinkJoint/methods/Sieve_Conserve.ctx", initOnce="true", initOverrideByName="true");
+
+multi_classify_task multiDevTask = MultiClassification(tasks=(${trainDevTestDataEventTLink.devTask},${trainDevTestDataTimeTLink.devTask},${trainDevTestDataEventTimeTLink.devTask}));
+multi_classify_task multiTestTask = MultiClassification(tasks=(${trainDevTestDataEventTLink.testTask},${trainDevTestDataTimeTLink.testTask},${trainDevTestDataEventTimeTLink.testTask}));
+
+multi_classify_eval multiDevPrecision = MultiPrecision(task=${multiDevTask}, method=${modelsJointTLinkSieve.sieve}, mode="MICRO");
+multi_classify_eval multiDevRecall = MultiRecall(task=${multiDevTask}, method=${modelsJointTLinkSieve.sieve}, mode="MICRO");
+multi_classify_eval multiTestPrecision = MultiPrecision(task=${multiTestTask}, method=${modelsJointTLinkSieve.sieve}, mode="MICRO");
+multi_classify_eval multiTestRecall = MultiRecall(task=${multiTestTask}, method=${modelsJointTLinkSieve.sieve}, mode="MICRO");

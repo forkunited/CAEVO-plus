@@ -1,0 +1,8 @@
+value maxThreads="30";
+value resultsId = "TLinkType_Dev_CAEVO_W2V";
+value debug=Debug(file=${resultsId});
+
+context util = TLinkType(initScript="/util/Util.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_W2V.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Dev_CAEVO.ctx", initOnce="false");

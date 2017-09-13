@@ -1,0 +1,25 @@
+value trainDocs="tbd_docs";
+value devDocs="tbd_docs";
+value testDocs="tbd_docs";
+value trainTlinks="tbd_tlinks";
+value devTlinks="tbd_tlinks";
+value testTlinks="tbd_tlinks";
+value trainLabelMode="ONLY_LABELED";
+value devLabelMode="ALL";
+value testLabelMode="ALL";
+value trainMaxSentDist="-1";
+value devMaxSentDist="-1";
+value testMaxSentDist="-1";
+value trainCrossDocMode="NONE";
+value devCrossDocMode="NONE";
+value testCrossDocMode="NONE";
+value trainClusterMode="POST";
+value devClusterMode="POST";
+value testClusterMode="POST";
+value trainLM="TBDNoPVNV";
+value devLM="TBDNoPVNV";
+value testLM="TBDNoPVNV";
+
+array labels = ("BEFORE", "AFTER", "INCLUDES", "IS_INCLUDED", "SIMULTANEOUS", "VAGUE");
+value labelCount = SizeArray(array=${labels});
+

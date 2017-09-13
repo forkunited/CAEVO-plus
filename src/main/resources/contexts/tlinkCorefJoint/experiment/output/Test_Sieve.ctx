@@ -1,0 +1,16 @@
+value strEvals = OutputStrings(id=${resultsId}, storage="EventString", collection="ExperimentEvaluationOutput", 
+                 refs=
+                 (
+                  ${evalSieve.multiDevPrecision}, 
+	              ${evalSieve.multiDevRecall}, 
+	              ${evalSieve.multiTestPrecision}, 
+	              ${evalSieve.multiTestRecall}, 
+	              ${evalSieve.multiCorefDevPrecision}, 
+	              ${evalSieve.multiCorefDevRecall}, 
+	              ${evalSieve.multiCorefTestPrecision}, 
+	              ${evalSieve.multiCorefTestRecall}, 
+	              ${evalSieve.multiTLinkDevPrecision}, 
+	              ${evalSieve.multiTLinkDevRecall},   
+	              ${evalSieve.multiTLinkTestPrecision}, 
+	              ${evalSieve.multiTLinkTestRecall} 
+                 )); 

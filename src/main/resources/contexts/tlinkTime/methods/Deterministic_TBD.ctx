@@ -1,0 +1,7 @@
+classify_method timeTimeSieveUM = Det(rule="TIME_TIME");
+classify_method wordNetSieveUM = Det(rule="WORD_NET");
+
+classify_method timeTime = LabelMapping(method=${timeTimeSieveUM}, labelMapping="TBD");
+classify_method wordNet = LabelMapping(method=${wordNetSieveUM}, labelMapping="TBD");
+classify_method allVague = Constant(label="VAGUE");
+

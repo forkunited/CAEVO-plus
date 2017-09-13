@@ -1,0 +1,2 @@
+array labels = ("COREF", "NOT_COREF");
+value count = SizeArray(array=${labels});

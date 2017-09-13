@@ -1,0 +1,66 @@
+value strEvals = OutputStrings(id=${resultsId}, storage="EventString", collection="ExperimentEvaluationOutput", 
+                 refs=
+                 (
+                  ${eval.devTenseAccuracy}, 
+                  ${eval.devTensePrecision}, 
+                  ${eval.devTenseRecall}, 
+                  ${eval.devTenseF},
+
+                  ${eval.testTenseAccuracy}, 
+                  ${eval.testTensePrecision}, 
+                  ${eval.testTenseRecall}, 
+                  ${eval.testTenseF},
+
+                  ${eval.devAspectAccuracy}, 
+                  ${eval.devAspectPrecision}, 
+                  ${eval.devAspectRecall}, 
+                  ${eval.devAspectF},
+
+                  ${eval.testAspectAccuracy}, 
+                  ${eval.testAspectPrecision}, 
+                  ${eval.testAspectRecall}, 
+                  ${eval.testAspectF},
+
+                  ${eval.devClassAccuracy}, 
+                  ${eval.devClassPrecision}, 
+                  ${eval.devClassRecall}, 
+                  ${eval.devClassF},
+                  
+                  ${eval.testClassAccuracy}, 
+                  ${eval.testClassPrecision}, 
+                  ${eval.testClassRecall}, 
+                  ${eval.testClassF},
+                  
+                  ${eval.devPolarityAccuracy}, 
+                  ${eval.devPolarityPrecision}, 
+                  ${eval.devPolarityRecall}, 
+                  ${eval.devPolarityF},
+                   
+                  ${eval.testPolarityAccuracy}, 
+                  ${eval.testPolarityPrecision}, 
+                  ${eval.testPolarityRecall}, 
+                  ${eval.testPolarityF},
+                  
+                  ${eval.devModalityAccuracy}, 
+                  ${eval.devModalityPrecision}, 
+                  ${eval.devModalityRecall}, 
+                  ${eval.devModalityF},
+                      
+                  ${eval.testModalityAccuracy}, 
+                  ${eval.testModalityPrecision}, 
+                  ${eval.testModalityRecall}, 
+                  ${eval.testModalityF},
+                  
+                  ${eval.devTenseConfusionMatrix}, 
+                  ${eval.testTenseConfusionMatrix},
+                  ${eval.devAspectConfusionMatrix},
+                  ${eval.testAspectConfusionMatrix},
+                  ${eval.devClassConfusionMatrix}, 
+                  ${eval.testClassConfusionMatrix},
+                  ${eval.devPolarityConfusionMatrix},
+                  ${eval.testPolarityConfusionMatrix},
+                  ${eval.devModalityConfusionMatrix}, 
+                  ${eval.testModalityConfusionMatrix}
+                 )); 
+                 
+value strCtx = OutputContext(id=${resultsId}, storage="EventString", collection="ExperimentModelOutput");

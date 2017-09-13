@@ -1,0 +1,22 @@
+context modelsEventTimeTLinkYadll = EventTimeTLink(initScript="/tlinkEventTime/methods/YADLL_LR_CAEVO_Simple.ctx", initOnce="true", initOverrideByName="true");
+
+classify_method yadllWSDCTB = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllWSDCT}, labelMapping="OnlyB");
+classify_method yadllWSDCTA = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllWSDCT}, labelMapping="OnlyA");
+classify_method yadllWSDCTI = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllWSDCT}, labelMapping="OnlyI");
+classify_method yadllWSDCTII = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllWSDCT}, labelMapping="OnlyII");
+classify_method yadllWSDCTS = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllWSDCT}, labelMapping="OnlyS");
+classify_method yadllWSDCTV = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllWSDCT}, labelMapping="OnlyV");
+
+classify_method yadllWSB = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllWS}, labelMapping="OnlyB");
+classify_method yadllWSA = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllWS}, labelMapping="OnlyA");
+classify_method yadllWSI = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllWS}, labelMapping="OnlyI");
+classify_method yadllWSII = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllWS}, labelMapping="OnlyII");
+classify_method yadllWSS = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllWS}, labelMapping="OnlyS");
+classify_method yadllWSV = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllWS}, labelMapping="OnlyV");
+
+classify_method yadllDCTB = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllDCT}, labelMapping="OnlyB");
+classify_method yadllDCTA = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllDCT}, labelMapping="OnlyA");
+classify_method yadllDCTI = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllDCT}, labelMapping="OnlyI");
+classify_method yadllDCTII = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllDCT}, labelMapping="OnlyII");
+classify_method yadllDCTS = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllDCT}, labelMapping="OnlyS");
+classify_method yadllDCTV = LabelMapping(method=${modelsEventTimeTLinkYadll.yadllDCT}, labelMapping="OnlyV");

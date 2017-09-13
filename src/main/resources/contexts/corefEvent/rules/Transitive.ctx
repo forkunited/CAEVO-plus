@@ -1,0 +1,5 @@
+rule t_t_t = (And(c1=COREF(r1=O(id=[id1]), r2=O(id=[id2])), c2=COREF(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (COREF(r1=O(id=${id1}), r2=O(id=${id3})));
+rule t_f_f = (And(c1=COREF(r1=O(id=[id1]), r2=O(id=[id2])), c2=NOT_COREF(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (NOT_COREF(r1=O(id=${id1}), r2=O(id=${id3})));
+rule f_t_f = (And(c1=NOT_COREF(r1=O(id=[id1]), r2=O(id=[id2])), c2=COREF(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (NOT_COREF(r1=O(id=${id1}), r2=O(id=${id3})));
+
+rule_set rules = RuleSet(rules=(${t_t_t}, ${t_f_f}, ${f_t_f}));

@@ -1,0 +1,14 @@
+array devDocs = ("APW19980227.0468.tml",
+                 "ABC19980114.1830.0611.tml",
+                 "PRI19980205.2000.1998.tml",
+                 "ABC19980304.1830.1636.tml"
+);
+
+array testDocs = ("PRI19980213.2000.0313.tml",
+                  "PRI19980205.2000.1890.tml",
+                  "APW19980227.0489.tml",
+                  "APW19980213.1310.tml",
+                  "ea980120.1830.0456.tml"
+);
+
+array devTestDocs = ConcatenateArrays(a1=${devDocs}, a2=${testDocs});

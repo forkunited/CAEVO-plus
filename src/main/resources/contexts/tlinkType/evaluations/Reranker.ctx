@@ -1,0 +1,44 @@
+context trainDevTestDataMetaTlinkType = MetaTLinkType(initScript="/tlinkType/data/meta/LoadTrainDevTest_SL.ctx", initOnce="true", initOverrideByName="true");
+context methodRerankerTlinkType = MetaTLinkType(initScript="/tlinkType/methods/meta/Reranker_Perfect.ctx", initOnce="true", initOverrideByName="true");
+
+classify_eval devPrecision = Precision(task=${trainDevTestDataMetaTlinkType.devTask}, method=${methodRerankerTlinkType.reranker}, mode="MICRO", filterLabel="true");
+classify_eval devRecall = Recall(task=${trainDevTestDataMetaTlinkType.devTask}, method=${methodRerankerTlinkType.reranker}, mode="MICRO", filterLabel="true");
+classify_eval devAUC = AUC(task=${trainDevTestDataMetaTlinkType.devTask}, method=${methodRerankerTlinkType.reranker}, filterLabel="true");
+classify_eval devMetaAUCIn = MetaAUC(task=${trainDevTestDataMetaTlinkType.devTask}, method=${methodRerankerTlinkType.reranker}, filterLabel="true", mode="WITHIN_DATUM");
+classify_eval devMetaAUCOut = MetaAUC(task=${trainDevTestDataMetaTlinkType.devTask}, method=${methodRerankerTlinkType.reranker}, filterLabel="true", mode="WITHOUT_DATUM");
+classify_eval devMetaROC = MetaROC(task=${trainDevTestDataMetaTlinkType.devTask}, method=${methodRerankerTlinkType.reranker}, filterLabel="true");
+
+classify_eval fullDevPrecision = Precision(task=${trainDevTestDataMetaTlinkType.fullDevTask}, method=${methodRerankerTlinkType.reranker}, mode="MICRO", filterLabel="true");
+classify_eval fullDevRecall = Recall(task=${trainDevTestDataMetaTlinkType.fullDevTask}, method=${methodRerankerTlinkType.reranker}, mode="MICRO", filterLabel="true");
+classify_eval fullDevAUC = AUC(task=${trainDevTestDataMetaTlinkType.fullDevTask}, method=${methodRerankerTlinkType.reranker}, filterLabel="true");
+classify_eval fullDevMetaAUCIn = MetaAUC(task=${trainDevTestDataMetaTlinkType.fullDevTask}, method=${methodRerankerTlinkType.reranker}, filterLabel="true", mode="WITHIN_DATUM");
+classify_eval fullDevMetaAUCOut = MetaAUC(task=${trainDevTestDataMetaTlinkType.fullDevTask}, method=${methodRerankerTlinkType.reranker}, filterLabel="true", mode="WITHOUT_DATUM");
+classify_eval fullDevMetaROC = MetaROC(task=${trainDevTestDataMetaTlinkType.fullDevTask}, method=${methodRerankerTlinkType.reranker}, filterLabel="true");
+
+classify_eval testPrecision = Precision(task=${trainDevTestDataMetaTlinkType.testTask}, method=${methodRerankerTlinkType.reranker}, mode="MICRO", filterLabel="true");
+classify_eval testRecall = Recall(task=${trainDevTestDataMetaTlinkType.testTask}, method=${methodRerankerTlinkType.reranker}, mode="MICRO", filterLabel="true");
+classify_eval testAUC = AUC(task=${trainDevTestDataMetaTlinkType.testTask}, method=${methodRerankerTlinkType.reranker}, filterLabel="true");
+classify_eval testMetaAUCIn = MetaAUC(task=${trainDevTestDataMetaTlinkType.testTask}, method=${methodRerankerTlinkType.reranker}, filterLabel="true", mode="WITHIN_DATUM");
+classify_eval testMetaAUCOut = MetaAUC(task=${trainDevTestDataMetaTlinkType.testTask}, method=${methodRerankerTlinkType.reranker}, filterLabel="true", mode="WITHOUT_DATUM");
+classify_eval testMetaROC = MetaROC(task=${trainDevTestDataMetaTlinkType.testTask}, method=${methodRerankerTlinkType.reranker}, filterLabel="true");
+
+classify_eval devNAVPrecision = Precision(task=${trainDevTestDataMetaTlinkType.devTaskNAV}, method=${methodRerankerTlinkType.reranker}, mode="MICRO", filterLabel="true");
+classify_eval devNAVRecall = Recall(task=${trainDevTestDataMetaTlinkType.devTaskNAV}, method=${methodRerankerTlinkType.reranker}, mode="MICRO", filterLabel="true");
+classify_eval devNAVAUC = AUC(task=${trainDevTestDataMetaTlinkType.devTaskNAV}, method=${methodRerankerTlinkType.reranker}, filterLabel="true");
+classify_eval devNAVMetaAUCIn = MetaAUC(task=${trainDevTestDataMetaTlinkType.devTaskNAV}, method=${methodRerankerTlinkType.reranker}, filterLabel="true", mode="WITHIN_DATUM");
+classify_eval devNAVMetaAUCOut = MetaAUC(task=${trainDevTestDataMetaTlinkType.devTaskNAV}, method=${methodRerankerTlinkType.reranker}, filterLabel="true", mode="WITHOUT_DATUM");
+classify_eval devNAVMetaROC = MetaROC(task=${trainDevTestDataMetaTlinkType.devTaskNAV}, method=${methodRerankerTlinkType.reranker}, filterLabel="true");
+
+classify_eval fullDevNAVPrecision = Precision(task=${trainDevTestDataMetaTlinkType.fullDevTaskNAV}, method=${methodRerankerTlinkType.reranker}, mode="MICRO", filterLabel="true");
+classify_eval fullDevNAVRecall = Recall(task=${trainDevTestDataMetaTlinkType.fullDevTaskNAV}, method=${methodRerankerTlinkType.reranker}, mode="MICRO", filterLabel="true");
+classify_eval fullDevNAVAUC = AUC(task=${trainDevTestDataMetaTlinkType.fullDevTaskNAV}, method=${methodRerankerTlinkType.reranker}, filterLabel="true");
+classify_eval fullDevNAVMetaAUCIn = MetaAUC(task=${trainDevTestDataMetaTlinkType.fullDevTaskNAV}, method=${methodRerankerTlinkType.reranker}, filterLabel="true", mode="WITHIN_DATUM");
+classify_eval fullDevNAVMetaAUCOut = MetaAUC(task=${trainDevTestDataMetaTlinkType.fullDevTaskNAV}, method=${methodRerankerTlinkType.reranker}, filterLabel="true", mode="WITHOUT_DATUM");
+classify_eval fullDevNAVMetaROC = MetaROC(task=${trainDevTestDataMetaTlinkType.fullDevTaskNAV}, method=${methodRerankerTlinkType.reranker}, filterLabel="true");
+
+classify_eval testNAVPrecision = Precision(task=${trainDevTestDataMetaTlinkType.testTaskNAV}, method=${methodRerankerTlinkType.reranker}, mode="MICRO", filterLabel="true");
+classify_eval testNAVRecall = Recall(task=${trainDevTestDataMetaTlinkType.testTaskNAV}, method=${methodRerankerTlinkType.reranker}, mode="MICRO", filterLabel="true");
+classify_eval testNAVAUC = AUC(task=${trainDevTestDataMetaTlinkType.testTaskNAV}, method=${methodRerankerTlinkType.reranker}, filterLabel="true");
+classify_eval testNAVMetaAUCIn = MetaAUC(task=${trainDevTestDataMetaTlinkType.testTaskNAV}, method=${methodRerankerTlinkType.reranker}, filterLabel="true", mode="WITHIN_DATUM");
+classify_eval testNAVMetaAUCOut = MetaAUC(task=${trainDevTestDataMetaTlinkType.testTaskNAV}, method=${methodRerankerTlinkType.reranker}, filterLabel="true", mode="WITHOUT_DATUM");
+classify_eval testNAVMetaROC = MetaROC(task=${trainDevTestDataMetaTlinkType.testTaskNAV}, method=${methodRerankerTlinkType.reranker}, filterLabel="true");

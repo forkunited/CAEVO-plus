@@ -1,0 +1,55 @@
+context modelsJointTLinkCorefSieve = EventCoref(initScript="/tlinkCorefJoint/methods/Sieve_Ind.ctx", initOnce="true", initOverrideByName="true");
+
+context trainDevTestDataEventCorefACE = EventCoref(initScript="/corefEvent/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataEventTLinkTBD = EventTLink(initScript="/tlinkEvent/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataEventTimeTLinkTBD = EventTimeTLink(initScript="/tlinkEventTime/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataTimeTLinkTBD = TimeTLink(initScript="/tlinkTime/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+
+context dataParamsEventCoref = EventCoref(initScript="/corefEvent/data/parameters/TBD.ctx", initOnce="false");
+context trainDevTestDocsEventCoref = EventCoref(initScript="/util/data/docs/TBD.ctx", initOnce="false");
+context dataParamsEventTLink = EventTLink(initScript="/tlinkEvent/data/parameters/ACE2005.ctx", initOnce="false");
+context trainDevTestDocsEventTLink = EventTLink(initScript="/util/data/docs/ACE2005.ctx", initOnce="false");
+context dataParamsEventTimeTLink = EventTimeTLink(initScript="/tlinkEventTime/data/parameters/ACE2005.ctx", initOnce="false");
+context trainDevTestDocsEventTimeTLink = EventTimeTLink(initScript="/util/data/docs/ACE2005.ctx", initOnce="false");
+context dataParamsTimeTLink = TimeTLink(initScript="/tlinkTime/data/parameters/ACE2005.ctx", initOnce="false");
+context trainDevTestDocsTimeTLink = TimeTLink(initScript="/util/data/docs/ACE2005.ctx", initOnce="false");
+
+context trainDevTestDataEventCorefTBD = EventCoref(initScript="/corefEvent/data/LoadTrainDevTest.ctx", initOnce="false");
+context trainDevTestDataEventTLinkACE = EventTLink(initScript="/tlinkEvent/data/LoadTrainDevTest.ctx", initOnce="false");
+context trainDevTestDataEventTimeTLinkACE = EventTimeTLink(initScript="/tlinkEventTime/data/LoadTrainDevTest.ctx", initOnce="false");
+context trainDevTestDataTimeTLinkACE = TimeTLink(initScript="/tlinkTime/data/LoadTrainDevTest.ctx", initOnce="false");
+
+multi_classify_task multiDevTask = MultiClassification(tasks=(${trainDevTestDataEventCorefACE.devTask},
+                                                              ${trainDevTestDataEventTLinkTBD.devTask},
+                                                              ${trainDevTestDataTimeTLinkTBD.devTask},
+                                                              ${trainDevTestDataEventTimeTLinkTBD.devTask},
+                                                              
+                                                              ${trainDevTestDataEventCorefTBD.devTask},
+                                                              ${trainDevTestDataEventTLinkACE.devTask},
+                                                              ${trainDevTestDataTimeTLinkACE.devTask},
+                                                              ${trainDevTestDataEventTimeTLinkACE.devTask}));
+                                                              
+multi_classify_task multiTestTask = MultiClassification(tasks=(${trainDevTestDataEventCorefACE.testTask},
+                                                               ${trainDevTestDataEventTLinkTBD.testTask},
+                                                               ${trainDevTestDataTimeTLinkTBD.testTask},
+                                                               ${trainDevTestDataEventTimeTLinkTBD.testTask},
+                                                               
+                                                               ${trainDevTestDataEventCorefTBD.testTask},
+                                                               ${trainDevTestDataEventTLinkACE.testTask},
+                                                               ${trainDevTestDataTimeTLinkACE.testTask},
+                                                               ${trainDevTestDataEventTimeTLinkACE.testTask}));
+
+multi_classify_eval multiCorefDevPrecision = MultiPrecision(task=${multiDevTask}, method=${modelsJointTLinkCorefSieve.sieve}, mode="MICRO", filterLabels=("COREF", "", "", "", "COREF", "", "", ""), filterTasks=("0"));
+multi_classify_eval multiCorefDevRecall = MultiRecall(task=${multiDevTask}, method=${modelsJointTLinkCorefSieve.sieve}, mode="MICRO", filterLabels=("COREF", "", "", "", "COREF", "", "", ""), filterTasks=("0"));
+multi_classify_eval multiCorefTestPrecision = MultiPrecision(task=${multiTestTask}, method=${modelsJointTLinkCorefSieve.sieve}, mode="MICRO", filterLabels=("COREF", "", "", "", "COREF", "", "", ""), filterTasks=("0"));
+multi_classify_eval multiCorefTestRecall = MultiRecall(task=${multiTestTask}, method=${modelsJointTLinkCorefSieve.sieve}, mode="MICRO", filterLabels=("COREF", "", "", "", "COREF", "", "", ""), filterTasks=("0"));
+
+multi_classify_eval multiTLinkDevPrecision = MultiPrecision(task=${multiDevTask}, method=${modelsJointTLinkCorefSieve.sieve}, mode="MICRO", filterTasks=("1", "2", "3"));
+multi_classify_eval multiTLinkDevRecall = MultiRecall(task=${multiDevTask}, method=${modelsJointTLinkCorefSieve.sieve}, mode="MICRO", filterTasks=("1", "2", "3"));
+multi_classify_eval multiTLinkTestPrecision = MultiPrecision(task=${multiTestTask}, method=${modelsJointTLinkCorefSieve.sieve}, mode="MICRO", filterTasks=("1", "2", "3"));
+multi_classify_eval multiTLinkTestRecall = MultiRecall(task=${multiTestTask}, method=${modelsJointTLinkCorefSieve.sieve}, mode="MICRO", filterTasks=("1", "2", "3"));
+
+multi_classify_eval multiDevPrecision = MultiPrecision(task=${multiDevTask}, method=${modelsJointTLinkCorefSieve.sieve}, mode="MICRO");
+multi_classify_eval multiDevRecall = MultiRecall(task=${multiDevTask}, method=${modelsJointTLinkCorefSieve.sieve}, mode="MICRO");
+multi_classify_eval multiTestPrecision = MultiPrecision(task=${multiTestTask}, method=${modelsJointTLinkCorefSieve.sieve}, mode="MICRO");
+multi_classify_eval multiTestRecall = MultiRecall(task=${multiTestTask}, method=${modelsJointTLinkCorefSieve.sieve}, mode="MICRO");

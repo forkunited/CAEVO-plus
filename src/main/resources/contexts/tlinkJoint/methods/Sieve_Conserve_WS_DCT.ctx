@@ -1,0 +1,47 @@
+context rulesTlinkTypeTransitive = EventTLink(initScript="/tlinkJoint/rules/Transitive.ctx", initOnce="true");
+context rulesTlinkTypeConverse = EventTLink(initScript="/tlinkJoint/rules/Converse.ctx", initOnce="true");
+context modelsEventTLinkDet = EventTLink(initScript="/tlinkEvent/methods/Deterministic_TBD.ctx", initOnce="true", initOverrideByName="true");
+context modelsEventTLinkYadll = EventTLink(initScript="/tlinkEvent/methods/YADLL_LR_CAEVO_Simple.ctx", initOnce="true", initOverrideByName="true");
+context modelsEventTimeTLinkDet = EventTimeTLink(initScript="/tlinkEventTime/methods/Deterministic_TBD.ctx", initOnce="true", initOverrideByName="true");
+context modelsEventTimeTLinkYadll = EventTimeTLink(initScript="/tlinkEventTime/methods/YADLL_LR_CAEVO_Simple.ctx", initOnce="true", initOverrideByName="true");
+context modelsTimeTLinkDet = TimeTLink(initScript="/tlinkTime/methods/Deterministic_TBD.ctx", initOnce="true", initOverrideByName="true");
+context evalEventTLinkDet = EventTLink(initScript="/tlinkEvent/evaluations/Deterministic_TBD.ctx", initOnce="true", initOverrideByName="true");
+context evalEventTLinkYadll = EventTLink(initScript="/tlinkEvent/evaluations/YADLL.ctx", initOnce="true", initOverrideByName="true");
+context evalEventTimeTLinkDet = EventTimeTLink(initScript="/tlinkEventTime/evaluations/Deterministic_TBD.ctx", initOnce="true", initOverrideByName="true");
+context evalEventTimeTLinkYadll = EventTimeTLink(initScript="/tlinkEventTime/evaluations/YADLL.ctx", initOnce="true", initOverrideByName="true");
+context evalTimeTLinkDet = TimeTLink(initScript="/tlinkTime/evaluations/Deterministic_TBD.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataEventTLink = EventTLink(initScript="/tlinkEvent/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataEventTimeTLink = EventTimeTLink(initScript="/tlinkEventTime/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataTimeTLink = TimeTLink(initScript="/tlinkTime/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+
+structure_fn graphPaths2 = GraphPaths(length="2", ignoreTypes=("VAGUE"));
+structure_fn graphPaths1 = GraphPaths(length="1", ignoreTypes=("VAGUE"));
+structure_fn greedyTlinkTransitiveRules = GreedyStructureRules(rules=(${rulesTlinkTypeTransitive.rules}, ${rulesTlinkTypeConverse.rules}), 
+                                                               splitFns=(${graphPaths2}, ${graphPaths1}));
+
+multi_classify_method sieve = Sieve(methods=(${modelsEventTLinkDet.repGov}, ${modelsEventTLinkDet.reichenbach}, 
+                                             ${modelsEventTLinkDet.genGov}, ${modelsEventTLinkDet.wordNet},
+                                             ${modelsTimeTLinkDet.wordNet}, ${modelsTimeTLinkDet.timeTime},
+                                             ${modelsEventTimeTLinkDet.adjET}, ${modelsEventTimeTLinkDet.reportingDCT}, 
+                                             ${modelsEventTLinkDet.allVague}, 
+                                             ${modelsTimeTLinkDet.allVague},
+                                             ${modelsEventTimeTLinkDet.allVague},
+                                             ${modelsEventTimeTLinkYadll.yadllWS}, ${modelsEventTimeTLinkYadll.yadllDCT}, ${modelsEventTLinkYadll.yadllWS}),                                   
+                                    structurizers=(${trainDevTestDataEventTLink.docStructConserve}, ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve}, ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataTimeTLink.docStructConserve}, ${trainDevTestDataTimeTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, ${trainDevTestDataEventTimeTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve}, 
+                                                   ${trainDevTestDataTimeTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, ${trainDevTestDataEventTimeTLink.docStructConserve}, ${trainDevTestDataEventTLink.docStructConserve}),
+                                    permutationMeasures=(${evalEventTLinkDet.devRepGovPrecision}, ${evalEventTLinkDet.devReichenbachPrecision},
+                                                         ${evalEventTLinkDet.devGenGovPrecision}, ${evalEventTLinkDet.devWordNetPrecision},
+                                                         ${evalTimeTLinkDet.devWordNetPrecision}, ${evalTimeTLinkDet.devTimeTimePrecision},
+                                                         ${evalEventTimeTLinkDet.devAdjETPrecision}, ${evalEventTimeTLinkDet.devReportingDCTPrecision}, 
+                                                         ${evalEventTLinkDet.devAllVaguePrecision}, 
+                                                         ${evalTimeTLinkDet.devAllVaguePrecision}, 
+                                                         ${evalEventTimeTLinkDet.devAllVaguePrecision}, 
+                                                         ${evalEventTimeTLinkYadll.devYadllWSPrecision}, ${evalEventTimeTLinkYadll.devYadllDCTPrecision}, ${evalEventTLinkYadll.devYadllWSPrecision}
+                                    ),
+                                    structureTransformFn=${greedyTlinkTransitiveRules});

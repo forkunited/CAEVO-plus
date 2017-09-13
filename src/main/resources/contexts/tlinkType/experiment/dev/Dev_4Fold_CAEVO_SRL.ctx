@@ -1,0 +1,31 @@
+value maxThreads="30";
+value resultsId = "TLinkType_Dev_4Fold_CAEVO_SRL";
+value debug=Debug(file=${resultsId});
+context util = TLinkType(initScript="/util/Util.ctx", initOnce="true");
+
+value resultsId = "TLinkType_Dev_4Fold_CAEVO_SRL_0";
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD4Fold_0.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_SRL.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Dev_CAEVO.ctx", initOnce="false");
+
+
+value resultsId = "TLinkType_Dev_4Fold_CAEVO_SRL_1";
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD4Fold_1.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_SRL.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Dev_CAEVO.ctx", initOnce="false");
+
+
+value resultsId = "TLinkType_Dev_4Fold_CAEVO_SRL_2";
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD4Fold_2.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_SRL.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Dev_CAEVO.ctx", initOnce="false");
+
+
+value resultsId = "TLinkType_Dev_4Fold_CAEVO_SRL_3";
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD4Fold_3.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_SRL.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Dev_CAEVO.ctx", initOnce="false");

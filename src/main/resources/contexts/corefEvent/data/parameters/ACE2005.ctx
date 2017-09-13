@@ -1,0 +1,13 @@
+value trainDocs="ace_docs";
+value devDocs="ace_docs";
+value testDocs="ace_docs";
+value trainLabelMode="ONLY_LABELED";
+value devLabelMode="ONLY_LABELED";
+value testLabelMode="ONLY_LABELED";
+value trainClusterMode="POST";
+value devClusterMode="POST";
+value testClusterMode="POST";
+
+array labels = ("COREF", "NOT_COREF");
+value labelCount = SizeArray(array=${labels});
+

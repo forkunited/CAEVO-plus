@@ -1,0 +1,35 @@
+context dataParamsTlinkType = TLinkType(initScript="/tlinkType/data/parameters/TBD.ctx", initOnce="true", initOverrideByName="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_SL_Fixed.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataTlinkType = TLinkType(initScript="/tlinkType/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+
+data_features trainMatrixDCT = DataFeatureMatrix(data=${trainDevTestDataTlinkType.trainDataDCT}, features=${featureSetsTlinkType.fsDCT});
+data_features trainMatrixETWS = DataFeatureMatrix(data=${trainDevTestDataTlinkType.trainDataETWS}, features=${featureSetsTlinkType.fsETWS});
+data_features trainMatrixEEWS = DataFeatureMatrix(data=${trainDevTestDataTlinkType.trainDataEEWS}, features=${featureSetsTlinkType.fsEEWS});
+data_features trainMatrixEED = DataFeatureMatrix(data=${trainDevTestDataTlinkType.trainDataEED}, features=${featureSetsTlinkType.fsEED});
+data_features trainMatrixEEBS = DataFeatureMatrix(data=${trainDevTestDataTlinkType.trainDataEEBS}, features=${featureSetsTlinkType.fsEEBS});
+
+model slDCTm=StanfordLinear() { array validLabels=${dataParamsTlinkType.labels}; };
+model slETWSm=StanfordLinear() { array validLabels=${dataParamsTlinkType.labels}; };
+model slEEWSm=StanfordLinear() { array validLabels=${dataParamsTlinkType.labels}; };
+model slEEDm=StanfordLinear() { array validLabels=${dataParamsTlinkType.labels}; };
+model slEEBSm=StanfordLinear() { array validLabels=${dataParamsTlinkType.labels}; };
+
+evaluation acc=Accuracy();
+classify_method slDCTUnfiltered = SupervisedModel(model=${slDCTm}, data=${trainMatrixDCT}, trainEvaluation=${acc});
+classify_method slETWSUnfiltered = SupervisedModel(model=${slETWSm}, data=${trainMatrixETWS}, trainEvaluation=${acc});
+classify_method slEEWSUnfiltered = SupervisedModel(model=${slEEWSm}, data=${trainMatrixEEWS}, trainEvaluation=${acc});
+classify_method slEEDUnfiltered = SupervisedModel(model=${slEEDm}, data=${trainMatrixEED}, trainEvaluation=${acc});
+classify_method slEEBSUnfiltered = SupervisedModel(model=${slEEBSm}, data=${trainMatrixEEBS}, trainEvaluation=${acc});
+
+classify_method slDCTSub = FilterDatumIndicator(method=${slDCTUnfiltered}, datumIndicator="ETDCT");
+classify_method slETWSSub = FilterDatumIndicator(method=${slETWSUnfiltered}, datumIndicator="ETWS");
+classify_method slEEWSSub = FilterDatumIndicator(method=${slEEWSUnfiltered}, datumIndicator="EEWS");
+classify_method slEEDSub = FilterDatumIndicator(method=${slEEDUnfiltered}, datumIndicator="EED");
+classify_method slEEBSSub = FilterDatumIndicator(method=${slEEBSUnfiltered}, datumIndicator="EEBS");
+
+classify_method slDCT = InitClassifyMethod(devData=${trainDevTestDataTlinkType.devData}, method=${slDCTSub});
+classify_method slETWS = InitClassifyMethod(devData=${trainDevTestDataTlinkType.devData}, method=${slETWSSub});
+classify_method slEEWS = InitClassifyMethod(devData=${trainDevTestDataTlinkType.devData}, method=${slEEWSSub});
+classify_method slEED = InitClassifyMethod(devData=${trainDevTestDataTlinkType.devData}, method=${slEEDSub});
+classify_method slEEBS = InitClassifyMethod(devData=${trainDevTestDataTlinkType.devData}, method=${slEEBSSub});
+

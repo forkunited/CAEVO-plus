@@ -1,0 +1,16 @@
+data trainData = EventCoref(storage="EventBson", documents="tbd_docs", filter=${dataTBD.devTestDocs}, filterType="EXCLUDE", labelMode="ALL");
+data devData = EventCoref(storage="EventBson", documents="tbd_docs", filter=${dataTBD.devDocs}, filterType="INTERSECT", labelMode="ALL");
+data testData = EventCoref(storage="EventBson", documents="tbd_docs", filter=${dataTBD.testDocs}, filterType="INTERSECT", labelMode="ALL");
+
+value countTBDEventCorefTrainData = SizeData(data=${trainData});
+value countTBDEventCorefDevData = SizeData(data=${devData});
+value countTBDEventCorefTestData = SizeData(data=${testData});
+value debugTrainData = OutputDebug(refs=(${countTBDEventCorefTrainData}));
+value debugDevData = OutputDebug(refs=(${countTBDEventCorefDevData}));
+value debugTestData = OutputDebug(refs=(${countTBDEventCorefTestData}));
+
+classify_task devTask = Classification(data=${devData});
+classify_task testTask = Classification(data=${testData});
+
+structurizer docStruct = DocumentNLPGraphEventMentionPair();
+structurizer docStructMulti = DocumentNLPGraphEventMentionPair(graphEdgeMode="MULTI", graphNodeMode="MULTI");

@@ -1,0 +1,60 @@
+context trainDevTestDataTimeTLink = TimeTLink(initScript="/tlinkTime/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context modelsTimeTLinkDetInd = TimeTLink(initScript="/tlinkTime/methods/Deterministic_TBD_Ind.ctx", initOnce="true", initOverrideByName="true");
+
+classify_eval devTimeTimeBPrecision = Precision(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.timeTimeB}, mode="MICRO");
+classify_eval devTimeTimeBRecall = Recall(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.timeTimeB}, mode="MICRO");
+classify_eval testTimeTimeBPrecision = Precision(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.timeTimeB}, mode="MICRO");
+classify_eval testTimeTimeBRecall = Recall(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.timeTimeB}, mode="MICRO");
+classify_eval devTimeTimeAPrecision = Precision(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.timeTimeA}, mode="MICRO");
+classify_eval devTimeTimeARecall = Recall(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.timeTimeA}, mode="MICRO");
+classify_eval testTimeTimeAPrecision = Precision(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.timeTimeA}, mode="MICRO");
+classify_eval testTimeTimeARecall = Recall(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.timeTimeA}, mode="MICRO");
+classify_eval devTimeTimeIPrecision = Precision(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.timeTimeI}, mode="MICRO");
+classify_eval devTimeTimeIRecall = Recall(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.timeTimeI}, mode="MICRO");
+classify_eval testTimeTimeIPrecision = Precision(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.timeTimeI}, mode="MICRO");
+classify_eval testTimeTimeIRecall = Recall(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.timeTimeI}, mode="MICRO");
+classify_eval devTimeTimeIIPrecision = Precision(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.timeTimeII}, mode="MICRO");
+classify_eval devTimeTimeIIRecall = Recall(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.timeTimeII}, mode="MICRO");
+classify_eval testTimeTimeIIPrecision = Precision(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.timeTimeII}, mode="MICRO");
+classify_eval testTimeTimeIIRecall = Recall(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.timeTimeII}, mode="MICRO");
+classify_eval devTimeTimeSPrecision = Precision(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.timeTimeS}, mode="MICRO");
+classify_eval devTimeTimeSRecall = Recall(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.timeTimeS}, mode="MICRO");
+classify_eval testTimeTimeSPrecision = Precision(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.timeTimeS}, mode="MICRO");
+classify_eval testTimeTimeSRecall = Recall(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.timeTimeS}, mode="MICRO");
+classify_eval devTimeTimeVPrecision = Precision(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.timeTimeV}, mode="MICRO");
+classify_eval devTimeTimeVRecall = Recall(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.timeTimeV}, mode="MICRO");
+classify_eval testTimeTimeVPrecision = Precision(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.timeTimeV}, mode="MICRO");
+classify_eval testTimeTimeVRecall = Recall(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.timeTimeV}, mode="MICRO");
+
+
+classify_eval devWordNetBPrecision = Precision(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.wordNetB}, mode="MICRO");
+classify_eval devWordNetBRecall = Recall(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.wordNetB}, mode="MICRO");
+classify_eval testWordNetBPrecision = Precision(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.wordNetB}, mode="MICRO");
+classify_eval testWordNetBRecall = Recall(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.wordNetB}, mode="MICRO");
+classify_eval devWordNetAPrecision = Precision(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.wordNetA}, mode="MICRO");
+classify_eval devWordNetARecall = Recall(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.wordNetA}, mode="MICRO");
+classify_eval testWordNetAPrecision = Precision(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.wordNetA}, mode="MICRO");
+classify_eval testWordNetARecall = Recall(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.wordNetA}, mode="MICRO");
+classify_eval devWordNetIPrecision = Precision(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.wordNetI}, mode="MICRO");
+classify_eval devWordNetIRecall = Recall(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.wordNetI}, mode="MICRO");
+classify_eval testWordNetIPrecision = Precision(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.wordNetI}, mode="MICRO");
+classify_eval testWordNetIRecall = Recall(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.wordNetI}, mode="MICRO");
+classify_eval devWordNetIIPrecision = Precision(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.wordNetII}, mode="MICRO");
+classify_eval devWordNetIIRecall = Recall(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.wordNetII}, mode="MICRO");
+classify_eval testWordNetIIPrecision = Precision(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.wordNetII}, mode="MICRO");
+classify_eval testWordNetIIRecall = Recall(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.wordNetII}, mode="MICRO");
+classify_eval devWordNetSPrecision = Precision(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.wordNetS}, mode="MICRO");
+classify_eval devWordNetSRecall = Recall(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.wordNetS}, mode="MICRO");
+classify_eval testWordNetSPrecision = Precision(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.wordNetS}, mode="MICRO");
+classify_eval testWordNetSRecall = Recall(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.wordNetS}, mode="MICRO");
+classify_eval devWordNetVPrecision = Precision(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.wordNetV}, mode="MICRO");
+classify_eval devWordNetVRecall = Recall(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.wordNetV}, mode="MICRO");
+classify_eval testWordNetVPrecision = Precision(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.wordNetV}, mode="MICRO");
+classify_eval testWordNetVRecall = Recall(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.wordNetV}, mode="MICRO");
+
+
+classify_eval devAllVaguePrecision = Precision(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.modelsTimeTLinkDet.allVague}, mode="MICRO");
+classify_eval devAllVagueRecall = Recall(task=${trainDevTestDataTimeTLink.devTask}, method=${modelsTimeTLinkDetInd.modelsTimeTLinkDet.allVague}, mode="MICRO");
+classify_eval testAllVaguePrecision = Precision(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.modelsTimeTLinkDet.allVague}, mode="MICRO");
+classify_eval testAllVagueRecall = Recall(task=${trainDevTestDataTimeTLink.testTask}, method=${modelsTimeTLinkDetInd.modelsTimeTLinkDet.allVague}, mode="MICRO");
+

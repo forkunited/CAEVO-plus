@@ -1,0 +1,7 @@
+value maxThreads="30";
+value resultsId = "AttributeEvent_Test_StanfordLinear";
+value debug=Debug(file=${resultsId});
+
+context util = EventMentionString(initScript="/util/Util.ctx", initOnce="true");
+context eval = EventMentionString(initScript="/attributeEvent/evaluations/Default.ctx", initOnce="false");
+context results = EventMentionString(initScript="/attributeEvent/experiment/output/Test_Default.ctx", initOnce="false");

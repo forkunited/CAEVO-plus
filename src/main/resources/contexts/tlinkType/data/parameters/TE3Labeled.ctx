@@ -1,0 +1,25 @@
+value trainDocs="te3_minus_tbd_docs";
+value devDocs="te3_minus_tbd_docs";
+value testDocs="te3_minus_tbd_docs";
+value trainTlinks="te3_minus_tbd_tlinks";
+value devTlinks="te3_minus_tbd_tlinks";
+value testTlinks="te3_minus_tbd_tlinks";
+value trainLabelMode="ONLY_LABELED";
+value devLabelMode="ALL";
+value testLabelMode="ALL";
+value trainMaxSentDist="-1";
+value devMaxSentDist="-1";
+value testMaxSentDist="-1";
+value trainCrossDocMode="NONE";
+value devCrossDocMode="NONE";
+value testCrossDocMode="NONE";
+value trainClusterMode="POST";
+value devClusterMode="POST";
+value testClusterMode="POST";
+value trainLM="OnlyTBD";
+value devLM="OnlyTBD";
+value testLM="OnlyTBD";
+
+array labels = ("BEFORE", "AFTER", "INCLUDES", "IS_INCLUDED", "SIMULTANEOUS", "VAGUE");
+value labelCount = SizeArray(array=${labels});
+

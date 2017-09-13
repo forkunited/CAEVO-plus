@@ -1,0 +1,23 @@
+context trainDevTestDataEventTimeTLink = EventTimeTLink(initScript="/tlinkEventTime/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context modelsEventTimeTLinkYadll = EventTimeTLink(initScript="/tlinkEventTime/methods/YADLL_LR_CAEVO_Simple.ctx", initOnce="true", initOverrideByName="true");
+
+classify_eval devYadllWSDCTPrecision = Precision(task=${trainDevTestDataEventTimeTLink.devTask}, method=${modelsEventTimeTLinkYadll.yadllWSDCT}, mode="MICRO");
+classify_eval devYadllWSDCTRecall = Recall(task=${trainDevTestDataEventTimeTLink.devTask}, method=${modelsEventTimeTLinkYadll.yadllWSDCT}, mode="MICRO");
+classify_eval devYadllWSDCTConfusions = ConfusionMatrix(task=${trainDevTestDataEventTimeTLink.devTask}, method=${modelsEventTimeTLinkYadll.yadllWSDCT});
+classify_eval testYadllWSDCTPrecision = Precision(task=${trainDevTestDataEventTimeTLink.testTask}, method=${modelsEventTimeTLinkYadll.yadllWSDCT}, mode="MICRO");
+classify_eval testYadllWSDCTRecall = Recall(task=${trainDevTestDataEventTimeTLink.testTask}, method=${modelsEventTimeTLinkYadll.yadllWSDCT}, mode="MICRO");
+classify_eval testYadllWSDCTConfusions = ConfusionMatrix(task=${trainDevTestDataEventTimeTLink.testTask}, method=${modelsEventTimeTLinkYadll.yadllWSDCT});
+
+classify_eval devYadllWSPrecision = Precision(task=${trainDevTestDataEventTimeTLink.devTask}, method=${modelsEventTimeTLinkYadll.yadllWS}, mode="MICRO");
+classify_eval devYadllWSRecall = Recall(task=${trainDevTestDataEventTimeTLink.devTask}, method=${modelsEventTimeTLinkYadll.yadllWS}, mode="MICRO");
+classify_eval devYadllWSConfusions = ConfusionMatrix(task=${trainDevTestDataEventTimeTLink.devTask}, method=${modelsEventTimeTLinkYadll.yadllWS});
+classify_eval testYadllWSPrecision = Precision(task=${trainDevTestDataEventTimeTLink.testTask}, method=${modelsEventTimeTLinkYadll.yadllWS}, mode="MICRO");
+classify_eval testYadllWSRecall = Recall(task=${trainDevTestDataEventTimeTLink.testTask}, method=${modelsEventTimeTLinkYadll.yadllWS}, mode="MICRO");
+classify_eval testYadllWSConfusions = ConfusionMatrix(task=${trainDevTestDataEventTimeTLink.testTask}, method=${modelsEventTimeTLinkYadll.yadllWS});
+
+classify_eval devYadllDCTPrecision = Precision(task=${trainDevTestDataEventTimeTLink.devTask}, method=${modelsEventTimeTLinkYadll.yadllDCT}, mode="MICRO");
+classify_eval devYadllDCTRecall = Recall(task=${trainDevTestDataEventTimeTLink.devTask}, method=${modelsEventTimeTLinkYadll.yadllDCT}, mode="MICRO");
+classify_eval devYadllDCTConfusions = ConfusionMatrix(task=${trainDevTestDataEventTimeTLink.devTask}, method=${modelsEventTimeTLinkYadll.yadllDCT});
+classify_eval testYadllDCTPrecision = Precision(task=${trainDevTestDataEventTimeTLink.testTask}, method=${modelsEventTimeTLinkYadll.yadllDCT}, mode="MICRO");
+classify_eval testYadllDCTRecall = Recall(task=${trainDevTestDataEventTimeTLink.testTask}, method=${modelsEventTimeTLinkYadll.yadllDCT}, mode="MICRO");
+classify_eval testYadllDCTConfusions = ConfusionMatrix(task=${trainDevTestDataEventTimeTLink.testTask}, method=${modelsEventTimeTLinkYadll.yadllDCT});

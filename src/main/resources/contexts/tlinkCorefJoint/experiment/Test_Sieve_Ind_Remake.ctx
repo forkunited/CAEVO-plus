@@ -1,0 +1,8 @@
+value maxThreads="30";
+value resultsId = "TLinkCorefJoint_Test_Sieve_Ind_Remake";
+value debug=Debug(file=${resultsId});
+
+context util = EventTimeTLink(initScript="/util/Util.ctx", initOnce="true");
+context modelsJointTLinkCorefSieve = EventTimeTLink(initScript="/tlinkCorefJoint/methods/Sieve_Ind_Remake.ctx", initOnce="false");
+context evalSieve = EventTimeTLink(initScript="/tlinkCorefJoint/evaluations/Sieve.ctx", initOnce="false");
+context results = EventTimeTLink(initScript="/tlinkCorefJoint/experiment/output/Test_Sieve.ctx", initOnce="false");

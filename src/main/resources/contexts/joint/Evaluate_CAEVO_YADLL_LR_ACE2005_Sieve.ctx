@@ -1,0 +1,85 @@
+value maxThreads="30";
+value debug=Debug(file="EventCoref_CAEVO_YADLL_LR_ACE2005_Sieve.out");
+value randomSeed=SetRandomSeed(seed="1");
+value cleanFn=BuildCleanFn(name="BagOfWordsCleanFn", fns=("Trim", "RemoveSymbols", "ReplaceNumbers", "UnderscoreToSpace", "Trim", "RemoveLongTokens", "Stem", "SpaceToUnderscore"));
+
+context dataACE2005 = TLinkType(initScript="/util/init/data/ACE2005.ctx");
+context dataEventCorefACE2005 = EventMentionPairCoref(initScript="/eventCoref/init/data/ACE2005.ctx");
+context labelsEventCorefACE2005 = EventMentionPairCoref(initScript="/eventCoref/init/labels/ACE2005.ctx");
+
+context featuresEventCoref = EventMentionPairCoref(initScript="/eventCoref/init/Features.ctx");
+
+context modelsEventCorefYadllLr = EventMentionPairCoref(initScript="/eventCoref/init/models/YADLL_LR_ACE2005.ctx");
+context modelsEventCorefYadllLrCtClone = EventMentionPairCoref(initScript="/eventCoref/init/models/YADLL_LR_ACE2005_CTClone.ctx");
+
+context evalEventCorefYadllLr = EventMentionPairCoref(initScript="/eventCoref/init/evaluations/YADLL_LR_ACE2005.ctx");
+context evalEventCorefYadllLrCtClone = EventMentionPairCoref(initScript="/eventCoref/init/evaluations/YADLL_LR_ACE2005_CTClone.ctx");
+
+context rulesEventCorefTransitive = EventMentionPairCoref(initScript="/eventCoref/init/rules/Transitive.ctx");
+
+
+context dataTBD = TLinkType(initScript="/util/init/data/TBD.ctx");
+context dataTlinkTypeTBD = TLinkType(initScript="/tlinkType/init/data/TBD_PlusUnlabeled.ctx");
+context labelsTlinkTypeTBD = TLinkType(initScript="/tlinkType/init/labels/TBD.ctx");
+
+context featuresTlinkType = TLinkType(initScript="/tlinkType/init/Features.ctx");
+
+context modelsTlinkTypeDet = TLinkType(initScript="/tlinkType/init/models/Deterministic_TBD.ctx");
+context modelsTlinkTypeYadllLrCTSearch = TLinkType(initScript="/tlinkType/init/models/YADLL_LR_CTSearch_TBD.ctx");
+
+context evalTlinkTypeDet = TLinkType(initScript="/tlinkType/init/evaluations/Deterministic_TBD.ctx");
+context evalTlinkTypeYadllLrCTSearch = TLinkType(initScript="/tlinkType/init/evaluations/YADLL_LR_CTSearch_TBD.ctx");
+
+context rulesTlinkTypeTransitive = TLinkType(initScript="/tlinkType/init/rules/Transitive.ctx");
+
+context rulesTTECTransitive = TLinkType(initScript="/joint/init/rules/TlinkType_EventCoref_Transitive.ctx");
+context rulesTTECJoint = TLinkType(initScript="/joint/init/rules/TlinkType_EventCoref_Joint.ctx");
+context rulesTlinkTypeConverse = TLinkType(initScript="/tlinkType/init/rules/Converse.ctx");
+context modelsTTECSieve = TLinkType(initScript="/joint/init/models/CAEVO_YADLL_LR_ACE2005_Sieve.ctx");
+
+
+multi_classify_task multiDevTask = MultiClassification(tasks=(${dataEventCorefACE2005.devTask}, ${dataTlinkTypeTBD.devTask}));
+multi_classify_task multiTestTask = MultiClassification(tasks=(${dataEventCorefACE2005.testTask}, ${dataTlinkTypeTBD.testTask}));
+
+multi_classify_task tlinkTypeDevTask = MultiClassification(tasks=(${dataTlinkTypeTBD.devTask}));
+multi_classify_task tlinkTypeTestTask = MultiClassification(tasks=(${dataTlinkTypeTBD.testTask}));
+
+multi_classify_task eventCorefDevTask = MultiClassification(tasks=(${dataEventCorefACE2005.devTask}));
+multi_classify_task eventCorefTestTask = MultiClassification(tasks=(${dataEventCorefACE2005.testTask}));
+
+multi_classify_eval multiDevPrecision = Precision(task=${multiDevTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", filterLabels=("COREF", ""));
+multi_classify_eval multiDevRecall = Recall(task=${multiDevTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", filterLabels=("COREF", ""));
+multi_classify_eval multiDevF = F(task=${multiDevTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", Beta="1", filterLabels=("COREF", ""));
+
+multi_classify_eval multiTestPrecision = Precision(task=${multiTestTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", filterLabels=("COREF", ""));
+multi_classify_eval multiTestRecall = Recall(task=${multiTestTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", filterLabels=("COREF", ""));
+multi_classify_eval multiTestF = F(task=${multiTestTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", Beta="1", filterLabels=("COREF", ""));
+
+multi_classify_eval tlinkTypeDevPrecision = Precision(task=${tlinkTypeDevTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", filterLabels=(""));
+multi_classify_eval tlinkTypeDevRecall = Recall(task=${tlinkTypeDevTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", filterLabels=(""));
+multi_classify_eval tlinkTypeDevF = F(task=${tlinkTypeDevTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", Beta="1", filterLabels=(""));
+
+multi_classify_eval tlinkTypeTestPrecision = Precision(task=${tlinkTypeTestTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", filterLabels=(""));
+multi_classify_eval tlinkTypeTestRecall = Recall(task=${tlinkTypeTestTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", filterLabels=(""));
+multi_classify_eval tlinkTypeTestF = F(task=${tlinkTypeTestTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", Beta="1", filterLabels=(""));
+
+multi_classify_eval eventCorefDevPrecision = Precision(task=${eventCorefDevTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", filterLabels=("COREF"));
+multi_classify_eval eventCorefDevRecall = Recall(task=${eventCorefDevTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", filterLabels=("COREF"));
+multi_classify_eval eventCorefDevF = F(task=${eventCorefDevTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", Beta="1", filterLabels=("COREF"));
+
+multi_classify_eval eventCorefTestPrecision = Precision(task=${eventCorefTestTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", filterLabels=("COREF"));
+multi_classify_eval eventCorefTestRecall = Recall(task=${eventCorefTestTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", filterLabels=("COREF"));
+multi_classify_eval eventCorefTestF = F(task=${eventCorefTestTask}, method=${modelsTTECSieve.sieve}, mode="MICRO", Beta="1", filterLabels=("COREF"));
+
+value strEvals = OutputStrings(id="Evaluation_CAEVO_EventCoref_YADLL_LR_ACE2005_Sieve", storage="EventString", collection="ExperimentEvaluationOutput", 
+                 refs=
+                 (
+	                 ${multiDevPrecision}, ${multiDevRecall}, ${multiDevF},
+	                 ${multiTestPrecision}, ${multiTestRecall}, ${multiTestF},
+	                 
+	                 ${tlinkTypeDevPrecision}, ${tlinkTypeDevRecall}, ${tlinkTypeDevF},
+	                 ${tlinkTypeTestPrecision}, ${tlinkTypeTestRecall}, ${tlinkTypeTestF},
+	                 
+	                 ${eventCorefDevPrecision}, ${eventCorefDevRecall}, ${eventCorefDevF},
+	                 ${eventCorefTestPrecision}, ${eventCorefTestRecall}, ${eventCorefTestF}
+                 ));

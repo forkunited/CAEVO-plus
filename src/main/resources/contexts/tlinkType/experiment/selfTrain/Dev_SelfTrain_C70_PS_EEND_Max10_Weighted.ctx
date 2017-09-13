@@ -1,0 +1,11 @@
+value maxThreads="30";
+value resultsId = "TLinkType_Dev_SelfTrain_C70_PS_EEND_Max10_Plus_Weighted";
+value debug=Debug(file=${resultsId});
+
+context util = TLinkType(initScript="/util/Util.ctx", initOnce="true");
+context docsTlinkType = TLinkType(initScript="/util/data/docs/TE3Small.ctx", initOnce="false");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_Plus_Det_TE3.ctx", initOnce="false");
+context modelsTlinkTypePS = TLinkType(initScript="/tlinkType/methods/PrecedenceScore_EEND_Max10.ctx", initOnce="false");
+context evalPS = TLinkType(initScript="/tlinkType/evaluations/PrecedenceScore.ctx", initOnce="false");
+context selfTrainPS = TLinkType(initScript="/tlinkType/methods/SelfTrain_PS_C70_Weighted.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Dev_PS.ctx", initOnce="false");

@@ -1,0 +1,8 @@
+value maxThreads="30";
+value resultsId = "TLinkJoint_Test_Sieve_Conserve_Ind_WS_DCT";
+value debug=Debug(file=${resultsId});
+
+context util = EventTimeTLink(initScript="/util/Util.ctx", initOnce="true");
+context modelsJointTLinkSieve = EventTimeTLink(initScript="/tlinkJoint/methods/Sieve_Conserve_Ind_WS_DCT.ctx", initOnce="false");
+context evalSieve = EventTimeTLink(initScript="/tlinkJoint/evaluations/Sieve.ctx", initOnce="false");
+context results = EventTimeTLink(initScript="/tlinkJoint/experiment/output/Test_Sieve_Ind.ctx", initOnce="false");

@@ -1,0 +1,8 @@
+value maxThreads="30";
+value resultsId = "TLinkType_Test_CAEVO_OnlyRuleTrans_SL";
+value debug=Debug(file=${resultsId});
+
+context util = TLinkType(initScript="/util/Util.ctx", initOnce="true");
+context modelsTlinkTypeSieve = TLinkType(initScript="/tlinkType/methods/CAEVO_OnlyRuleTrans_SL.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Test_CAEVO_SL.ctx", initOnce="false");

@@ -1,0 +1,25 @@
+structure_fn graphPaths = GraphPaths(length="2");
+structure_fn greedyCorefTransitiveRules = GreedyStructureRules(rules=(${rulesEventCorefTransitive.rules}), splitFns=(${graphPaths}));
+
+multi_classify_method sieve = Sieve(methods=(${modelsEventCorefYadllLrCtClone.yadll99},
+                                             ${modelsEventCorefYadllLrCtClone.yadll97},
+                                             ${modelsEventCorefYadllLrCtClone.yadll95},
+											 ${modelsEventCorefYadllLrCtClone.yadll93},
+											 ${modelsEventCorefYadllLrCtClone.yadll90},
+											 ${modelsEventCorefYadllLrCtClone.yadll80},
+											 ${modelsEventCorefYadllLr.yadll}),                                   
+                                    structurizers=(${dataEventCorefACE2005.docStruct},
+												   ${dataEventCorefACE2005.docStruct},
+                                                   ${dataEventCorefACE2005.docStruct},
+												   ${dataEventCorefACE2005.docStruct},
+												   ${dataEventCorefACE2005.docStruct},
+												   ${dataEventCorefACE2005.docStruct},
+												   ${dataEventCorefACE2005.docStruct}),
+                                    permutationMeasures=(${evalEventCorefYadllLrCtClone.devYadll99Precision},
+                                                         ${evalEventCorefYadllLrCtClone.devYadll97Precision},
+                                                         ${evalEventCorefYadllLrCtClone.devYadll95Precision},
+                                                         ${evalEventCorefYadllLrCtClone.devYadll93Precision},
+                                                         ${evalEventCorefYadllLrCtClone.devYadll90Precision},
+                                                         ${evalEventCorefYadllLrCtClone.devYadll80Precision},
+                                    					 ${evalEventCorefYadllLr.devYadllPrecision}),
+                                    structureTransformFn=${greedyCorefTransitiveRules});

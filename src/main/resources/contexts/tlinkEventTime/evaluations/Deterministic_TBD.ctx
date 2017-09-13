@@ -1,0 +1,17 @@
+context trainDevTestDataEventTimeTLink = EventTimeTLink(initScript="/tlinkEventTime/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context modelsEventTimeTLinkDet = EventTimeTLink(initScript="/tlinkEventTime/methods/Deterministic_TBD.ctx", initOnce="true", initOverrideByName="true");
+
+classify_eval devAdjETPrecision = Precision(task=${trainDevTestDataEventTimeTLink.devTask}, method=${modelsEventTimeTLinkDet.adjET}, mode="MICRO");
+classify_eval devAdjETRecall = Recall(task=${trainDevTestDataEventTimeTLink.devTask}, method=${modelsEventTimeTLinkDet.adjET}, mode="MICRO");
+classify_eval testAdjETPrecision = Precision(task=${trainDevTestDataEventTimeTLink.testTask}, method=${modelsEventTimeTLinkDet.adjET}, mode="MICRO");
+classify_eval testAdjETRecall = Recall(task=${trainDevTestDataEventTimeTLink.testTask}, method=${modelsEventTimeTLinkDet.adjET}, mode="MICRO");
+
+classify_eval devReportingDCTPrecision = Precision(task=${trainDevTestDataEventTimeTLink.devTask}, method=${modelsEventTimeTLinkDet.reportingDCT}, mode="MICRO");
+classify_eval devReportingDCTRecall = Recall(task=${trainDevTestDataEventTimeTLink.devTask}, method=${modelsEventTimeTLinkDet.reportingDCT}, mode="MICRO");
+classify_eval testReportingDCTPrecision = Precision(task=${trainDevTestDataEventTimeTLink.testTask}, method=${modelsEventTimeTLinkDet.reportingDCT}, mode="MICRO");
+classify_eval testReportingDCTRecall = Recall(task=${trainDevTestDataEventTimeTLink.testTask}, method=${modelsEventTimeTLinkDet.reportingDCT}, mode="MICRO");
+
+classify_eval devAllVaguePrecision = Precision(task=${trainDevTestDataEventTimeTLink.devTask}, method=${modelsEventTimeTLinkDet.allVague}, mode="MICRO");
+classify_eval devAllVagueRecall = Recall(task=${trainDevTestDataEventTimeTLink.devTask}, method=${modelsEventTimeTLinkDet.allVague}, mode="MICRO");
+classify_eval testAllVaguePrecision = Precision(task=${trainDevTestDataEventTimeTLink.testTask}, method=${modelsEventTimeTLinkDet.allVague}, mode="MICRO");
+classify_eval testAllVagueRecall = Recall(task=${trainDevTestDataEventTimeTLink.testTask}, method=${modelsEventTimeTLinkDet.allVague}, mode="MICRO");

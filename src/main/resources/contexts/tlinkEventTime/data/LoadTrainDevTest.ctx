@@ -1,0 +1,28 @@
+context dataParamsEventTimeTLink = EventTimeTLink(initScript="/tlinkEventTime/data/parameters/TBD.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDocsEventTimeTLink = EventTimeTLink(initScript="/util/data/docs/TBD.ctx", initOnce="true", initOverrideByName="true");
+
+data trainData = EventTimeTLink(storage="EventBson", documents=${dataParamsEventTimeTLink.trainDocs}, tlinks=${dataParamsEventTimeTLink.trainTlinks}, filter=${trainDevTestDocsEventTimeTLink.devTestDocs}, filterType="EXCLUDE", labelMode=${dataParamsEventTimeTLink.trainLabelMode}, labelMapping=${dataParamsEventTimeTLink.trainLM}, maxSentenceDistance=${dataParamsEventTimeTLink.trainMaxSentDist}, crossDocMode=${dataParamsEventTimeTLink.trainCrossDocMode}, clusterMode=${dataParamsEventTimeTLink.trainClusterMode});
+data devData = EventTimeTLink(storage="EventBson", documents=${dataParamsEventTimeTLink.devDocs}, tlinks=${dataParamsEventTimeTLink.devTlinks}, filter=${trainDevTestDocsEventTimeTLink.devDocs}, filterType="INTERSECT", labelMode=${dataParamsEventTimeTLink.devLabelMode}, labelMapping=${dataParamsEventTimeTLink.devLM}, maxSentenceDistance=${dataParamsEventTimeTLink.devMaxSentDist}, crossDocMode=${dataParamsEventTimeTLink.devCrossDocMode}, clusterMode=${dataParamsEventTimeTLink.devClusterMode});
+data testData = EventTimeTLink(storage="EventBson", documents=${dataParamsEventTimeTLink.testDocs}, tlinks=${dataParamsEventTimeTLink.testTlinks}, filter=${trainDevTestDocsEventTimeTLink.testDocs}, filterType="INTERSECT", labelMode=${dataParamsEventTimeTLink.testLabelMode}, labelMapping=${dataParamsEventTimeTLink.testLM}, maxSentenceDistance=${dataParamsEventTimeTLink.testMaxSentDist}, crossDocMode=${dataParamsEventTimeTLink.testCrossDocMode}, clusterMode=${dataParamsEventTimeTLink.testClusterMode});
+
+data trainDataWSDCT = FilterData(data=${trainData}, datumIndicator="SomeWithinSentenceOrDCT");
+data trainDataWS = FilterData(data=${trainData}, datumIndicator="SomeWithinSentence");
+data trainDataDCT = FilterData(data=${trainData}, datumIndicator="SomeDCT");
+
+value countTBDEventTimeTLinkTrainData = SizeData(data=${trainData});
+value countTBDEventTimeTLinkDevData = SizeData(data=${devData});
+value countTBDEventTimeTLinkTestData = SizeData(data=${testData});
+value debugTrainData = OutputDebug(refs=(${countTBDEventTimeTLinkTrainData}));
+value debugDevData = OutputDebug(refs=(${countTBDEventTimeTLinkDevData}));
+value debugTestData = OutputDebug(refs=(${countTBDEventTimeTLinkTestData}));
+
+classify_task devTask = Classification(data=${devData});
+classify_task testTask = Classification(data=${testData});
+
+structurizer docStruct = GraphEventTimeByDocument(labelMapping="TBD", graphEdgeMutexFn="EventRelationMutex");
+structurizer docStructConserve = GraphEventTimeByDocument(labelMapping="TBD", graphOverwriteOperator="CONSERVE", graphEdgeMutexFn="EventRelationMutex");
+structurizer docStructMulti = GraphEventTimeByDocument(graphEdgeMode="MULTI", graphNodeMode="MULTI", labelMapping="TBD", graphEdgeMutexFn="EventRelationMutex");
+
+structurizer struct = GraphEventTime(labelMapping="TBD", graphEdgeMutexFn="EventRelationMutex");
+structurizer structConserve = GraphEventTime(labelMapping="TBD", graphOverwriteOperator="CONSERVE", graphEdgeMutexFn="EventRelationMutex");
+structurizer structMulti = GraphEventTime(graphEdgeMode="MULTI", graphNodeMode="MULTI", labelMapping="TBD", graphEdgeMutexFn="EventRelationMutex");

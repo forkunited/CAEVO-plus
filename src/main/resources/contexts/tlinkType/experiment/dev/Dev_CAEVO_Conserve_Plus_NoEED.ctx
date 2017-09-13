@@ -1,0 +1,9 @@
+value maxThreads="30";
+value resultsId = "TLinkType_Dev_CAEVO_Conserve_Plus_NoEED";
+value debug=Debug(file=${resultsId});
+
+context util = TLinkType(initScript="/util/Util.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_Plus.ctx", initOnce="false");
+context modelsTlinkTypeSieve = TLinkType(initScript="/tlinkType/methods/CAEVO_Conserve_NoEED.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Dev_CAEVO.ctx", initOnce="false");

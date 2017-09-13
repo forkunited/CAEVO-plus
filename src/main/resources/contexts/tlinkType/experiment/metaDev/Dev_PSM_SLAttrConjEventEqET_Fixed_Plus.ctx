@@ -1,0 +1,14 @@
+value maxThreads="30";
+value resultsId = "TLinkType_MetaDev_PSM_SLAttrConjEventEqET_Fixed_Plus";
+value debug=Debug(file=${resultsId});
+
+context util = TLinkType(initScript="/util/Util.ctx", initOnce="true");
+
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBDMetaDev.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_Fixed_Plus.ctx", initOnce="false");
+context modelsTlinkTypeSl = TLinkType(initScript="/tlinkType/methods/SL_CAEVO_Fixed.ctx", initOnce="false");
+context methodRerankerTlinkType = MetaTLinkType(initScript="/tlinkType/methods/meta/Reranker_SLAttrConjEventEqET.ctx", initOnce="false");
+context modelsTlinkTypePS = TLinkType(initScript="/tlinkType/methods/PrecedenceScoreByModel_SL.ctx", initOnce="false");
+context evalPS = TLinkType(initScript="/tlinkType/evaluations/PrecedenceScore.ctx", initOnce="false");
+context evalRerankerTlinkType = MetaTLinkType(initScript="/tlinkType/evaluations/Reranker.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Test_PSM_SL.ctx", initOnce="false");

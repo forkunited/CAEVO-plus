@@ -1,0 +1,37 @@
+context modelsTlinkTypeSl = TLinkType(initScript="/tlinkType/methods/SL_CAEVO.ctx", initOnce="true", initOverrideByName="true");
+
+classify_method slDCTB = LabelMapping(method=${modelsTlinkTypeSl.slDCT}, labelMapping="OnlyB");
+classify_method slETWSB = LabelMapping(method=${modelsTlinkTypeSl.slETWS}, labelMapping="OnlyB");
+classify_method slEEWSB = LabelMapping(method=${modelsTlinkTypeSl.slEEWS}, labelMapping="OnlyB");
+classify_method slEEDB = LabelMapping(method=${modelsTlinkTypeSl.slEED}, labelMapping="OnlyB");
+classify_method slEEBSB = LabelMapping(method=${modelsTlinkTypeSl.slEEBS}, labelMapping="OnlyB");
+
+classify_method slDCTA = LabelMapping(method=${modelsTlinkTypeSl.slDCT}, labelMapping="OnlyA");
+classify_method slETWSA = LabelMapping(method=${modelsTlinkTypeSl.slETWS}, labelMapping="OnlyA");
+classify_method slEEWSA = LabelMapping(method=${modelsTlinkTypeSl.slEEWS}, labelMapping="OnlyA");
+classify_method slEEDA = LabelMapping(method=${modelsTlinkTypeSl.slEED}, labelMapping="OnlyA");
+classify_method slEEBSA = LabelMapping(method=${modelsTlinkTypeSl.slEEBS}, labelMapping="OnlyA");
+
+classify_method slDCTI = LabelMapping(method=${modelsTlinkTypeSl.slDCT}, labelMapping="OnlyI");
+classify_method slETWSI = LabelMapping(method=${modelsTlinkTypeSl.slETWS}, labelMapping="OnlyI");
+classify_method slEEWSI = LabelMapping(method=${modelsTlinkTypeSl.slEEWS}, labelMapping="OnlyI");
+classify_method slEEDI = LabelMapping(method=${modelsTlinkTypeSl.slEED}, labelMapping="OnlyI");
+classify_method slEEBSI = LabelMapping(method=${modelsTlinkTypeSl.slEEBS}, labelMapping="OnlyI");
+
+classify_method slDCTII = LabelMapping(method=${modelsTlinkTypeSl.slDCT}, labelMapping="OnlyII");
+classify_method slETWSII = LabelMapping(method=${modelsTlinkTypeSl.slETWS}, labelMapping="OnlyII");
+classify_method slEEWSII = LabelMapping(method=${modelsTlinkTypeSl.slEEWS}, labelMapping="OnlyII");
+classify_method slEEDII = LabelMapping(method=${modelsTlinkTypeSl.slEED}, labelMapping="OnlyII");
+classify_method slEEBSII = LabelMapping(method=${modelsTlinkTypeSl.slEEBS}, labelMapping="OnlyII");
+
+classify_method slDCTS = LabelMapping(method=${modelsTlinkTypeSl.slDCT}, labelMapping="OnlyS");
+classify_method slETWSS = LabelMapping(method=${modelsTlinkTypeSl.slETWS}, labelMapping="OnlyS");
+classify_method slEEWSS = LabelMapping(method=${modelsTlinkTypeSl.slEEWS}, labelMapping="OnlyS");
+classify_method slEEDS = LabelMapping(method=${modelsTlinkTypeSl.slEED}, labelMapping="OnlyS");
+classify_method slEEBSS = LabelMapping(method=${modelsTlinkTypeSl.slEEBS}, labelMapping="OnlyS");
+
+classify_method slDCTV = LabelMapping(method=${modelsTlinkTypeSl.slDCT}, labelMapping="OnlyV");
+classify_method slETWSV = LabelMapping(method=${modelsTlinkTypeSl.slETWS}, labelMapping="OnlyV");
+classify_method slEEWSV = LabelMapping(method=${modelsTlinkTypeSl.slEEWS}, labelMapping="OnlyV");
+classify_method slEEDV = LabelMapping(method=${modelsTlinkTypeSl.slEED}, labelMapping="OnlyV");
+classify_method slEEBSV = LabelMapping(method=${modelsTlinkTypeSl.slEEBS}, labelMapping="OnlyV");

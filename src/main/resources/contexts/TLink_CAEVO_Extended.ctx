@@ -1,0 +1,606 @@
+value maxThreads="30";
+value debug=Debug(file="TLink_CAEVO.out");
+value randomSeed=SetRandomSeed(seed="1");
+value cleanFn=BuildCleanFn(name="BagOfWordsCleanFn", fns=("Trim", "RemoveSymbols", "ReplaceNumbers", "UnderscoreToSpace", "Trim", "RemoveLongTokens", "Stem", "SpaceToUnderscore"));
+
+context tlinkTypeCtx=TLinkType() {
+	array validLabels = ("BEFORE", "AFTER", "INCLUDES", "IS_INCLUDED", "SIMULTANEOUS", "VAGUE");
+	
+	data trainData = TimeBankDense(storage="EventBson", collection="tbd_tlinks", part="TRAIN", labelMapping="TBD");
+	data devData = TimeBankDense(storage="EventBson", collection="tbd_tlinks", part="DEV", labelMapping="TBD");
+	data testData = TimeBankDense(storage="EventBson", collection="tbd_tlinks", part="TEST", labelMapping="TBD");
+
+	data trainDataEE = FilterData(data=${trainData}, datumIndicator="TypeEventEvent");
+	data trainDataET = FilterData(data=${trainData}, datumIndicator="TypeEventTime");
+
+	data trainDataDCT = FilterData(data=${trainDataET}, datumIndicator="PositionDCT");
+	data trainDataETWS = FilterData(data=${trainDataET}, datumIndicator="PositionWithinSentence");
+	data trainDataETBS = FilterData(data=${trainDataET}, datumIndicator="PositionBetweenSentence");
+	data trainDataEEWS = FilterData(data=${trainDataEE}, datumIndicator="PositionWithinSentence");
+	data trainDataEEBS = FilterData(data=${trainDataEE}, datumIndicator="PositionBetweenSentence");
+	data trainDataEED = FilterData(data=${trainDataEE}, datumIndicator="PositionWithinSentenceDominant");
+
+	value ETDCTIndicator = ConjoinDatumIndicators(name="ETDCT", fns=("TypeEventTime", "PositionDCT"));
+	value ETWSIndicator = ConjoinDatumIndicators(name="ETWS", fns=("TypeEventTime", "PositionWithinSentence"));
+	value ETBSIndicator = ConjoinDatumIndicators(name="ETBS", fns=("TypeEventTime", "PositionBetweenSentence"));
+	value EEWSIndicator = ConjoinDatumIndicators(name="EEWS", fns=("TypeEventEvent", "PositionWithinSentence"));
+	value EEBSIndicator = ConjoinDatumIndicators(name="EEBS", fns=("TypeEventEvent", "PositionBetweenSentence"));
+	value EEDIndicator = ConjoinDatumIndicators(name="EED", fns=("TypeEventEvent", "PositionWithinSentenceDominant"));
+
+	value countTrainData = SizeData(data=${trainData});
+	value countDevData = SizeData(data=${devData});
+	value countTestData = SizeData(data=${testData});
+	value debugTrainData = OutputDebug(refs=(${countTrainData}));
+	value debugDevData = OutputDebug(refs=(${countDevData}));
+	value debugTestData = OutputDebug(refs=(${countTestData}));
+
+	ts_fn head = Head();
+	ts_fn before2 = NGramContext(type="BEFORE", n="2");
+	ts_fn before1 = NGramContext(type="BEFORE", n="1");
+	ts_fn inside1 = NGramInside(n="1");
+	ts_fn dep = DependencyRelation(mode="PARENTS_AND_CHILDREN");
+	ts_str_fn strDef = String(cleanFn="BagOfWordsCleanFn");
+	ts_str_fn pos = PoS();
+	ts_str_fn lemma = TokenAnnotation(annotationType="lemma");
+	ts_str_fn sentPos = SentencePosition();
+	
+	feature feventToken = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="FirstEvent", fn=${strDef});
+	feature feventTokenB = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="FirstEvent", fn=(${strDef} o ${inside1} o ${before2}));
+	feature feventPos = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="FirstEvent", fn=${pos});
+	feature feventPosB1 = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="FirstEvent", fn=(${pos} o ${before1}));
+	feature feventPosB2 = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="FirstEvent", fn=(${pos} o ${before2}));
+	feature feventTense = TLinkEventAttribute(sourceOrTarget="EITHER", attribute="TIMEML_TENSE");
+	feature feventAspect = TLinkEventAttribute(sourceOrTarget="EITHER", attribute="TIMEML_ASPECT");
+	feature feventClass = TLinkEventAttribute(sourceOrTarget="EITHER", attribute="TIMEML_CLASS");
+	feature feventDep = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="FirstEvent", fn=(${strDef} o ${dep}));
+	feature ftimeToken = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="FirstTime", fn=${strDef});
+	feature ftimeTokenh = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="FirstTime", fn=(${strDef} o ${head}));
+	feature ftimeSentPos = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="FirstTime", fn=${sentPos});
+	feature feventTimeToken = Conjunction(minFeatureOccurrence="2", features=(${feventToken}, ${ftimeToken}));
+	feature ftokenPathET = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="BetweenSourceTarget", fn=${strDef});
+	feature fdepPathET = DependencyPath(minFeatureOccurrence="2", sourceTokenExtractor="FirstEvent", targetTokenExtractor="FirstTime", useRelationTypes="true");
+	feature fconPathET = ConstituencyPath(minFeatureOccurrence="2", sourceTokenExtractor="FirstEvent", targetTokenExtractor="FirstTime");
+	feature fdepTypeET = DependencyPathType(sourceTokenExtractor="FirstEvent", targetTokenExtractor="FirstTime");
+	feature fdomET = ConstituencyParseRelation(sourceTokenExtractor="FirstEvent", targetTokenExtractor="FirstTime");
+	
+	feature_set fsET = FeatureSet(features=(${feventToken}, ${feventTokenB}, ${feventPos}, ${feventPosB1},
+											${feventPosB2}, ${feventTense}, ${feventAspect}, ${feventClass}, ${feventDep},
+											${ftimeToken}, ${ftimeTokenh}, ${ftimeSentPos}, ${feventTimeToken}, 
+											${ftokenPathET}, ${fdepPathET}, ${fconPathET}, ${fdepTypeET},
+											${fdomET}), initData=(${trainDataET}));
+		
+	feature fsToken = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="Source", fn=${strDef});
+	feature fsTokenB = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="Source", fn=(${strDef} o ${inside1} o ${before2}));
+	feature fsPos = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="Source", fn=${pos});
+	feature fsPosB1 = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="Source", fn=(${pos} o ${before1}));
+	feature fsPosB2 = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="Source", fn=(${pos} o ${before2}));
+	feature fsTense = TLinkEventAttribute(sourceOrTarget="SOURCE", attribute="TIMEML_TENSE");
+	feature fsAspect = TLinkEventAttribute(sourceOrTarget="SOURCE", attribute="TIMEML_ASPECT");
+	feature fsClass = TLinkEventAttribute(sourceOrTarget="SOURCE", attribute="TIMEML_CLASS");
+	feature fsDep = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="Source", fn=(${strDef} o ${dep}));
+	feature ftToken = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="Target", fn=${strDef});
+	feature ftTokenB = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="Target", fn=(${strDef} o ${inside1} o ${before2}));
+	feature ftPos = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="Target", fn=${pos});
+	feature ftPosB1 = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="Target", fn=(${pos} o ${before1}));
+	feature ftPosB2 = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="Target", fn=(${pos} o ${before2}));
+	feature ftTense = TLinkEventAttribute(sourceOrTarget="TARGET", attribute="TIMEML_TENSE");
+	feature ftAspect = TLinkEventAttribute(sourceOrTarget="TARGET", attribute="TIMEML_ASPECT");
+	feature ftClass = TLinkEventAttribute(sourceOrTarget="TARGET", attribute="TIMEML_CLASS");
+	feature ftDep = TokenSpanFnDataVocab(scale="INDICATOR", minFeatureOccurrence="2", tokenExtractor="Target", fn=(${strDef} o ${dep}));
+	feature fstToken = Conjunction(minFeatureOccurrence="2", features=(${fsToken}, ${ftToken}));
+	feature fstPos = Conjunction(minFeatureOccurrence="2", features=(${fsPos}, ${ftPos}));
+	feature fstTense = Conjunction(minFeatureOccurrence="2", features=(${fsTense}, ${ftTense}));
+	feature fstAspect = Conjunction(minFeatureOccurrence="2", features=(${fsAspect}, ${ftAspect}));
+	feature fstClass = Conjunction(minFeatureOccurrence="2", features=(${fsClass}, ${ftClass}));	
+	feature fdepPathEE = DependencyPath(minFeatureOccurrence="2", sourceTokenExtractor="Source", targetTokenExtractor="Target", useRelationTypes="true");
+	feature fconPathEE = ConstituencyPath(minFeatureOccurrence="2", sourceTokenExtractor="Source", targetTokenExtractor="Target");
+	feature fdepTypeEE = DependencyPathType(sourceTokenExtractor="Source", targetTokenExtractor="Target");
+	feature fdomEE = ConstituencyParseRelation(sourceTokenExtractor="Source", targetTokenExtractor="Target");
+
+	feature_set fsEE = FeatureSet(features=(${fsToken}, ${fsTokenB}, ${fsPos}, ${fsPosB1}, ${fsPosB2},
+											${fsTense}, ${fsAspect}, ${fsClass}, ${fsDep}, ${ftToken}, ${ftTokenB},
+											${ftPos}, ${ftPosB1}, ${ftPosB2}, ${ftTense},
+											${ftAspect}, ${ftClass}, ${ftDep}, ${fstToken}, ${fstPos},
+											${fstTense}, ${fstAspect}, ${fstClass}, ${fdepPathEE}, 
+											${fconPathEE}, ${fdepTypeEE}, ${fdomEE}), initData=(${trainDataEE}));
+	
+	feature_set fsDCT = FeatureSet(features=(${feventToken}, ${feventTokenB}, ${feventPos},
+											 ${feventPosB1}, ${feventPosB2}, ${feventTense}, ${feventAspect}, 
+											 ${feventClass}), initData=(${trainDataDCT}));
+
+	
+	data_features trainMatrixDCT = DataFeatureMatrix(data=${trainDataDCT}, features=${fsDCT});
+	data_features trainMatrixETWS = DataFeatureMatrix(data=${trainDataETWS}, features=${fsET});
+	data_features trainMatrixETBS = DataFeatureMatrix(data=${trainDataETBS}, features=${fsET});
+	data_features trainMatrixEEWS = DataFeatureMatrix(data=${trainDataEEWS}, features=${fsEE});
+	data_features trainMatrixEEBS = DataFeatureMatrix(data=${trainDataEEBS}, features=${fsEE});
+	data_features trainMatrixEED = DataFeatureMatrix(data=${trainDataEED}, features=${fsEE});
+	
+	classify_task devTask = Classification(data=${devData});
+	classify_task testTask = Classification(data=${testData});
+	
+	model yadll=YADLL(numEpochs="1000", stepSize="2", 
+					  fnNodes=("Softmax", "NegativeLogLoss"), 
+					  fnParameters=("FanIn", "Zeros"), 
+					  Softmax_0_input="FanIn_0*x+Zeros_1", 
+					  Softmax_0_size="6", 
+					  NegativeLogLoss_1_input="Softmax_0", 
+					  NegativeLogLoss_1_size="1", 
+					  targetFnNode="Softmax_0",
+					  lossFnNode="NegativeLogLoss_1") {
+		array validLabels=${validLabels};
+	};
+
+	evaluation acc=Accuracy();
+	classify_method yadllDCTUnfiltered = SupervisedModel(model=${yadll}, data=${trainMatrixDCT}, trainEvaluation=${acc});
+	classify_method yadllETWSUnfiltered = SupervisedModel(model=${yadll}, data=${trainMatrixETWS}, trainEvaluation=${acc});
+	classify_method yadllETBSUnfiltered = SupervisedModel(model=${yadll}, data=${trainMatrixETBS}, trainEvaluation=${acc});
+	classify_method yadllEEWSUnfiltered = SupervisedModel(model=${yadll}, data=${trainMatrixEEWS}, trainEvaluation=${acc});
+	classify_method yadllEEBSUnfiltered = SupervisedModel(model=${yadll}, data=${trainMatrixEEBS}, trainEvaluation=${acc});
+	classify_method yadllEEDUnfiltered = SupervisedModel(model=${yadll}, data=${trainMatrixEED}, trainEvaluation=${acc});
+	
+	classify_method yadllDCTSub = FilterDatumIndicator(method=${yadllDCTUnfiltered}, datumIndicator="ETDCT");
+	classify_method yadllETWSSub = FilterDatumIndicator(method=${yadllETWSUnfiltered}, datumIndicator="ETWS");
+	classify_method yadllETBSSub = FilterDatumIndicator(method=${yadllETBSUnfiltered}, datumIndicator="ETBS");
+	classify_method yadllEEWSSub = FilterDatumIndicator(method=${yadllEEWSUnfiltered}, datumIndicator="EEWS");
+	classify_method yadllEEBSSub = FilterDatumIndicator(method=${yadllEEBSUnfiltered}, datumIndicator="EEBS");
+	classify_method yadllEEDSub = FilterDatumIndicator(method=${yadllEEDUnfiltered}, datumIndicator="EED");
+	
+	classify_method yadllDCT = InitClassifyMethod(devData=${devData}, method=${yadllDCTSub});
+	classify_method yadllETWS = InitClassifyMethod(devData=${devData}, method=${yadllETWSSub});
+	classify_method yadllETBS = InitClassifyMethod(devData=${devData}, method=${yadllETBSSub});
+	classify_method yadllEEWS = InitClassifyMethod(devData=${devData}, method=${yadllEEWSSub});
+	classify_method yadllEEBS = InitClassifyMethod(devData=${devData}, method=${yadllEEBSSub});
+	classify_method yadllEED = InitClassifyMethod(devData=${devData}, method=${yadllEEDSub});
+	
+	classify_method adjETSieveUM = AdjacentEventTime();
+	classify_method genGovSieveUM = GeneralGovernor();
+	classify_method reichenbachSieveUM = Reichenbach();
+	classify_method repGovSieveUM = ReportingGovernor();
+	classify_method timeTimeSieveUM = TimeTime();
+	
+	classify_method yadllDCT1Sieve = CloneClassifyMethod(method=${yadllDCT}, classificationThreshold=".2");
+	classify_method yadllDCT3Sieve = CloneClassifyMethod(method=${yadllDCT}, classificationThreshold=".4");
+	classify_method yadllDCT5Sieve = CloneClassifyMethod(method=${yadllDCT}, classificationThreshold=".5");
+	classify_method yadllDCT7Sieve = CloneClassifyMethod(method=${yadllDCT}, classificationThreshold=".6");
+	classify_method yadllDCT9Sieve = CloneClassifyMethod(method=${yadllDCT}, classificationThreshold=".8");
+	
+	classify_method yadllETWS1Sieve = CloneClassifyMethod(method=${yadllETWS}, classificationThreshold=".2");
+	classify_method yadllETWS3Sieve = CloneClassifyMethod(method=${yadllETWS}, classificationThreshold=".4");
+	classify_method yadllETWS5Sieve = CloneClassifyMethod(method=${yadllETWS}, classificationThreshold=".5");
+	classify_method yadllETWS7Sieve = CloneClassifyMethod(method=${yadllETWS}, classificationThreshold=".6");
+	classify_method yadllETWS9Sieve = CloneClassifyMethod(method=${yadllETWS}, classificationThreshold=".8");
+	
+	classify_method yadllETBS1Sieve = CloneClassifyMethod(method=${yadllETBS}, classificationThreshold=".2");
+	classify_method yadllETBS3Sieve = CloneClassifyMethod(method=${yadllETBS}, classificationThreshold=".4");
+	classify_method yadllETBS5Sieve = CloneClassifyMethod(method=${yadllETBS}, classificationThreshold=".5");
+	classify_method yadllETBS7Sieve = CloneClassifyMethod(method=${yadllETBS}, classificationThreshold=".6");
+	classify_method yadllETBS9Sieve = CloneClassifyMethod(method=${yadllETBS}, classificationThreshold=".8");
+	
+	classify_method yadllEEWS1Sieve = CloneClassifyMethod(method=${yadllEEWS}, classificationThreshold=".2");
+	classify_method yadllEEWS3Sieve = CloneClassifyMethod(method=${yadllEEWS}, classificationThreshold=".4");
+	classify_method yadllEEWS5Sieve = CloneClassifyMethod(method=${yadllEEWS}, classificationThreshold=".5");
+	classify_method yadllEEWS7Sieve = CloneClassifyMethod(method=${yadllEEWS}, classificationThreshold=".6");
+	classify_method yadllEEWS9Sieve = CloneClassifyMethod(method=${yadllEEWS}, classificationThreshold=".8");
+	
+	classify_method yadllEEBS1Sieve = CloneClassifyMethod(method=${yadllEEBS}, classificationThreshold=".2");
+	classify_method yadllEEBS3Sieve = CloneClassifyMethod(method=${yadllEEBS}, classificationThreshold=".4");
+	classify_method yadllEEBS5Sieve = CloneClassifyMethod(method=${yadllEEBS}, classificationThreshold=".5");
+	classify_method yadllEEBS7Sieve = CloneClassifyMethod(method=${yadllEEBS}, classificationThreshold=".6");
+	classify_method yadllEEBS9Sieve = CloneClassifyMethod(method=${yadllEEBS}, classificationThreshold=".8");
+	
+	classify_method yadllEED1Sieve = CloneClassifyMethod(method=${yadllEED}, classificationThreshold=".2");
+	classify_method yadllEED3Sieve = CloneClassifyMethod(method=${yadllEED}, classificationThreshold=".4");
+	classify_method yadllEED5Sieve = CloneClassifyMethod(method=${yadllEED}, classificationThreshold=".5");
+	classify_method yadllEED7Sieve = CloneClassifyMethod(method=${yadllEED}, classificationThreshold=".6");
+	classify_method yadllEED9Sieve = CloneClassifyMethod(method=${yadllEED}, classificationThreshold=".8");
+	
+	classify_method adjETSieve = LabelMapping(method=${adjETSieveUM}, labelMapping="TBD");
+	classify_method genGovSieve = LabelMapping(method=${genGovSieveUM}, labelMapping="TBD");
+	classify_method reichenbachSieve = LabelMapping(method=${reichenbachSieveUM}, labelMapping="TBD");
+	classify_method repGovSieve = LabelMapping(method=${repGovSieveUM}, labelMapping="TBD");
+	classify_method timeTimeSieve = LabelMapping(method=${timeTimeSieveUM}, labelMapping="TBD");
+	classify_method allVagueSieve = Constant(label="VAGUE");
+	
+	classify_eval devAdjETPrecision = Precision(task=${devTask}, method=${adjETSieve}, mode="MICRO");
+	classify_eval devAdjETRecall = Recall(task=${devTask}, method=${adjETSieve}, mode="MICRO");
+	classify_eval testAdjETPrecision = Precision(task=${testTask}, method=${adjETSieve}, mode="MICRO");
+	classify_eval testAdjETRecall = Recall(task=${testTask}, method=${adjETSieve}, mode="MICRO");
+	
+	classify_eval devGenGovPrecision = Precision(task=${devTask}, method=${genGovSieve}, mode="MICRO");
+	classify_eval devGenGovRecall = Recall(task=${devTask}, method=${genGovSieve}, mode="MICRO");
+	classify_eval testGenGovPrecision = Precision(task=${testTask}, method=${genGovSieve}, mode="MICRO");
+	classify_eval testGenGovRecall = Recall(task=${testTask}, method=${genGovSieve}, mode="MICRO");
+	
+	classify_eval devReichenbachPrecision = Precision(task=${devTask}, method=${reichenbachSieve}, mode="MICRO");
+	classify_eval devReichenbachRecall = Recall(task=${devTask}, method=${reichenbachSieve}, mode="MICRO");
+	classify_eval testReichenbachPrecision = Precision(task=${testTask}, method=${reichenbachSieve}, mode="MICRO");
+	classify_eval testReichenbachRecall = Recall(task=${testTask}, method=${reichenbachSieve}, mode="MICRO");
+	
+	classify_eval devRepGovPrecision = Precision(task=${devTask}, method=${repGovSieve}, mode="MICRO");
+	classify_eval devRepGovRecall = Recall(task=${devTask}, method=${repGovSieve}, mode="MICRO");
+	classify_eval testRepGovPrecision = Precision(task=${testTask}, method=${repGovSieve}, mode="MICRO");
+	classify_eval testRepGovRecall = Recall(task=${testTask}, method=${repGovSieve}, mode="MICRO");
+	
+	classify_eval devTimeTimePrecision = Precision(task=${devTask}, method=${timeTimeSieve}, mode="MICRO");
+	classify_eval devTimeTimeRecall = Recall(task=${devTask}, method=${timeTimeSieve}, mode="MICRO");
+	classify_eval testTimeTimePrecision = Precision(task=${testTask}, method=${timeTimeSieve}, mode="MICRO");
+	classify_eval testTimeTimeRecall = Recall(task=${testTask}, method=${timeTimeSieve}, mode="MICRO");
+	
+	classify_eval devAllVaguePrecision = Precision(task=${devTask}, method=${allVagueSieve}, mode="MICRO");
+	classify_eval devAllVagueRecall = Recall(task=${devTask}, method=${allVagueSieve}, mode="MICRO");
+	classify_eval testAllVaguePrecision = Precision(task=${testTask}, method=${allVagueSieve}, mode="MICRO");
+	classify_eval testAllVagueRecall = Recall(task=${testTask}, method=${allVagueSieve}, mode="MICRO");
+	
+	classify_eval devYadllDCT1Precision = Precision(task=${devTask}, method=${yadllDCT1Sieve}, mode="MICRO");
+	classify_eval devYadllDCT1Recall = Recall(task=${devTask}, method=${yadllDCT1Sieve}, mode="MICRO");
+	classify_eval testYadllDCT1Precision = Precision(task=${testTask}, method=${yadllDCT1Sieve}, mode="MICRO");
+	classify_eval testYadllDCT1Recall = Recall(task=${testTask}, method=${yadllDCT1Sieve}, mode="MICRO");
+	
+	classify_eval devYadllDCT3Precision = Precision(task=${devTask}, method=${yadllDCT3Sieve}, mode="MICRO");
+	classify_eval devYadllDCT3Recall = Recall(task=${devTask}, method=${yadllDCT3Sieve}, mode="MICRO");
+	classify_eval testYadllDCT3Precision = Precision(task=${testTask}, method=${yadllDCT3Sieve}, mode="MICRO");
+	classify_eval testYadllDCT3Recall = Recall(task=${testTask}, method=${yadllDCT3Sieve}, mode="MICRO");
+	
+	classify_eval devYadllDCT5Precision = Precision(task=${devTask}, method=${yadllDCT5Sieve}, mode="MICRO");
+	classify_eval devYadllDCT5Recall = Recall(task=${devTask}, method=${yadllDCT5Sieve}, mode="MICRO");
+	classify_eval testYadllDCT5Precision = Precision(task=${testTask}, method=${yadllDCT5Sieve}, mode="MICRO");
+	classify_eval testYadllDCT5Recall = Recall(task=${testTask}, method=${yadllDCT5Sieve}, mode="MICRO");
+	
+	classify_eval devYadllDCT7Precision = Precision(task=${devTask}, method=${yadllDCT7Sieve}, mode="MICRO");
+	classify_eval devYadllDCT7Recall = Recall(task=${devTask}, method=${yadllDCT7Sieve}, mode="MICRO");
+	classify_eval testYadllDCT7Precision = Precision(task=${testTask}, method=${yadllDCT7Sieve}, mode="MICRO");
+	classify_eval testYadllDCT7Recall = Recall(task=${testTask}, method=${yadllDCT7Sieve}, mode="MICRO");
+	
+	classify_eval devYadllDCT9Precision = Precision(task=${devTask}, method=${yadllDCT9Sieve}, mode="MICRO");
+	classify_eval devYadllDCT9Recall = Recall(task=${devTask}, method=${yadllDCT9Sieve}, mode="MICRO");
+	classify_eval testYadllDCT9Precision = Precision(task=${testTask}, method=${yadllDCT9Sieve}, mode="MICRO");
+	classify_eval testYadllDCT9Recall = Recall(task=${testTask}, method=${yadllDCT9Sieve}, mode="MICRO");
+	
+	classify_eval devYadllETWS1Precision = Precision(task=${devTask}, method=${yadllETWS1Sieve}, mode="MICRO");
+	classify_eval devYadllETWS1Recall = Recall(task=${devTask}, method=${yadllETWS1Sieve}, mode="MICRO");
+	classify_eval testYadllETWS1Precision = Precision(task=${testTask}, method=${yadllETWS1Sieve}, mode="MICRO");
+	classify_eval testYadllETWS1Recall = Recall(task=${testTask}, method=${yadllETWS1Sieve}, mode="MICRO");
+	
+	classify_eval devYadllETWS3Precision = Precision(task=${devTask}, method=${yadllETWS3Sieve}, mode="MICRO");
+	classify_eval devYadllETWS3Recall = Recall(task=${devTask}, method=${yadllETWS3Sieve}, mode="MICRO");
+	classify_eval testYadllETWS3Precision = Precision(task=${testTask}, method=${yadllETWS3Sieve}, mode="MICRO");
+	classify_eval testYadllETWS3Recall = Recall(task=${testTask}, method=${yadllETWS3Sieve}, mode="MICRO");
+	
+	classify_eval devYadllETWS5Precision = Precision(task=${devTask}, method=${yadllETWS5Sieve}, mode="MICRO");
+	classify_eval devYadllETWS5Recall = Recall(task=${devTask}, method=${yadllETWS5Sieve}, mode="MICRO");
+	classify_eval testYadllETWS5Precision = Precision(task=${testTask}, method=${yadllETWS5Sieve}, mode="MICRO");
+	classify_eval testYadllETWS5Recall = Recall(task=${testTask}, method=${yadllETWS5Sieve}, mode="MICRO");
+	
+	classify_eval devYadllETWS7Precision = Precision(task=${devTask}, method=${yadllETWS7Sieve}, mode="MICRO");
+	classify_eval devYadllETWS7Recall = Recall(task=${devTask}, method=${yadllETWS7Sieve}, mode="MICRO");
+	classify_eval testYadllETWS7Precision = Precision(task=${testTask}, method=${yadllETWS7Sieve}, mode="MICRO");
+	classify_eval testYadllETWS7Recall = Recall(task=${testTask}, method=${yadllETWS7Sieve}, mode="MICRO");
+	
+	classify_eval devYadllETWS9Precision = Precision(task=${devTask}, method=${yadllETWS9Sieve}, mode="MICRO");
+	classify_eval devYadllETWS9Recall = Recall(task=${devTask}, method=${yadllETWS9Sieve}, mode="MICRO");
+	classify_eval testYadllETWS9Precision = Precision(task=${testTask}, method=${yadllETWS9Sieve}, mode="MICRO");
+	classify_eval testYadllETWS9Recall = Recall(task=${testTask}, method=${yadllETWS9Sieve}, mode="MICRO");
+
+	classify_eval devYadllETBS1Precision = Precision(task=${devTask}, method=${yadllETBS1Sieve}, mode="MICRO");
+	classify_eval devYadllETBS1Recall = Recall(task=${devTask}, method=${yadllETBS1Sieve}, mode="MICRO");
+	classify_eval testYadllETBS1Precision = Precision(task=${testTask}, method=${yadllETBS1Sieve}, mode="MICRO");
+	classify_eval testYadllETBS1Recall = Recall(task=${testTask}, method=${yadllETBS1Sieve}, mode="MICRO");
+	
+	classify_eval devYadllETBS3Precision = Precision(task=${devTask}, method=${yadllETBS3Sieve}, mode="MICRO");
+	classify_eval devYadllETBS3Recall = Recall(task=${devTask}, method=${yadllETBS3Sieve}, mode="MICRO");
+	classify_eval testYadllETBS3Precision = Precision(task=${testTask}, method=${yadllETBS3Sieve}, mode="MICRO");
+	classify_eval testYadllETBS3Recall = Recall(task=${testTask}, method=${yadllETBS3Sieve}, mode="MICRO");
+	
+	classify_eval devYadllETBS5Precision = Precision(task=${devTask}, method=${yadllETBS5Sieve}, mode="MICRO");
+	classify_eval devYadllETBS5Recall = Recall(task=${devTask}, method=${yadllETBS5Sieve}, mode="MICRO");
+	classify_eval testYadllETBS5Precision = Precision(task=${testTask}, method=${yadllETBS5Sieve}, mode="MICRO");
+	classify_eval testYadllETBS5Recall = Recall(task=${testTask}, method=${yadllETBS5Sieve}, mode="MICRO");
+	
+	classify_eval devYadllETBS7Precision = Precision(task=${devTask}, method=${yadllETBS7Sieve}, mode="MICRO");
+	classify_eval devYadllETBS7Recall = Recall(task=${devTask}, method=${yadllETBS7Sieve}, mode="MICRO");
+	classify_eval testYadllETBS7Precision = Precision(task=${testTask}, method=${yadllETBS7Sieve}, mode="MICRO");
+	classify_eval testYadllETBS7Recall = Recall(task=${testTask}, method=${yadllETBS7Sieve}, mode="MICRO");
+	
+	classify_eval devYadllETBS9Precision = Precision(task=${devTask}, method=${yadllETBS9Sieve}, mode="MICRO");
+	classify_eval devYadllETBS9Recall = Recall(task=${devTask}, method=${yadllETBS9Sieve}, mode="MICRO");
+	classify_eval testYadllETBS9Precision = Precision(task=${testTask}, method=${yadllETBS9Sieve}, mode="MICRO");
+	classify_eval testYadllETBS9Recall = Recall(task=${testTask}, method=${yadllETBS9Sieve}, mode="MICRO");
+
+	classify_eval devYadllEEWS1Precision = Precision(task=${devTask}, method=${yadllEEWS1Sieve}, mode="MICRO");
+	classify_eval devYadllEEWS1Recall = Recall(task=${devTask}, method=${yadllEEWS1Sieve}, mode="MICRO");
+	classify_eval testYadllEEWS1Precision = Precision(task=${testTask}, method=${yadllEEWS1Sieve}, mode="MICRO");
+	classify_eval testYadllEEWS1Recall = Recall(task=${testTask}, method=${yadllEEWS1Sieve}, mode="MICRO");
+	
+	classify_eval devYadllEEWS3Precision = Precision(task=${devTask}, method=${yadllEEWS3Sieve}, mode="MICRO");
+	classify_eval devYadllEEWS3Recall = Recall(task=${devTask}, method=${yadllEEWS3Sieve}, mode="MICRO");
+	classify_eval testYadllEEWS3Precision = Precision(task=${testTask}, method=${yadllEEWS3Sieve}, mode="MICRO");
+	classify_eval testYadllEEWS3Recall = Recall(task=${testTask}, method=${yadllEEWS3Sieve}, mode="MICRO");
+	
+	classify_eval devYadllEEWS5Precision = Precision(task=${devTask}, method=${yadllEEWS5Sieve}, mode="MICRO");
+	classify_eval devYadllEEWS5Recall = Recall(task=${devTask}, method=${yadllEEWS5Sieve}, mode="MICRO");
+	classify_eval testYadllEEWS5Precision = Precision(task=${testTask}, method=${yadllEEWS5Sieve}, mode="MICRO");
+	classify_eval testYadllEEWS5Recall = Recall(task=${testTask}, method=${yadllEEWS5Sieve}, mode="MICRO");
+	
+	classify_eval devYadllEEWS7Precision = Precision(task=${devTask}, method=${yadllEEWS7Sieve}, mode="MICRO");
+	classify_eval devYadllEEWS7Recall = Recall(task=${devTask}, method=${yadllEEWS7Sieve}, mode="MICRO");
+	classify_eval testYadllEEWS7Precision = Precision(task=${testTask}, method=${yadllEEWS7Sieve}, mode="MICRO");
+	classify_eval testYadllEEWS7Recall = Recall(task=${testTask}, method=${yadllEEWS7Sieve}, mode="MICRO");
+	
+	classify_eval devYadllEEWS9Precision = Precision(task=${devTask}, method=${yadllEEWS9Sieve}, mode="MICRO");
+	classify_eval devYadllEEWS9Recall = Recall(task=${devTask}, method=${yadllEEWS9Sieve}, mode="MICRO");
+	classify_eval testYadllEEWS9Precision = Precision(task=${testTask}, method=${yadllEEWS9Sieve}, mode="MICRO");
+	classify_eval testYadllEEWS9Recall = Recall(task=${testTask}, method=${yadllEEWS9Sieve}, mode="MICRO");
+	
+	classify_eval devYadllEEBS1Precision = Precision(task=${devTask}, method=${yadllEEBS1Sieve}, mode="MICRO");
+	classify_eval devYadllEEBS1Recall = Recall(task=${devTask}, method=${yadllEEBS1Sieve}, mode="MICRO");
+	classify_eval testYadllEEBS1Precision = Precision(task=${testTask}, method=${yadllEEBS1Sieve}, mode="MICRO");
+	classify_eval testYadllEEBS1Recall = Recall(task=${testTask}, method=${yadllEEBS1Sieve}, mode="MICRO");
+	
+	classify_eval devYadllEEBS3Precision = Precision(task=${devTask}, method=${yadllEEBS3Sieve}, mode="MICRO");
+	classify_eval devYadllEEBS3Recall = Recall(task=${devTask}, method=${yadllEEBS3Sieve}, mode="MICRO");
+	classify_eval testYadllEEBS3Precision = Precision(task=${testTask}, method=${yadllEEBS3Sieve}, mode="MICRO");
+	classify_eval testYadllEEBS3Recall = Recall(task=${testTask}, method=${yadllEEBS3Sieve}, mode="MICRO");
+	
+	classify_eval devYadllEEBS5Precision = Precision(task=${devTask}, method=${yadllEEBS5Sieve}, mode="MICRO");
+	classify_eval devYadllEEBS5Recall = Recall(task=${devTask}, method=${yadllEEBS5Sieve}, mode="MICRO");
+	classify_eval testYadllEEBS5Precision = Precision(task=${testTask}, method=${yadllEEBS5Sieve}, mode="MICRO");
+	classify_eval testYadllEEBS5Recall = Recall(task=${testTask}, method=${yadllEEBS5Sieve}, mode="MICRO");
+	
+	classify_eval devYadllEEBS7Precision = Precision(task=${devTask}, method=${yadllEEBS7Sieve}, mode="MICRO");
+	classify_eval devYadllEEBS7Recall = Recall(task=${devTask}, method=${yadllEEBS7Sieve}, mode="MICRO");
+	classify_eval testYadllEEBS7Precision = Precision(task=${testTask}, method=${yadllEEBS7Sieve}, mode="MICRO");
+	classify_eval testYadllEEBS7Recall = Recall(task=${testTask}, method=${yadllEEBS7Sieve}, mode="MICRO");
+	
+	classify_eval devYadllEEBS9Precision = Precision(task=${devTask}, method=${yadllEEBS9Sieve}, mode="MICRO");
+	classify_eval devYadllEEBS9Recall = Recall(task=${devTask}, method=${yadllEEBS9Sieve}, mode="MICRO");
+	classify_eval testYadllEEBS9Precision = Precision(task=${testTask}, method=${yadllEEBS9Sieve}, mode="MICRO");
+	classify_eval testYadllEEBS9Recall = Recall(task=${testTask}, method=${yadllEEBS9Sieve}, mode="MICRO");
+	
+	
+	classify_eval devYadllEED1Precision = Precision(task=${devTask}, method=${yadllEED1Sieve}, mode="MICRO");
+	classify_eval devYadllEED1Recall = Recall(task=${devTask}, method=${yadllEED1Sieve}, mode="MICRO");
+	classify_eval testYadllEED1Precision = Precision(task=${testTask}, method=${yadllEED1Sieve}, mode="MICRO");
+	classify_eval testYadllEED1Recall = Recall(task=${testTask}, method=${yadllEED1Sieve}, mode="MICRO");
+	
+	classify_eval devYadllEED3Precision = Precision(task=${devTask}, method=${yadllEED3Sieve}, mode="MICRO");
+	classify_eval devYadllEED3Recall = Recall(task=${devTask}, method=${yadllEED3Sieve}, mode="MICRO");
+	classify_eval testYadllEED3Precision = Precision(task=${testTask}, method=${yadllEED3Sieve}, mode="MICRO");
+	classify_eval testYadllEED3Recall = Recall(task=${testTask}, method=${yadllEED3Sieve}, mode="MICRO");
+	
+	classify_eval devYadllEED5Precision = Precision(task=${devTask}, method=${yadllEED5Sieve}, mode="MICRO");
+	classify_eval devYadllEED5Recall = Recall(task=${devTask}, method=${yadllEED5Sieve}, mode="MICRO");
+	classify_eval testYadllEED5Precision = Precision(task=${testTask}, method=${yadllEED5Sieve}, mode="MICRO");
+	classify_eval testYadllEED5Recall = Recall(task=${testTask}, method=${yadllEED5Sieve}, mode="MICRO");
+	
+	classify_eval devYadllEED7Precision = Precision(task=${devTask}, method=${yadllEED7Sieve}, mode="MICRO");
+	classify_eval devYadllEED7Recall = Recall(task=${devTask}, method=${yadllEED7Sieve}, mode="MICRO");
+	classify_eval testYadllEED7Precision = Precision(task=${testTask}, method=${yadllEED7Sieve}, mode="MICRO");
+	classify_eval testYadllEED7Recall = Recall(task=${testTask}, method=${yadllEED7Sieve}, mode="MICRO");
+	
+	classify_eval devYadllEED9Precision = Precision(task=${devTask}, method=${yadllEED9Sieve}, mode="MICRO");
+	classify_eval devYadllEED9Recall = Recall(task=${devTask}, method=${yadllEED9Sieve}, mode="MICRO");
+	classify_eval testYadllEED9Precision = Precision(task=${testTask}, method=${yadllEED9Sieve}, mode="MICRO");
+	classify_eval testYadllEED9Recall = Recall(task=${testTask}, method=${yadllEED9Sieve}, mode="MICRO");
+
+	value strSieveEvals = 
+		OutputStrings(id="TLink_CAEVO_Extended_Sieve_Evals", storage="EventString", collection="ExperimentEvaluationOutput", 
+	                 refs=
+	                 (
+		                 ${devAdjETPrecision}, ${devAdjETRecall},
+		                 ${testAdjETPrecision}, ${testAdjETRecall},
+		                 ${devGenGovPrecision}, ${devGenGovRecall},
+		                 ${testGenGovPrecision}, ${testGenGovRecall},
+		                 ${devReichenbachPrecision}, ${devReichenbachRecall},
+		                 ${testReichenbachPrecision}, ${testReichenbachRecall},
+		                 ${devRepGovPrecision}, ${devRepGovRecall},
+		                 ${testRepGovPrecision}, ${testRepGovRecall}, 
+		                 ${devTimeTimePrecision}, ${devTimeTimeRecall},
+		                 ${testTimeTimePrecision}, ${testTimeTimeRecall},     
+		                 ${devAllVaguePrecision}, ${devAllVagueRecall},
+		                 ${testAllVaguePrecision}, ${testAllVagueRecall},   
+		                 
+		                 ${devYadllDCT1Precision}, ${devYadllDCT1Recall},
+		                 ${testYadllDCT1Precision}, ${testYadllDCT1Recall},
+		                 ${devYadllDCT3Precision}, ${devYadllDCT3Recall},
+		                 ${testYadllDCT3Precision}, ${testYadllDCT3Recall},	   		                 
+		                 ${devYadllDCT5Precision}, ${devYadllDCT5Recall},
+		                 ${testYadllDCT5Precision}, ${testYadllDCT5Recall},	   
+		                 ${devYadllDCT7Precision}, ${devYadllDCT7Recall},
+		                 ${testYadllDCT7Precision}, ${testYadllDCT7Recall},	   
+		                 ${devYadllDCT9Precision}, ${devYadllDCT9Recall},
+		                 ${testYadllDCT9Precision}, ${testYadllDCT9Recall},	   
+		                 		                              
+		                 ${devYadllETWS1Precision}, ${devYadllETWS1Recall},
+		                 ${testYadllETWS1Precision}, ${testYadllETWS1Recall},
+		                 ${devYadllETWS3Precision}, ${devYadllETWS3Recall},
+		                 ${testYadllETWS3Precision}, ${testYadllETWS3Recall},	   		                 
+		                 ${devYadllETWS5Precision}, ${devYadllETWS5Recall},
+		                 ${testYadllETWS5Precision}, ${testYadllETWS5Recall},	   
+		                 ${devYadllETWS7Precision}, ${devYadllETWS7Recall},
+		                 ${testYadllETWS7Precision}, ${testYadllETWS7Recall},	   
+		                 ${devYadllETWS9Precision}, ${devYadllETWS9Recall},
+		                 ${testYadllETWS9Precision}, ${testYadllETWS9Recall},	   		                 		                              
+		                 		                              
+		                 ${devYadllETBS1Precision}, ${devYadllETBS1Recall},
+		                 ${testYadllETBS1Precision}, ${testYadllETBS1Recall},
+		                 ${devYadllETBS3Precision}, ${devYadllETBS3Recall},
+		                 ${testYadllETBS3Precision}, ${testYadllETBS3Recall},	   		                 
+		                 ${devYadllETBS5Precision}, ${devYadllETBS5Recall},
+		                 ${testYadllETBS5Precision}, ${testYadllETBS5Recall},	   
+		                 ${devYadllETBS7Precision}, ${devYadllETBS7Recall},
+		                 ${testYadllETBS7Precision}, ${testYadllETBS7Recall},	   
+		                 ${devYadllETBS9Precision}, ${devYadllETBS9Recall},
+		                 ${testYadllETBS9Precision}, ${testYadllETBS9Recall},	 		                 		                              
+		                 		                                     		
+		                 ${devYadllEEWS1Precision}, ${devYadllEEWS1Recall},
+		                 ${testYadllEEWS1Precision}, ${testYadllEEWS1Recall},
+		                 ${devYadllEEWS3Precision}, ${devYadllEEWS3Recall},
+		                 ${testYadllEEWS3Precision}, ${testYadllEEWS3Recall},	   		                 
+		                 ${devYadllEEWS5Precision}, ${devYadllEEWS5Recall},
+		                 ${testYadllEEWS5Precision}, ${testYadllEEWS5Recall},	   
+		                 ${devYadllEEWS7Precision}, ${devYadllEEWS7Recall},
+		                 ${testYadllEEWS7Precision}, ${testYadllEEWS7Recall},	   
+		                 ${devYadllEEWS9Precision}, ${devYadllEEWS9Recall},
+		                 ${testYadllEEWS9Precision}, ${testYadllEEWS9Recall},	   		                 		                              
+		                 		                              
+		                 ${devYadllEEBS1Precision}, ${devYadllEEBS1Recall},
+		                 ${testYadllEEBS1Precision}, ${testYadllEEBS1Recall},
+		                 ${devYadllEEBS3Precision}, ${devYadllEEBS3Recall},
+		                 ${testYadllEEBS3Precision}, ${testYadllEEBS3Recall},	   		                 
+		                 ${devYadllEEBS5Precision}, ${devYadllEEBS5Recall},
+		                 ${testYadllEEBS5Precision}, ${testYadllEEBS5Recall},	   
+		                 ${devYadllEEBS7Precision}, ${devYadllEEBS7Recall},
+		                 ${testYadllEEBS7Precision}, ${testYadllEEBS7Recall},	   
+		                 ${devYadllEEBS9Precision}, ${devYadllEEBS9Recall},
+		                 ${testYadllEEBS9Precision}, ${testYadllEEBS9Recall},	 		                 		                                     		
+		                 		   
+		                 ${devYadllEED1Precision}, ${devYadllEED1Recall},
+		                 ${testYadllEED1Precision}, ${testYadllEED1Recall},
+		                 ${devYadllEED3Precision}, ${devYadllEED3Recall},
+		                 ${testYadllEED3Precision}, ${testYadllEED3Recall},	   		                 
+		                 ${devYadllEED5Precision}, ${devYadllEED5Recall},
+		                 ${testYadllEED5Precision}, ${testYadllEED5Recall},	   
+		                 ${devYadllEED7Precision}, ${devYadllEED7Recall},
+		                 ${testYadllEED7Precision}, ${testYadllEED7Recall},	   
+		                 ${devYadllEED9Precision}, ${devYadllEED9Recall},
+		                 ${testYadllEED9Precision}, ${testYadllEED9Recall}		                 		   
+	                 ));
+	   
+	structurizer docStruct = TLinkDocument(labelMapping="TBD");
+};
+
+rule b_b_b = (And(c1=BEFORE(r1=O(id=[id1]), r2=O(id=[id2])), c2=BEFORE(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule b_i_b = (And(c1=BEFORE(r1=O(id=[id1]), r2=O(id=[id2])), c2=INCLUDES(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule b_s_b = (And(c1=BEFORE(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule b_l_b = (And(c1=BEFORE(r1=O(id=[id1]), r2=O(id=[id2])), c2=OVERLAPS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule ii_b_b = (And(c1=IS_INCLUDED(r1=O(id=[id1]), r2=O(id=[id2])), c2=BEFORE(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule ii_ii_ii = (And(c1=IS_INCLUDED(r1=O(id=[id1]), r2=O(id=[id2])), c2=IS_INCLUDED(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (IS_INCLUDED(r1=O(id=${id1}), r2=O(id=${id3})));
+rule ii_s_ii = (And(c1=IS_INCLUDED(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (IS_INCLUDED(r1=O(id=${id1}), r2=O(id=${id3})));
+rule ii_a_a = (And(c1=IS_INCLUDED(r1=O(id=[id1]), r2=O(id=[id2])), c2=AFTER(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule i_i_i = (And(c1=INCLUDES(r1=O(id=[id1]), r2=O(id=[id2])), c2=INCLUDES(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (INCLUDES(r1=O(id=${id1}), r2=O(id=${id3})));
+rule i_s_i = (And(c1=INCLUDES(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (INCLUDES(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_b_b = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=BEFORE(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_ii_ii = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=IS_INCLUDED(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (IS_INCLUDED(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_i_i = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=INCLUDES(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (INCLUDES(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_s_s = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (SIMULTANEOUS(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_a_a = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=AFTER(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_l_l = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=OVERLAPS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (OVERLAPS(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_lb_lb = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=OVERLAPPED_BY(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (OVERLAPPED_BY(r1=O(id=${id1}), r2=O(id=${id3})));
+rule a_i_a = (And(c1=AFTER(r1=O(id=[id1]), r2=O(id=[id2])), c2=INCLUDES(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule a_s_a = (And(c1=AFTER(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule a_a_a = (And(c1=AFTER(r1=O(id=[id1]), r2=O(id=[id2])), c2=AFTER(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule a_lb_a = (And(c1=AFTER(r1=O(id=[id1]), r2=O(id=[id2])), c2=OVERLAPPED_BY(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule l_b_b = (And(c1=OVERLAPS(r1=O(id=[id1]), r2=O(id=[id2])), c2=BEFORE(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule l_s_l = (And(c1=OVERLAPS(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (OVERLAPS(r1=O(id=${id1}), r2=O(id=${id3})));
+rule lb_s_lb = (And(c1=OVERLAPPED_BY(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (OVERLAPPED_BY(r1=O(id=${id1}), r2=O(id=${id3})));
+rule lb_a_a = (And(c1=OVERLAPPED_BY(r1=O(id=[id1]), r2=O(id=[id2])), c2=AFTER(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+
+rule_set tlinkTransitiveRules = RuleSet(rules=(${b_b_b}, ${b_i_b}, ${b_s_b}, ${b_l_b}, ${ii_b_b}, 
+                                                     ${ii_ii_ii}, ${ii_s_ii}, ${ii_a_a}, ${i_i_i}, ${i_s_i},
+                                                     ${s_b_b}, ${s_ii_ii}, ${s_i_i}, ${s_s_s}, ${s_a_a}, ${s_l_l},
+                                                     ${s_lb_lb}, ${a_i_a}, ${a_s_a}, ${a_a_a}, ${a_lb_a}, ${l_b_b},
+                                                     ${l_s_l}, ${lb_s_lb}, ${lb_a_a}));
+
+structure_fn graphPaths = GraphPaths(length="2", ignoreTypes=("VAGUE"));
+structure_fn greedyTlinkTransitiveRules = GreedyStructureRules(rules=${tlinkTransitiveRules}, splitFn=${graphPaths});
+
+multi_classify_method caevo = Sieve(methods=(${tlinkTypeCtx.adjETSieve}, ${tlinkTypeCtx.timeTimeSieve},
+                                             ${tlinkTypeCtx.repGovSieve}, ${tlinkTypeCtx.reichenbachSieve}, 
+                                             ${tlinkTypeCtx.genGovSieve}, ${tlinkTypeCtx.allVagueSieve},
+                                             
+                                             ${tlinkTypeCtx.yadllETWS1Sieve}, ${tlinkTypeCtx.yadllETWS3Sieve}, 
+                                             ${tlinkTypeCtx.yadllETWS5Sieve}, ${tlinkTypeCtx.yadllETWS7Sieve},                                              
+                                             ${tlinkTypeCtx.yadllETWS9Sieve},
+
+                                             ${tlinkTypeCtx.yadllETBS1Sieve}, ${tlinkTypeCtx.yadllETBS3Sieve}, 
+                                             ${tlinkTypeCtx.yadllETBS5Sieve}, ${tlinkTypeCtx.yadllETBS7Sieve},                                              
+                                             ${tlinkTypeCtx.yadllETBS9Sieve},                                             
+
+                                             ${tlinkTypeCtx.yadllEEWS1Sieve}, ${tlinkTypeCtx.yadllEEWS3Sieve}, 
+                                             ${tlinkTypeCtx.yadllEEWS5Sieve}, ${tlinkTypeCtx.yadllEEWS7Sieve},                                              
+                                             ${tlinkTypeCtx.yadllEEWS9Sieve},
+
+                                             ${tlinkTypeCtx.yadllEEBS1Sieve}, ${tlinkTypeCtx.yadllEEBS3Sieve}, 
+                                             ${tlinkTypeCtx.yadllEEBS5Sieve}, ${tlinkTypeCtx.yadllEEBS7Sieve},                                              
+                                             ${tlinkTypeCtx.yadllEEBS9Sieve},    
+
+                                             ${tlinkTypeCtx.yadllEED1Sieve}, ${tlinkTypeCtx.yadllEED3Sieve}, 
+                                             ${tlinkTypeCtx.yadllEED5Sieve}, ${tlinkTypeCtx.yadllEED7Sieve},                                              
+                                             ${tlinkTypeCtx.yadllEED9Sieve},
+                                             
+                                             ${tlinkTypeCtx.yadllDCT1Sieve}, ${tlinkTypeCtx.yadllDCT3Sieve}, 
+                                             ${tlinkTypeCtx.yadllDCT5Sieve}, ${tlinkTypeCtx.yadllDCT7Sieve},                                              
+                                             ${tlinkTypeCtx.yadllDCT9Sieve}),  
+                                                                       
+                                    structurizers=(${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct},
+                                                   
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct},
+                                                   
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct},
+                                                   
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct},
+                                                   
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct},
+                                                   
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct}),
+                                    permutationMeasures=(${tlinkTypeCtx.devAdjETPrecision}, ${tlinkTypeCtx.devTimeTimePrecision},
+                                                      ${tlinkTypeCtx.devRepGovPrecision}, ${tlinkTypeCtx.devReichenbachPrecision},
+                                                      ${tlinkTypeCtx.devGenGovPrecision}, ${tlinkTypeCtx.devAllVaguePrecision},                                    
+                                                      
+                                                      ${tlinkTypeCtx.devYadllETWS1Precision}, ${tlinkTypeCtx.devYadllETWS3Precision}, 
+                                                      ${tlinkTypeCtx.devYadllETWS5Precision}, ${tlinkTypeCtx.devYadllETWS7Precision}, 
+                                                      ${tlinkTypeCtx.devYadllETWS9Precision}, 
+
+                                                      ${tlinkTypeCtx.devYadllETBS1Precision}, ${tlinkTypeCtx.devYadllETBS3Precision}, 
+                                                      ${tlinkTypeCtx.devYadllETBS5Precision}, ${tlinkTypeCtx.devYadllETBS7Precision}, 
+                                                      ${tlinkTypeCtx.devYadllETBS9Precision}, 
+
+                                                      ${tlinkTypeCtx.devYadllEEWS1Precision}, ${tlinkTypeCtx.devYadllEEWS3Precision}, 
+                                                      ${tlinkTypeCtx.devYadllEEWS5Precision}, ${tlinkTypeCtx.devYadllEEWS7Precision}, 
+                                                      ${tlinkTypeCtx.devYadllEEWS9Precision}, 
+
+                                                      ${tlinkTypeCtx.devYadllEEBS1Precision}, ${tlinkTypeCtx.devYadllEEBS3Precision}, 
+                                                      ${tlinkTypeCtx.devYadllEEBS5Precision}, ${tlinkTypeCtx.devYadllEEBS7Precision}, 
+                                                      ${tlinkTypeCtx.devYadllEEBS9Precision}, 
+                                                      
+                                                      ${tlinkTypeCtx.devYadllEED1Precision}, ${tlinkTypeCtx.devYadllEED3Precision}, 
+                                                      ${tlinkTypeCtx.devYadllEED5Precision}, ${tlinkTypeCtx.devYadllEED7Precision}, 
+                                                      ${tlinkTypeCtx.devYadllEED9Precision}, 
+
+                                                      ${tlinkTypeCtx.devYadllDCT1Precision}, ${tlinkTypeCtx.devYadllDCT3Precision}, 
+                                                      ${tlinkTypeCtx.devYadllDCT5Precision}, ${tlinkTypeCtx.devYadllDCT7Precision}, 
+                                                      ${tlinkTypeCtx.devYadllDCT9Precision}
+                                    ),
+                                    structureTransformFn=${greedyTlinkTransitiveRules});
+
+multi_classify_task multiDevTask = MultiClassification(tasks=(${tlinkTypeCtx.devTask}));
+multi_classify_task multiTestTask = MultiClassification(tasks=(${tlinkTypeCtx.testTask}));
+
+multi_classify_eval multiDevPrecision = Precision(task=${multiDevTask}, method=${caevo}, mode="MICRO");
+multi_classify_eval multiDevRecall = Recall(task=${multiDevTask}, method=${caevo}, mode="MICRO");
+multi_classify_eval multiTestPrecision = Precision(task=${multiTestTask}, method=${caevo}, mode="MICRO");
+multi_classify_eval multiTestRecall = Recall(task=${multiTestTask}, method=${caevo}, mode="MICRO");
+
+value strEvals = OutputStrings(id="TLink_CAEVO_Extended_Evals", storage="EventString", collection="ExperimentEvaluationOutput", 
+                 refs=
+                 (
+	                 ${multiDevPrecision}, ${multiDevRecall},
+	                 ${multiTestPrecision}, ${multiTestRecall}
+                 ));

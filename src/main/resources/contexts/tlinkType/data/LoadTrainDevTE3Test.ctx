@@ -1,0 +1,58 @@
+context dataParamsTlinkType = TLinkType(initScript="/tlinkType/data/parameters/TBD.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD.ctx", initOnce="true", initOverrideByName="true");
+context dataParamsTlinkTypeTE3 = TLinkType(initScript="/tlinkType/data/parameters/TE3Labeled.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDocsTlinkTypeTE3 = TLinkType(initScript="/util/data/docs/TE34Fold_0.ctx", initOnce="true", initOverrideByName="true");
+
+data trainDataTBD = TLinkType(storage="EventBson", documents=${dataParamsTlinkType.trainDocs}, tlinks=${dataParamsTlinkType.trainTlinks}, filter=${trainDevTestDocsTlinkType.devTestDocs}, filterType="EXCLUDE", labelMode=${dataParamsTlinkType.trainLabelMode}, labelMapping=${dataParamsTlinkType.trainLM}, maxSentenceDistance=${dataParamsTlinkType.trainMaxSentDist}, crossDocMode=${dataParamsTlinkType.trainCrossDocMode}, clusterMode=${dataParamsTlinkType.trainClusterMode});
+data devDataTBD = TLinkType(storage="EventBson", documents=${dataParamsTlinkType.devDocs}, tlinks=${dataParamsTlinkType.devTlinks}, filter=${trainDevTestDocsTlinkType.devDocs}, filterType="INTERSECT", labelMode=${dataParamsTlinkType.devLabelMode}, labelMapping=${dataParamsTlinkType.devLM}, maxSentenceDistance=${dataParamsTlinkType.devMaxSentDist}, crossDocMode=${dataParamsTlinkType.devCrossDocMode}, clusterMode=${dataParamsTlinkType.devClusterMode});
+data testData = TLinkType(storage="EventBson", documents=${dataParamsTlinkType.testDocs}, tlinks=${dataParamsTlinkType.testTlinks}, filter=${trainDevTestDocsTlinkType.testDocs}, filterType="INTERSECT", labelMode=${dataParamsTlinkType.testLabelMode}, labelMapping=${dataParamsTlinkType.testLM}, maxSentenceDistance=${dataParamsTlinkType.testMaxSentDist}, crossDocMode=${dataParamsTlinkType.testCrossDocMode}, clusterMode=${dataParamsTlinkType.testClusterMode});
+
+data trainDataTE3 = TLinkType(storage="EventBson", documents=${dataParamsTlinkTypeTE3.trainDocs}, tlinks=${dataParamsTlinkTypeTE3.trainTlinks}, filter=${trainDevTestDocsTlinkTypeTE3.devTestDocs}, filterType="EXCLUDE", labelMode=${dataParamsTlinkTypeTE3.trainLabelMode}, labelMapping=${dataParamsTlinkTypeTE3.trainLM}, maxSentenceDistance=${dataParamsTlinkTypeTE3.trainMaxSentDist}, crossDocMode=${dataParamsTlinkTypeTE3.trainCrossDocMode}, clusterMode=${dataParamsTlinkTypeTE3.trainClusterMode});
+data devDataTE3 = TLinkType(storage="EventBson", documents=${dataParamsTlinkTypeTE3.devDocs}, tlinks=${dataParamsTlinkTypeTE3.devTlinks}, filter=${trainDevTestDocsTlinkTypeTE3.devDocs}, filterType="INTERSECT", labelMode=${dataParamsTlinkTypeTE3.devLabelMode}, labelMapping=${dataParamsTlinkTypeTE3.devLM}, maxSentenceDistance=${dataParamsTlinkTypeTE3.devMaxSentDist}, crossDocMode=${dataParamsTlinkTypeTE3.devCrossDocMode}, clusterMode=${dataParamsTlinkTypeTE3.devClusterMode});
+
+data trainData = UnionData(data=(${trainDataTBD}, ${trainDataTE3}));
+data devData = UnionData(data=(${devDataTBD}, ${devDataTE3}));
+
+data trainDataEE = FilterData(data=${trainData}, datumIndicator="TypeEventEvent");
+data trainDataET = FilterData(data=${trainData}, datumIndicator="TypeEventTime");
+data trainDataTT = FilterData(data=${trainData}, datumIndicator="TypeTimeTime");
+
+data testDataEE = FilterData(data=${testData}, datumIndicator="TypeEventEvent");
+
+data trainDataDCT = FilterData(data=${trainDataET}, datumIndicator="PositionDCT");
+data trainDataETWS = FilterData(data=${trainDataET}, datumIndicator="PositionWithinSentence");
+data trainDataETBS = FilterData(data=${trainDataET}, datumIndicator="PositionBetweenSentence");
+data trainDataEEWS = FilterData(data=${trainDataEE}, datumIndicator="PositionWithinSentence");
+data trainDataEEBS = FilterData(data=${trainDataEE}, datumIndicator="PositionBetweenSentence");
+data trainDataEED = FilterData(data=${trainDataEE}, datumIndicator="PositionWithinSentenceDominant");
+data trainDataEEND = FilterData(data=${trainDataEE}, datumIndicator="PositionWithinSentenceNotDominant");
+
+data testDataEEWS = FilterData(data=${testDataEE}, datumIndicator="PositionWithinSentence");
+
+data trainTestDataEEWS = UnionData(data=(${trainDataEEWS}, ${testDataEEWS}));
+
+value ETDCTIndicator = ConjoinDatumIndicators(name="ETDCT", fns=("TypeEventTime", "PositionDCT"));
+value ETWSIndicator = ConjoinDatumIndicators(name="ETWS", fns=("TypeEventTime", "PositionWithinSentence"));
+value ETBSIndicator = ConjoinDatumIndicators(name="ETBS", fns=("TypeEventTime", "PositionBetweenSentence"));
+value EEWSIndicator = ConjoinDatumIndicators(name="EEWS", fns=("TypeEventEvent", "PositionWithinSentence"));
+value EEBSIndicator = ConjoinDatumIndicators(name="EEBS", fns=("TypeEventEvent", "PositionBetweenSentence"));
+value EEDIndicator = ConjoinDatumIndicators(name="EED", fns=("TypeEventEvent", "PositionWithinSentenceDominant"));
+value EENDIndicator = ConjoinDatumIndicators(name="EEND", fns=("TypeEventEvent", "PositionWithinSentenceNotDominant"));
+
+value countTBDTLinkTypeTrainData = SizeData(data=${trainData});
+value countTBDTLinkTypeDevData = SizeData(data=${devData});
+value countTBDTLinkTypeTestData = SizeData(data=${testData});
+value debugTrainData = OutputDebug(refs=(${countTBDTLinkTypeTrainData}));
+value debugDevData = OutputDebug(refs=(${countTBDTLinkTypeDevData}));
+value debugTestData = OutputDebug(refs=(${countTBDTLinkTypeTestData}));
+
+classify_task devTask = Classification(data=${devData});
+classify_task testTask = Classification(data=${testData});
+
+structurizer docStruct = GraphTLinkByDocument(labelMapping="TBD");
+structurizer docStructConserve = GraphTLinkByDocument(labelMapping="TBD", graphOverwriteOperator="CONSERVE");
+structurizer docStructMulti = GraphTLinkByDocument(graphEdgeMode="MULTI", graphNodeMode="MULTI", labelMapping="TBD");
+
+structurizer struct = GraphTLink(labelMapping="TBD");
+structurizer structConserve = GraphTLink(labelMapping="TBD", graphOverwriteOperator="CONSERVE");
+structurizer structMulti = GraphTLink(graphEdgeMode="MULTI", graphNodeMode="MULTI", labelMapping="TBD");

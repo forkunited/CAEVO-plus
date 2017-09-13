@@ -1,0 +1,8 @@
+rule c_s = (COREF(r1=O(id=[id1]), r2=O(id=[id2]))) -> (SIMULTANEOUS(r1=O(id=${id1}), r2=O(id=${id2})));
+rule b_n = (BEFORE(r1=O(id=[id1]), r2=O(id=[id2]))) -> (NOT_COREF(r1=O(id=${id1}), r2=O(id=${id2})));
+rule a_n = (AFTER(r1=O(id=[id1]), r2=O(id=[id2]))) -> (NOT_COREF(r1=O(id=${id1}), r2=O(id=${id2})));
+rule i_n = (INCLUDES(r1=O(id=[id1]), r2=O(id=[id2]))) -> (NOT_COREF(r1=O(id=${id1}), r2=O(id=${id2})));
+rule ii_n = (IS_INCLUDED(r1=O(id=[id1]), r2=O(id=[id2]))) -> (NOT_COREF(r1=O(id=${id1}), r2=O(id=${id2})));
+rule v_n = (VAGUE(r1=O(id=[id1]), r2=O(id=[id2]))) -> (NOT_COREF(r1=O(id=${id1}), r2=O(id=${id2})));
+
+rule_set rules = RuleSet(rules=(${c_s}, ${b_n}, ${a_n}, ${i_n}, ${ii_n}, ${v_n}));

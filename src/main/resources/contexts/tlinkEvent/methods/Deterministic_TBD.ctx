@@ -1,0 +1,10 @@
+classify_method genGovSieveUM = Det(rule="GENERAL_GOVERNOR");
+classify_method reichenbachSieveUM = Det(rule="REICHENBACH");
+classify_method repGovSieveUM = Det(rule="REPORTING_GOVERNOR");
+classify_method wordNetSieveUM = Det(rule="WORD_NET");
+
+classify_method genGov = LabelMapping(method=${genGovSieveUM}, labelMapping="TBD");
+classify_method reichenbach = LabelMapping(method=${reichenbachSieveUM}, labelMapping="TBD");
+classify_method repGov = LabelMapping(method=${repGovSieveUM}, labelMapping="TBD");
+classify_method wordNet = LabelMapping(method=${wordNetSieveUM}, labelMapping="TBD");
+classify_method allVague = Constant(label="VAGUE");

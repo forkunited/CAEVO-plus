@@ -1,0 +1,19 @@
+context trainDevTestDataEventCoref = EventCoref(initScript="/corefEvent/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context modelsEventCorefDet = EventCoref(initScript="/corefEvent/methods/Deterministic.ctx", initOnce="true", initOverrideByName="true");
+
+classify_eval devWordNetSynsetPrecision = Precision(task=${trainDevTestDataEventCoref.devTask}, method=${modelsEventCorefDet.wordNetSynsetSieve}, mode="MICRO", filterLabel="COREF");
+classify_eval devWordNetSynsetRecall = Recall(task=${trainDevTestDataEventCoref.devTask}, method=${modelsEventCorefDet.wordNetSynsetSieve}, mode="MICRO", filterLabel="COREF");
+classify_eval testWordNetSynsetPrecision = Precision(task=${trainDevTestDataEventCoref.testTask}, method=${modelsEventCorefDet.wordNetSynsetSieve}, mode="MICRO", filterLabel="COREF");
+classify_eval testWordNetSynsetRecall = Recall(task=${trainDevTestDataEventCoref.testTask}, method=${modelsEventCorefDet.wordNetSynsetSieve}, mode="MICRO", filterLabel="COREF");
+
+classify_eval devWordNetLemmaPrecision = Precision(task=${trainDevTestDataEventCoref.devTask}, method=${modelsEventCorefDet.wordNetLemmaSieve}, mode="MICRO", filterLabel="COREF");
+classify_eval devWordNetLemmaRecall = Recall(task=${trainDevTestDataEventCoref.devTask}, method=${modelsEventCorefDet.wordNetLemmaSieve}, mode="MICRO", filterLabel="COREF");
+classify_eval testWordNetLemmaPrecision = Precision(task=${trainDevTestDataEventCoref.testTask}, method=${modelsEventCorefDet.wordNetLemmaSieve}, mode="MICRO", filterLabel="COREF");
+classify_eval testWordNetLemmaRecall = Recall(task=${trainDevTestDataEventCoref.testTask}, method=${modelsEventCorefDet.wordNetLemmaSieve}, mode="MICRO", filterLabel="COREF");
+
+classify_eval devAllNotCorefPrecision = Precision(task=${trainDevTestDataEventCoref.devTask}, method=${modelsEventCorefDet.allNotCoref}, mode="MICRO");
+classify_eval devAllNotCorefRecall = Recall(task=${trainDevTestDataEventCoref.devTask}, method=${modelsEventCorefDet.allNotCoref}, mode="MICRO");
+classify_eval testAllNotCorefPrecision = Precision(task=${trainDevTestDataEventCoref.testTask}, method=${modelsEventCorefDet.allNotCoref}, mode="MICRO");
+classify_eval testAllNotCorefRecall = Recall(task=${trainDevTestDataEventCoref.testTask}, method=${modelsEventCorefDet.allNotCoref}, mode="MICRO");
+
+classify_eval devZero = Constant(value="0.0");

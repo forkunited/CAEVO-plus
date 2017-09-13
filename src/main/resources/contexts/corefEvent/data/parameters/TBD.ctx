@@ -1,0 +1,13 @@
+value trainDocs="tbd_docs";
+value devDocs="tbd_docs";
+value testDocs="tbd_docs";
+value trainLabelMode="ALL_AS_UNLABELED";
+value devLabelMode="ALL_AS_UNLABELED";
+value testLabelMode="ALL_AS_UNLABELED";
+value trainClusterMode="POST";
+value devClusterMode="POST";
+value testClusterMode="POST";
+
+array labels = ("COREF", "NOT_COREF");
+value labelCount = SizeArray(array=${labels});
+

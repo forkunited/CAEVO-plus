@@ -1,0 +1,13 @@
+context modelsTlinkTypeSieve = TLinkType(initScript="/tlinkType/methods/CAEVO_Conserve.ctx", initOnce="true", initOverrideByName="true");
+context unlabeledData = TLinkType(initScript="/tlinkType/data/Load.ctx", initOnce="true");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="true");
+
+multi_classify_method st = SelfTrain(method=${modelsTlinkTypeSieve.sieve}, 
+                                     unlabeledData=(${unlabeledData.data}), 
+                                     trainIters="9",
+                                     trainOnInit="true", 
+                                     evaluations=(${evalSieve.multiDevPrecision}, ${evalSieve.multiDevRecall}),
+                                     incremental="true",
+                                     incrementSize="300");
+                                     
+multi_classify_method stInit = InitMultiClassifyMethod(method=${st}, devTask=${evalSieve.multiDevTask});

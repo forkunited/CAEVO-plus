@@ -1,0 +1,32 @@
+context dataParamsTlinkType = TLinkType(initScript="/tlinkType/data/parameters/TBD.ctx", initOnce="true", initOverrideByName="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_Plus.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataTlinkType = TLinkType(initScript="/tlinkType/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+
+data_features trainMatrixEE = DataFeatureMatrix(data=${trainDevTestDataTlinkType.trainDataEE}, features=${featureSetsTlinkType.fsEE});
+data_features trainMatrixET = DataFeatureMatrix(data=${trainDevTestDataTlinkType.trainDataET}, features=${featureSetsTlinkType.fsET});
+
+model yadll=YADLL(numEpochs="40", stepSize=".1", 
+				  fnNodes=("Softmax", "NegativeLogLoss"), 
+				  fnParameters=("Zeros", "Zeros"), 
+				  Softmax_0_input="Zeros_0*x+Zeros_1", 
+				  Softmax_0_size=${dataParamsTlinkType.labelCount}, 
+				  NegativeLogLoss_1_input="Softmax_0", 
+				  NegativeLogLoss_1_size="1", 
+				  targetFnNode="Softmax_0",
+				  lossFnNode="NegativeLogLoss_1",
+				  earlyStopping="true") {
+	array validLabels=${dataParamsTlinkType.labels};
+};
+
+evaluation acc=Accuracy();
+classify_method yadllETUnfiltered = SupervisedModel(model=${yadll}, data=${trainMatrixET}, trainEvaluation=${acc});
+classify_method yadllEEUnfiltered = SupervisedModel(model=${yadll}, data=${trainMatrixEE}, trainEvaluation=${acc});
+
+classify_method yadllETUnfilteredP = CloneClassifyMethod(method=${yadllETUnfiltered}, numEpochs="4000");
+classify_method yadllEEUnfilteredP = CloneClassifyMethod(method=${yadllEEUnfiltered}, numEpochs="4000");
+
+classify_method yadllETSub = FilterDatumIndicator(method=${yadllETUnfilteredP}, datumIndicator="TypeEventTime");
+classify_method yadllEESub = FilterDatumIndicator(method=${yadllEEUnfilteredP}, datumIndicator="TypeEventEvent");
+
+classify_method yadllET = InitClassifyMethod(devData=${trainDevTestDataTlinkType.devData}, method=${yadllETSub});
+classify_method yadllEE = InitClassifyMethod(devData=${trainDevTestDataTlinkType.devData}, method=${yadllEESub});

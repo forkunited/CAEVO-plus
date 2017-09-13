@@ -1,0 +1,24 @@
+context dataParamsEventCoref = EventCoref(initScript="/corefEvent/data/parameters/ACE2005.ctx", initOnce="true", initOverrideByName="true");
+context featureSetsEventCoref = EventCoref(initScript="/corefEvent/featureSets/Base.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataEventCoref = EventCoref(initScript="/corefEvent/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+
+data_features trainMatrix = DataFeatureMatrix(data=${trainDevTestDataEventCoref.trainData}, features=${featureSetsEventCoref.fs});
+
+model yadllModel=YADLL(numEpochs="40", stepSize=".1", 
+				  fnNodes=("Softmax", "NegativeLogLoss"), 
+				  fnParameters=("Zeros", "Zeros"), 
+				  Softmax_0_input="Zeros_0*x+Zeros_1", 
+				  Softmax_0_size=${dataParamsEventCoref.labelCount}, 
+				  NegativeLogLoss_1_input="Softmax_0", 
+				  NegativeLogLoss_1_size="1", 
+				  targetFnNode="Softmax_0",
+				  lossFnNode="NegativeLogLoss_1",
+				  earlyStopping="true") {
+	array validLabels=${dataParamsEventCoref.labels};
+};
+
+evaluation acc=Accuracy();
+
+classify_method yadllUnfiltered = SupervisedModel(model=${yadllModel}, data=${trainMatrix}, trainEvaluation=${acc});
+classify_method yadllUnfilteredP = CloneClassifyMethod(method=${yadllUnfiltered}, numEpochs="2000");
+classify_method yadll = InitClassifyMethod(devData=${trainDevTestDataEventCoref.devData}, method=${yadllUnfilteredP});

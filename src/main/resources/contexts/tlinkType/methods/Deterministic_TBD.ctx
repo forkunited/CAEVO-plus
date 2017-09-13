@@ -1,0 +1,16 @@
+classify_method adjETSieveUM = AdjacentEventTime();
+classify_method genGovSieveUM = GeneralGovernor();
+classify_method reichenbachSieveUM = Reichenbach();
+classify_method repGovSieveUM = ReportingGovernor();
+classify_method timeTimeSieveUM = TimeTime();
+classify_method wordNetSieveUM = WordNet();
+classify_method reportingDCTSieveUM = ReportingDCT();
+
+classify_method adjET = LabelMapping(method=${adjETSieveUM}, labelMapping="TBD");
+classify_method genGov = LabelMapping(method=${genGovSieveUM}, labelMapping="TBD");
+classify_method reichenbach = LabelMapping(method=${reichenbachSieveUM}, labelMapping="TBD");
+classify_method repGov = LabelMapping(method=${repGovSieveUM}, labelMapping="TBD");
+classify_method timeTime = LabelMapping(method=${timeTimeSieveUM}, labelMapping="TBD");
+classify_method wordNet = LabelMapping(method=${wordNetSieveUM}, labelMapping="TBD");
+classify_method reportingDCT = LabelMapping(method=${reportingDCTSieveUM}, labelMapping="TBD");
+classify_method allVague = Constant(label="VAGUE", score="0.0");

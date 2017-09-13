@@ -1,0 +1,51 @@
+context modelsTlinkTypeDet = TLinkType(initScript="/tlinkType/methods/Deterministic_TBD.ctx", initOnce="true", initOverrideByName="true");
+
+classify_method adjETB = LabelMapping(method=${modelsTlinkTypeDet.adjETSieveUM}, labelMapping="OnlyB");
+classify_method genGovB = LabelMapping(method=${modelsTlinkTypeDet.genGovSieveUM}, labelMapping="OnlyB");
+classify_method reichenbachB = LabelMapping(method=${modelsTlinkTypeDet.reichenbachSieveUM}, labelMapping="OnlyB");
+classify_method repGovB = LabelMapping(method=${modelsTlinkTypeDet.repGovSieveUM}, labelMapping="OnlyB");
+classify_method timeTimeB = LabelMapping(method=${modelsTlinkTypeDet.timeTimeSieveUM}, labelMapping="OnlyB");
+classify_method wordNetB = LabelMapping(method=${modelsTlinkTypeDet.wordNetSieveUM}, labelMapping="OnlyB");
+classify_method reportingDCTB = LabelMapping(method=${modelsTlinkTypeDet.reportingDCTSieveUM}, labelMapping="OnlyB");
+
+classify_method adjETA = LabelMapping(method=${modelsTlinkTypeDet.adjETSieveUM}, labelMapping="OnlyA");
+classify_method genGovA = LabelMapping(method=${modelsTlinkTypeDet.genGovSieveUM}, labelMapping="OnlyA");
+classify_method reichenbachA = LabelMapping(method=${modelsTlinkTypeDet.reichenbachSieveUM}, labelMapping="OnlyA");
+classify_method repGovA = LabelMapping(method=${modelsTlinkTypeDet.repGovSieveUM}, labelMapping="OnlyA");
+classify_method timeTimeA = LabelMapping(method=${modelsTlinkTypeDet.timeTimeSieveUM}, labelMapping="OnlyA");
+classify_method wordNetA = LabelMapping(method=${modelsTlinkTypeDet.wordNetSieveUM}, labelMapping="OnlyA");
+classify_method reportingDCTA = LabelMapping(method=${modelsTlinkTypeDet.reportingDCTSieveUM}, labelMapping="OnlyA");
+
+classify_method adjETI = LabelMapping(method=${modelsTlinkTypeDet.adjETSieveUM}, labelMapping="OnlyI");
+classify_method genGovI = LabelMapping(method=${modelsTlinkTypeDet.genGovSieveUM}, labelMapping="OnlyI");
+classify_method reichenbachI = LabelMapping(method=${modelsTlinkTypeDet.reichenbachSieveUM}, labelMapping="OnlyI");
+classify_method repGovI = LabelMapping(method=${modelsTlinkTypeDet.repGovSieveUM}, labelMapping="OnlyI");
+classify_method timeTimeI = LabelMapping(method=${modelsTlinkTypeDet.timeTimeSieveUM}, labelMapping="OnlyI");
+classify_method wordNetI = LabelMapping(method=${modelsTlinkTypeDet.wordNetSieveUM}, labelMapping="OnlyI");
+classify_method reportingDCTI = LabelMapping(method=${modelsTlinkTypeDet.reportingDCTSieveUM}, labelMapping="OnlyI");
+
+classify_method adjETII = LabelMapping(method=${modelsTlinkTypeDet.adjETSieveUM}, labelMapping="OnlyII");
+classify_method genGovII = LabelMapping(method=${modelsTlinkTypeDet.genGovSieveUM}, labelMapping="OnlyII");
+classify_method reichenbachII = LabelMapping(method=${modelsTlinkTypeDet.reichenbachSieveUM}, labelMapping="OnlyII");
+classify_method repGovII = LabelMapping(method=${modelsTlinkTypeDet.repGovSieveUM}, labelMapping="OnlyII");
+classify_method timeTimeII = LabelMapping(method=${modelsTlinkTypeDet.timeTimeSieveUM}, labelMapping="OnlyII");
+classify_method wordNetII = LabelMapping(method=${modelsTlinkTypeDet.wordNetSieveUM}, labelMapping="OnlyII");
+classify_method reportingDCTII = LabelMapping(method=${modelsTlinkTypeDet.reportingDCTSieveUM}, labelMapping="OnlyII");
+
+classify_method adjETS = LabelMapping(method=${modelsTlinkTypeDet.adjETSieveUM}, labelMapping="OnlyS");
+classify_method genGovS = LabelMapping(method=${modelsTlinkTypeDet.genGovSieveUM}, labelMapping="OnlyS");
+classify_method reichenbachS = LabelMapping(method=${modelsTlinkTypeDet.reichenbachSieveUM}, labelMapping="OnlyS");
+classify_method repGovS = LabelMapping(method=${modelsTlinkTypeDet.repGovSieveUM}, labelMapping="OnlyS");
+classify_method timeTimeS = LabelMapping(method=${modelsTlinkTypeDet.timeTimeSieveUM}, labelMapping="OnlyS");
+classify_method wordNetS = LabelMapping(method=${modelsTlinkTypeDet.wordNetSieveUM}, labelMapping="OnlyS");
+classify_method reportingDCTS = LabelMapping(method=${modelsTlinkTypeDet.reportingDCTSieveUM}, labelMapping="OnlyS");
+
+classify_method adjETV = LabelMapping(method=${modelsTlinkTypeDet.adjETSieveUM}, labelMapping="OnlyV");
+classify_method genGovV = LabelMapping(method=${modelsTlinkTypeDet.genGovSieveUM}, labelMapping="OnlyV");
+classify_method reichenbachV = LabelMapping(method=${modelsTlinkTypeDet.reichenbachSieveUM}, labelMapping="OnlyV");
+classify_method repGovV = LabelMapping(method=${modelsTlinkTypeDet.repGovSieveUM}, labelMapping="OnlyV");
+classify_method timeTimeV = LabelMapping(method=${modelsTlinkTypeDet.timeTimeSieveUM}, labelMapping="OnlyV");
+classify_method wordNetV = LabelMapping(method=${modelsTlinkTypeDet.wordNetSieveUM}, labelMapping="OnlyV");
+classify_method reportingDCTV = LabelMapping(method=${modelsTlinkTypeDet.reportingDCTSieveUM}, labelMapping="OnlyV");
+
+

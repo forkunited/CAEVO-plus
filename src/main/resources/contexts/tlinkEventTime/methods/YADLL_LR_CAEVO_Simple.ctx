@@ -1,0 +1,37 @@
+context dataParamsEventTimeTLink = EventTimeTLink(initScript="/tlinkEventTime/data/parameters/TBD.ctx", initOnce="true", initOverrideByName="true");
+context featureSetsEventTimeTLink = EventTimeTLink(initScript="/tlinkEventTime/featureSets/CAEVO_Plus.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataEventTimeTLink = EventTimeTLink(initScript="/tlinkEventTime/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+
+data_features trainMatrixWSDCT = DataFeatureMatrix(data=${trainDevTestDataEventTimeTLink.trainDataWSDCT}, features=${featureSetsEventTimeTLink.fsWSDCT});
+data_features trainMatrixWS = DataFeatureMatrix(data=${trainDevTestDataEventTimeTLink.trainDataWS}, features=${featureSetsEventTimeTLink.fsWS});
+data_features trainMatrixDCT = DataFeatureMatrix(data=${trainDevTestDataEventTimeTLink.trainDataDCT}, features=${featureSetsEventTimeTLink.fsDCT});
+
+model yadll=YADLL(numEpochs="40", stepSize=".1", 
+				  fnNodes=("Softmax", "NegativeLogLoss"), 
+				  fnParameters=("Zeros", "Zeros"), 
+				  Softmax_0_input="Zeros_0*x+Zeros_1", 
+				  Softmax_0_size=${dataParamsEventTimeTLink.labelCount}, 
+				  NegativeLogLoss_1_input="Softmax_0", 
+				  NegativeLogLoss_1_size="1", 
+				  targetFnNode="Softmax_0",
+				  lossFnNode="NegativeLogLoss_1",
+				  earlyStopping="true") {
+	array validLabels=${dataParamsEventTimeTLink.labels};
+};
+
+evaluation acc=Accuracy();
+
+classify_method yadllWSDCTUnfiltered = SupervisedModel(model=${yadll}, data=${trainMatrixWSDCT}, trainEvaluation=${acc});
+classify_method yadllWSDCTUnfilteredP = CloneClassifyMethod(method=${yadllWSDCTUnfiltered}, numEpochs="4000");
+classify_method yadllWSDCTSub = FilterDatumIndicator(method=${yadllWSDCTUnfilteredP}, datumIndicator="SomeWithinSentenceOrDCT");
+classify_method yadllWSDCT = InitClassifyMethod(devData=${trainDevTestDataEventTimeTLink.devData}, method=${yadllWSDCTSub});
+
+classify_method yadllWSUnfiltered = SupervisedModel(model=${yadll}, data=${trainMatrixWS}, trainEvaluation=${acc});
+classify_method yadllWSUnfilteredP = CloneClassifyMethod(method=${yadllWSUnfiltered}, numEpochs="4000");
+classify_method yadllWSSub = FilterDatumIndicator(method=${yadllWSUnfilteredP}, datumIndicator="SomeWithinSentence");
+classify_method yadllWS = InitClassifyMethod(devData=${trainDevTestDataEventTimeTLink.devData}, method=${yadllWSSub});
+
+classify_method yadllDCTUnfiltered = SupervisedModel(model=${yadll}, data=${trainMatrixDCT}, trainEvaluation=${acc});
+classify_method yadllDCTUnfilteredP = CloneClassifyMethod(method=${yadllDCTUnfiltered}, numEpochs="4000");
+classify_method yadllDCTSub = FilterDatumIndicator(method=${yadllDCTUnfilteredP}, datumIndicator="SomeDCT");
+classify_method yadllDCT = InitClassifyMethod(devData=${trainDevTestDataEventTimeTLink.devData}, method=${yadllDCTSub});

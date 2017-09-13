@@ -1,0 +1,21 @@
+context trainDevTestDataTlinkType = TLinkType(initScript="/tlinkType/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context rulesTlinkTypeTransitive = TLinkType(initScript="/tlinkType/rules/Transitive.ctx", initOnce="true");
+context rulesTlinkTypeConverse = TLinkType(initScript="/tlinkType/rules/Converse.ctx", initOnce="true");
+context modelsTlinkTypeDet = TLinkType(initScript="/tlinkType/methods/Deterministic_TBD.ctx", initOnce="true", initOverrideByName="true");
+context modelsTlinkTypeSl = TLinkType(initScript="/tlinkType/methods/SL_CAEVO.ctx", initOnce="true", initOverrideByName="true");
+context evalTlinkTypeDet = TLinkType(initScript="/tlinkType/evaluations/Deterministic_TBD.ctx", initOnce="true", initOverrideByName="true");
+context evalTlinkTypeSl = TLinkType(initScript="/tlinkType/evaluations/SL.ctx", initOnce="true", initOverrideByName="true");
+
+structure_fn graphPaths2 = GraphPaths(length="2", ignoreTypes=("VAGUE"));
+structure_fn graphPaths1 = GraphPaths(length="1", ignoreTypes=("VAGUE"));
+structure_fn greedyTlinkTransitiveRules = GreedyStructureRules(rules=(${rulesTlinkTypeConverse.rules}, ${rulesTlinkTypeTransitive.rules}), 
+                                                               splitFns=(${graphPaths1}, ${graphPaths2}), singleRuleSetPerIteration="true");
+
+multi_classify_method sieve = Sieve(methods=(${modelsTlinkTypeDet.adjET}, ${modelsTlinkTypeDet.timeTime},
+                                             ${modelsTlinkTypeDet.repGov}, ${modelsTlinkTypeDet.reichenbach}, 
+                                             ${modelsTlinkTypeDet.genGov}, ${modelsTlinkTypeDet.wordNet},
+                                             ${modelsTlinkTypeDet.reportingDCT}),                                   
+                                    structurizers=(${trainDevTestDataTlinkType.docStructConserve}, ${trainDevTestDataTlinkType.docStructConserve},
+                                                   ${trainDevTestDataTlinkType.docStructConserve}, ${trainDevTestDataTlinkType.docStructConserve},
+                                                   ${trainDevTestDataTlinkType.docStructConserve}, ${trainDevTestDataTlinkType.docStructConserve},
+                                                   ${trainDevTestDataTlinkType.docStructConserve}));

@@ -1,0 +1,16 @@
+context trainDevTestDataEventTLink = EventTLink(initScript="/tlinkEvent/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context modelsEventTLinkYadll = EventTLink(initScript="/tlinkEvent/methods/YADLL_LR_CAEVO_Simple.ctx", initOnce="true", initOverrideByName="true");
+
+classify_eval devYadllWSPrecision = Precision(task=${trainDevTestDataEventTLink.devTask}, method=${modelsEventTLinkYadll.yadllWS}, mode="MICRO");
+classify_eval devYadllWSRecall = Recall(task=${trainDevTestDataEventTLink.devTask}, method=${modelsEventTLinkYadll.yadllWS}, mode="MICRO");
+classify_eval devYadllWSConfusions = ConfusionMatrix(task=${trainDevTestDataEventTLink.devTask}, method=${modelsEventTLinkYadll.yadllWS});
+classify_eval testYadllWSPrecision = Precision(task=${trainDevTestDataEventTLink.testTask}, method=${modelsEventTLinkYadll.yadllWS}, mode="MICRO");
+classify_eval testYadllWSRecall = Recall(task=${trainDevTestDataEventTLink.testTask}, method=${modelsEventTLinkYadll.yadllWS}, mode="MICRO");
+classify_eval testYadllWSConfusions = ConfusionMatrix(task=${trainDevTestDataEventTLink.testTask}, method=${modelsEventTLinkYadll.yadllWS});
+
+classify_eval devYadllEEDPrecision = Precision(task=${trainDevTestDataEventTLink.devTask}, method=${modelsEventTLinkYadll.yadllEED}, mode="MICRO");
+classify_eval devYadllEEDRecall = Recall(task=${trainDevTestDataEventTLink.devTask}, method=${modelsEventTLinkYadll.yadllEED}, mode="MICRO");
+classify_eval devYadllEEDConfusions = ConfusionMatrix(task=${trainDevTestDataEventTLink.devTask}, method=${modelsEventTLinkYadll.yadllEED});
+classify_eval testYadllEEDPrecision = Precision(task=${trainDevTestDataEventTLink.testTask}, method=${modelsEventTLinkYadll.yadllEED}, mode="MICRO");
+classify_eval testYadllEEDRecall = Recall(task=${trainDevTestDataEventTLink.testTask}, method=${modelsEventTLinkYadll.yadllEED}, mode="MICRO");
+classify_eval testYadllEEDConfusions = ConfusionMatrix(task=${trainDevTestDataEventTLink.testTask}, method=${modelsEventTLinkYadll.yadllEED});

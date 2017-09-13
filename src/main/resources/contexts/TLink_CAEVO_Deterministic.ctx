@@ -1,0 +1,180 @@
+value maxThreads="30";
+value debug=Debug(file="TLink_CAEVO.out");
+value randomSeed=SetRandomSeed(seed="1");
+value cleanFn=BuildCleanFn(name="BagOfWordsCleanFn", fns=("Trim", "RemoveSymbols", "ReplaceNumbers", "UnderscoreToSpace", "Trim", "RemoveLongTokens", "Stem", "SpaceToUnderscore"));
+
+context tlinkTypeCtx=TLinkType() {
+	array validLabels = ("BEFORE", "AFTER", "INCLUDES", "IS_INCLUDED", "SIMULTANEOUS", "VAGUE");
+	
+	data trainData = TimeBankDense(storage="EventBson", collection="tbd_tlinks", part="TRAIN", labelMapping="TBD");
+	data devData = TimeBankDense(storage="EventBson", collection="tbd_tlinks", part="DEV", labelMapping="TBD");
+	data testData = TimeBankDense(storage="EventBson", collection="tbd_tlinks", part="TEST", labelMapping="TBD");
+
+	data trainDataEE = FilterData(data=${trainData}, datumIndicator="TypeEventEvent");
+	data trainDataET = FilterData(data=${trainData}, datumIndicator="TypeEventTime");
+
+	data trainDataDCT = FilterData(data=${trainDataET}, datumIndicator="PositionDCT");
+	data trainDataETWS = FilterData(data=${trainDataET}, datumIndicator="PositionWithinSentence");
+	data trainDataETBS = FilterData(data=${trainDataET}, datumIndicator="PositionBetweenSentence");
+	data trainDataEEWS = FilterData(data=${trainDataEE}, datumIndicator="PositionWithinSentence");
+	data trainDataEEBS = FilterData(data=${trainDataEE}, datumIndicator="PositionBetweenSentence");
+	data trainDataEED = FilterData(data=${trainDataEE}, datumIndicator="PositionWithinSentenceDominant");
+
+	value ETDCTIndicator = ConjoinDatumIndicators(name="ETDCT", fns=("TypeEventTime", "PositionDCT"));
+	value ETWSIndicator = ConjoinDatumIndicators(name="ETWS", fns=("TypeEventTime", "PositionWithinSentence"));
+	value ETBSIndicator = ConjoinDatumIndicators(name="ETBS", fns=("TypeEventTime", "PositionBetweenSentence"));
+	value EEWSIndicator = ConjoinDatumIndicators(name="EEWS", fns=("TypeEventEvent", "PositionWithinSentence"));
+	value EEBSIndicator = ConjoinDatumIndicators(name="EEBS", fns=("TypeEventEvent", "PositionBetweenSentence"));
+	value EEDIndicator = ConjoinDatumIndicators(name="EED", fns=("TypeEventEvent", "PositionWithinSentenceDominant"));
+
+	value countTrainData = SizeData(data=${trainData});
+	value countDevData = SizeData(data=${devData});
+	value countTestData = SizeData(data=${testData});
+	value debugTrainData = OutputDebug(refs=(${countTrainData}));
+	value debugDevData = OutputDebug(refs=(${countDevData}));
+	value debugTestData = OutputDebug(refs=(${countTestData}));
+	
+	classify_task devTask = Classification(data=${devData});
+	classify_task testTask = Classification(data=${testData});
+	
+	classify_method adjETSieve = AdjacentEventTime();
+	classify_method genGovSieve = GeneralGovernor();
+	classify_method reichenbachSieve = Reichenbach();
+	classify_method repGovSieve = ReportingGovernor();
+	classify_method timeTimeSieve = TimeTime();
+	classify_method wordNetSieve = WordNet();
+	classify_method reportingDCTSieve = ReportingDCT();
+	
+	classify_method adjETSieveM = LabelMapping(method=${adjETSieve}, labelMapping="TBD");
+	classify_method genGovSieveM = LabelMapping(method=${genGovSieve}, labelMapping="TBD");
+	classify_method reichenbachSieveM = LabelMapping(method=${reichenbachSieve}, labelMapping="TBD");
+	classify_method repGovSieveM = LabelMapping(method=${repGovSieve}, labelMapping="TBD");
+	classify_method timeTimeSieveM = LabelMapping(method=${timeTimeSieve}, labelMapping="TBD");
+	classify_method wordNetSieveM = LabelMapping(method=${wordNetSieve}, labelMapping="TBD");
+	classify_method reportingDCTSieveM = LabelMapping(method=${reportingDCTSieve}, labelMapping="TBD");
+	classify_method allVagueSieve = Constant(label="VAGUE");
+	
+	classify_eval devAdjETPrecision = Precision(task=${devTask}, method=${adjETSieveM}, mode="MICRO");
+	classify_eval devAdjETRecall = Recall(task=${devTask}, method=${adjETSieveM}, mode="MICRO");
+	classify_eval testAdjETPrecision = Precision(task=${testTask}, method=${adjETSieveM}, mode="MICRO");
+	classify_eval testAdjETRecall = Recall(task=${testTask}, method=${adjETSieveM}, mode="MICRO");
+	
+	classify_eval devGenGovPrecision = Precision(task=${devTask}, method=${genGovSieveM}, mode="MICRO");
+	classify_eval devGenGovRecall = Recall(task=${devTask}, method=${genGovSieveM}, mode="MICRO");
+	classify_eval testGenGovPrecision = Precision(task=${testTask}, method=${genGovSieveM}, mode="MICRO");
+	classify_eval testGenGovRecall = Recall(task=${testTask}, method=${genGovSieveM}, mode="MICRO");
+	
+	classify_eval devReichenbachPrecision = Precision(task=${devTask}, method=${reichenbachSieveM}, mode="MICRO");
+	classify_eval devReichenbachRecall = Recall(task=${devTask}, method=${reichenbachSieveM}, mode="MICRO");
+	classify_eval testReichenbachPrecision = Precision(task=${testTask}, method=${reichenbachSieveM}, mode="MICRO");
+	classify_eval testReichenbachRecall = Recall(task=${testTask}, method=${reichenbachSieveM}, mode="MICRO");
+	
+	classify_eval devRepGovPrecision = Precision(task=${devTask}, method=${repGovSieveM}, mode="MICRO");
+	classify_eval devRepGovRecall = Recall(task=${devTask}, method=${repGovSieveM}, mode="MICRO");
+	classify_eval testRepGovPrecision = Precision(task=${testTask}, method=${repGovSieveM}, mode="MICRO");
+	classify_eval testRepGovRecall = Recall(task=${testTask}, method=${repGovSieveM}, mode="MICRO");
+	
+	classify_eval devTimeTimePrecision = Precision(task=${devTask}, method=${timeTimeSieveM}, mode="MICRO");
+	classify_eval devTimeTimeRecall = Recall(task=${devTask}, method=${timeTimeSieveM}, mode="MICRO");
+	classify_eval testTimeTimePrecision = Precision(task=${testTask}, method=${timeTimeSieveM}, mode="MICRO");
+	classify_eval testTimeTimeRecall = Recall(task=${testTask}, method=${timeTimeSieveM}, mode="MICRO");
+	
+	classify_eval devWordNetPrecision = Precision(task=${devTask}, method=${wordNetSieveM}, mode="MICRO");
+	classify_eval devWordNetRecall = Recall(task=${devTask}, method=${wordNetSieveM}, mode="MICRO");
+	classify_eval testWordNetPrecision = Precision(task=${testTask}, method=${wordNetSieveM}, mode="MICRO");
+	classify_eval testWordNetRecall = Recall(task=${testTask}, method=${wordNetSieveM}, mode="MICRO");
+
+	classify_eval devReportingDCTPrecision = Precision(task=${devTask}, method=${reportingDCTSieveM}, mode="MICRO");
+	classify_eval devReportingDCTRecall = Recall(task=${devTask}, method=${reportingDCTSieveM}, mode="MICRO");
+	classify_eval testReportingDCTPrecision = Precision(task=${testTask}, method=${reportingDCTSieveM}, mode="MICRO");
+	classify_eval testReportingDCTRecall = Recall(task=${testTask}, method=${reportingDCTSieveM}, mode="MICRO");
+	
+	classify_eval devAllVaguePrecision = Precision(task=${devTask}, method=${allVagueSieve}, mode="MICRO");
+	classify_eval devAllVagueRecall = Recall(task=${devTask}, method=${allVagueSieve}, mode="MICRO");
+	classify_eval testAllVaguePrecision = Precision(task=${testTask}, method=${allVagueSieve}, mode="MICRO");
+	classify_eval testAllVagueRecall = Recall(task=${testTask}, method=${allVagueSieve}, mode="MICRO");
+
+	value strSieveEvals = 
+		OutputStrings(id="TLink_CAEVO_Deterministic_Sieve_Evals", storage="EventString", collection="ExperimentEvaluationOutput", 
+	                 refs=
+	                 (
+		                 ${devAdjETPrecision}, ${devAdjETRecall},
+		                 ${testAdjETPrecision}, ${testAdjETRecall},
+		                 ${devGenGovPrecision}, ${devGenGovRecall},
+		                 ${testGenGovPrecision}, ${testGenGovRecall},
+		                 ${devReichenbachPrecision}, ${devReichenbachRecall},
+		                 ${testReichenbachPrecision}, ${testReichenbachRecall},
+		                 ${devRepGovPrecision}, ${devRepGovRecall},
+		                 ${testRepGovPrecision}, ${testRepGovRecall}, 
+		                 ${devTimeTimePrecision}, ${devTimeTimeRecall},
+		                 ${testTimeTimePrecision}, ${testTimeTimeRecall},    
+		                 ${devWordNetPrecision}, ${devWordNetRecall},
+		                 ${testWordNetPrecision}, ${testWordNetRecall},  
+		                 ${devReportingDCTPrecision}, ${devReportingDCTRecall},
+		                 ${testReportingDCTPrecision}, ${testReportingDCTRecall}, 
+		                 ${devAllVaguePrecision}, ${devAllVagueRecall},
+		                 ${testAllVaguePrecision}, ${testAllVagueRecall}
+	                 ));
+	   
+	structurizer docStruct = TLinkDocument(labelMapping="TBD");
+};
+
+rule b_b_b = (And(c1=BEFORE(r1=O(id=[id1]), r2=O(id=[id2])), c2=BEFORE(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule b_i_b = (And(c1=BEFORE(r1=O(id=[id1]), r2=O(id=[id2])), c2=INCLUDES(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule b_s_b = (And(c1=BEFORE(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule b_l_b = (And(c1=BEFORE(r1=O(id=[id1]), r2=O(id=[id2])), c2=OVERLAPS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule ii_b_b = (And(c1=IS_INCLUDED(r1=O(id=[id1]), r2=O(id=[id2])), c2=BEFORE(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule ii_ii_ii = (And(c1=IS_INCLUDED(r1=O(id=[id1]), r2=O(id=[id2])), c2=IS_INCLUDED(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (IS_INCLUDED(r1=O(id=${id1}), r2=O(id=${id3})));
+rule ii_s_ii = (And(c1=IS_INCLUDED(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (IS_INCLUDED(r1=O(id=${id1}), r2=O(id=${id3})));
+rule ii_a_a = (And(c1=IS_INCLUDED(r1=O(id=[id1]), r2=O(id=[id2])), c2=AFTER(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule i_i_i = (And(c1=INCLUDES(r1=O(id=[id1]), r2=O(id=[id2])), c2=INCLUDES(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (INCLUDES(r1=O(id=${id1}), r2=O(id=${id3})));
+rule i_s_i = (And(c1=INCLUDES(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (INCLUDES(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_b_b = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=BEFORE(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_ii_ii = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=IS_INCLUDED(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (IS_INCLUDED(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_i_i = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=INCLUDES(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (INCLUDES(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_s_s = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (SIMULTANEOUS(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_a_a = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=AFTER(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_l_l = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=OVERLAPS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (OVERLAPS(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_lb_lb = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=OVERLAPPED_BY(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (OVERLAPPED_BY(r1=O(id=${id1}), r2=O(id=${id3})));
+rule a_i_a = (And(c1=AFTER(r1=O(id=[id1]), r2=O(id=[id2])), c2=INCLUDES(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule a_s_a = (And(c1=AFTER(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule a_a_a = (And(c1=AFTER(r1=O(id=[id1]), r2=O(id=[id2])), c2=AFTER(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule a_lb_a = (And(c1=AFTER(r1=O(id=[id1]), r2=O(id=[id2])), c2=OVERLAPPED_BY(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule l_b_b = (And(c1=OVERLAPS(r1=O(id=[id1]), r2=O(id=[id2])), c2=BEFORE(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule l_s_l = (And(c1=OVERLAPS(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (OVERLAPS(r1=O(id=${id1}), r2=O(id=${id3})));
+rule lb_s_lb = (And(c1=OVERLAPPED_BY(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (OVERLAPPED_BY(r1=O(id=${id1}), r2=O(id=${id3})));
+rule lb_a_a = (And(c1=OVERLAPPED_BY(r1=O(id=[id1]), r2=O(id=[id2])), c2=AFTER(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+
+rule_set tlinkTransitiveRules = RuleSet(rules=(${b_b_b}, ${b_i_b}, ${b_s_b}, ${b_l_b}, ${ii_b_b}, 
+                                                     ${ii_ii_ii}, ${ii_s_ii}, ${ii_a_a}, ${i_i_i}, ${i_s_i},
+                                                     ${s_b_b}, ${s_ii_ii}, ${s_i_i}, ${s_s_s}, ${s_a_a}, ${s_l_l},
+                                                     ${s_lb_lb}, ${a_i_a}, ${a_s_a}, ${a_a_a}, ${a_lb_a}, ${l_b_b},
+                                                     ${l_s_l}, ${lb_s_lb}, ${lb_a_a}));
+
+structure_fn graphPaths = GraphPaths(length="2", ignoreTypes=("VAGUE"));
+structure_fn greedyTlinkTransitiveRules = GreedyStructureRules(rules=${tlinkTransitiveRules}, splitFn=${graphPaths});
+
+multi_classify_method caevo = Sieve(methods=(${tlinkTypeCtx.adjETSieveM}, ${tlinkTypeCtx.timeTimeSieveM},
+                                             ${tlinkTypeCtx.repGovSieveM}, ${tlinkTypeCtx.reichenbachSieveM}, 
+                                             ${tlinkTypeCtx.genGovSieveM}, ${tlinkTypeCtx.wordNetSieveM},
+                                             ${tlinkTypeCtx.reportingDCTSieveM}, ${tlinkTypeCtx.allVagueSieve}),
+                                    structurizers=(${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct},
+                                                   ${tlinkTypeCtx.docStruct}, ${tlinkTypeCtx.docStruct}),
+                                    structureTransformFn=${greedyTlinkTransitiveRules});
+
+multi_classify_task multiDevTask = MultiClassification(tasks=(${tlinkTypeCtx.devTask}));
+multi_classify_task multiTestTask = MultiClassification(tasks=(${tlinkTypeCtx.testTask}));
+
+multi_classify_eval multiDevPrecision = Precision(task=${multiDevTask}, method=${caevo}, mode="MICRO");
+multi_classify_eval multiDevRecall = Recall(task=${multiDevTask}, method=${caevo}, mode="MICRO");
+multi_classify_eval multiTestPrecision = Precision(task=${multiTestTask}, method=${caevo}, mode="MICRO");
+multi_classify_eval multiTestRecall = Recall(task=${multiTestTask}, method=${caevo}, mode="MICRO");
+
+value strEvals = OutputStrings(id="TLink_CAEVO_Deterministic_Evals", storage="EventString", collection="ExperimentEvaluationOutput", 
+                 refs=
+                 (
+	                 ${multiDevPrecision}, ${multiDevRecall},
+	                 ${multiTestPrecision}, ${multiTestRecall}
+                 ));

@@ -1,0 +1,9 @@
+value maxThreads="30";
+value resultsId = "TLinkType_Dev_CAEVO_Ind_CD";
+value debug=Debug(file=${resultsId});
+
+context util = TLinkType(initScript="/util/Util.ctx", initOnce="true");
+context dataParamsTlinkType = TLinkType(initScript="/tlinkType/data/parameters/TBDPlusCDDevTest.ctx", initOnce="false");
+context modelsTlinkTypeSieve = TLinkType(initScript="/tlinkType/methods/CAEVO_Ind_CD.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Dev_CAEVO_Ind.ctx", initOnce="false");

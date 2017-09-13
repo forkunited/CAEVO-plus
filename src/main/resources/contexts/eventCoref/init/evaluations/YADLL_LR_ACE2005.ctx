@@ -1,0 +1,24 @@
+classify_eval devYadllPrecisionUnfiltered = Precision(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLr.yadll}, mode="MICRO");
+classify_eval devYadllRecallUnfiltered = Recall(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLr.yadll}, mode="MICRO");
+classify_eval devYadllFUnfiltered = F(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLr.yadll}, Beta="1", mode="MICRO");
+classify_eval testYadllPrecisionUnfiltered = Precision(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLr.yadll}, mode="MICRO");
+classify_eval testYadllRecallUnfiltered = Recall(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLr.yadll}, mode="MICRO");
+classify_eval testYadllFUnfiltered = F(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLr.yadll}, Beta="1", mode="MICRO");
+
+classify_eval devYadllPrecision = Precision(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLr.yadll}, filterLabel="COREF", mode="MICRO");
+classify_eval devYadllRecall = Recall(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLr.yadll}, filterLabel="COREF", mode="MICRO");
+classify_eval devYadllF = F(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLr.yadll}, Beta="1", filterLabel="COREF", mode="MICRO");
+classify_eval testYadllPrecision = Precision(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLr.yadll}, filterLabel="COREF", mode="MICRO");
+classify_eval testYadllRecall = Recall(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLr.yadll}, filterLabel="COREF", mode="MICRO");
+classify_eval testYadllF = F(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLr.yadll}, Beta="1", filterLabel="COREF", mode="MICRO");
+
+value strEvals = 
+	OutputStrings(id="Evaluation_EventCoref_YADLL_LR_ACE2005", storage="EventString", collection="ExperimentEvaluationOutput", 
+                 refs=
+                 (
+	                 ${devYadllPrecision}, ${devYadllRecall}, ${devYadllF},
+	                 ${testYadllPrecision}, ${testYadllRecall}, ${testYadllF},
+	                 
+	                 ${devYadllPrecisionUnfiltered}, ${devYadllRecallUnfiltered}, ${devYadllFUnfiltered},
+	                 ${testYadllPrecisionUnfiltered}, ${testYadllRecallUnfiltered}, ${testYadllFUnfiltered}
+                 ));

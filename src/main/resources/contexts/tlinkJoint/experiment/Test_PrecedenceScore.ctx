@@ -1,0 +1,9 @@
+value maxThreads="30";
+value resultsId = "TLinkJoint_Test_PrecedenceScore";
+value debug=Debug(file=${resultsId});
+
+context util = EventTimeTLink(initScript="/util/Util.ctx", initOnce="true");
+context featureSetsEventTLink = EventTLink(initScript="/tlinkEvent/featureSets/CAEVO_Plus_Det.ctx", initOnce="false");
+context featureSetsEventTimeTLink = EventTimeTLink(initScript="/tlinkEventTime/featureSets/CAEVO_Plus_Det.ctx", initOnce="false");
+context evalPS = EventTimeTLink(initScript="/tlinkJoint/evaluations/PrecedenceScore.ctx", initOnce="false");
+context results = EventTimeTLink(initScript="/tlinkJoint/experiment/output/Test_PS.ctx", initOnce="false");

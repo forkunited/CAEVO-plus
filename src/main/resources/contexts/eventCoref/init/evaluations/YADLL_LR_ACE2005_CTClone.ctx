@@ -1,0 +1,64 @@
+classify_eval devYadll80Precision = Precision(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll80}, mode="MICRO", filterLabel="COREF");
+classify_eval devYadll80Recall = Recall(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll80}, mode="MICRO", filterLabel="COREF");
+classify_eval devYadll80F = F(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll80}, Beta="1", mode="MICRO", filterLabel="COREF");
+classify_eval testYadll80Precision = Precision(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll80}, mode="MICRO", filterLabel="COREF");
+classify_eval testYadll80Recall = Recall(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll80}, mode="MICRO", filterLabel="COREF");
+classify_eval testYadll80F = F(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll80}, Beta="1", mode="MICRO", filterLabel="COREF");
+
+classify_eval devYadll90Precision = Precision(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll90}, mode="MICRO", filterLabel="COREF");
+classify_eval devYadll90Recall = Recall(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll90}, mode="MICRO", filterLabel="COREF");
+classify_eval devYadll90F = F(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll90}, Beta="1", mode="MICRO", filterLabel="COREF");
+classify_eval testYadll90Precision = Precision(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll90}, mode="MICRO", filterLabel="COREF");
+classify_eval testYadll90Recall = Recall(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll90}, mode="MICRO", filterLabel="COREF");
+classify_eval testYadll90F = F(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll90}, Beta="1", mode="MICRO", filterLabel="COREF");
+
+classify_eval devYadll93Precision = Precision(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll93}, mode="MICRO", filterLabel="COREF");
+classify_eval devYadll93Recall = Recall(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll93}, mode="MICRO", filterLabel="COREF");
+classify_eval devYadll93F = F(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll93}, Beta="1", mode="MICRO", filterLabel="COREF");
+classify_eval testYadll93Precision = Precision(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll93}, mode="MICRO", filterLabel="COREF");
+classify_eval testYadll93Recall = Recall(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll93}, mode="MICRO", filterLabel="COREF");
+classify_eval testYadll93F = F(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll93}, Beta="1", mode="MICRO", filterLabel="COREF");
+
+classify_eval devYadll95Precision = Precision(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll95}, mode="MICRO", filterLabel="COREF");
+classify_eval devYadll95Recall = Recall(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll95}, mode="MICRO", filterLabel="COREF");
+classify_eval devYadll95F = F(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll95}, Beta="1", mode="MICRO", filterLabel="COREF");
+classify_eval testYadll95Precision = Precision(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll95}, mode="MICRO", filterLabel="COREF");
+classify_eval testYadll95Recall = Recall(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll95}, mode="MICRO", filterLabel="COREF");
+classify_eval testYadll95F = F(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll95}, Beta="1", mode="MICRO", filterLabel="COREF");
+
+classify_eval devYadll97Precision = Precision(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll97}, mode="MICRO", filterLabel="COREF");
+classify_eval devYadll97Recall = Recall(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll97}, mode="MICRO", filterLabel="COREF");
+classify_eval devYadll97F = F(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll97}, Beta="1", mode="MICRO", filterLabel="COREF");
+classify_eval testYadll97Precision = Precision(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll97}, mode="MICRO", filterLabel="COREF");
+classify_eval testYadll97Recall = Recall(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll97}, mode="MICRO", filterLabel="COREF");
+classify_eval testYadll97F = F(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll97}, Beta="1", mode="MICRO", filterLabel="COREF");
+
+classify_eval devYadll99Precision = Precision(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll99}, mode="MICRO", filterLabel="COREF");
+classify_eval devYadll99Recall = Recall(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll99}, mode="MICRO", filterLabel="COREF");
+classify_eval devYadll99F = F(task=${dataEventCorefACE2005.devTask}, method=${modelsEventCorefYadllLrCtClone.yadll99}, Beta="1", mode="MICRO", filterLabel="COREF");
+classify_eval testYadll99Precision = Precision(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll99}, mode="MICRO", filterLabel="COREF");
+classify_eval testYadll99Recall = Recall(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll99}, mode="MICRO", filterLabel="COREF");
+classify_eval testYadll99F = F(task=${dataEventCorefACE2005.testTask}, method=${modelsEventCorefYadllLrCtClone.yadll99}, Beta="1", mode="MICRO", filterLabel="COREF");
+
+value strEvals = 
+	OutputStrings(id="Evaluation_EventCoref_YADLL_LR_ACE2005_CTClone", storage="EventString", collection="ExperimentEvaluationOutput", 
+                 refs=
+                 (
+	                 ${devYadll80Precision}, ${devYadll80Recall}, ${devYadll80F},
+	                 ${testYadll80Precision}, ${testYadll80Recall}, ${testYadll80F},
+	                 
+	                 ${devYadll90Precision}, ${devYadll90Recall}, ${devYadll90F},
+	                 ${testYadll90Precision}, ${testYadll90Recall}, ${testYadll90F},
+	                 
+	                 ${devYadll93Precision}, ${devYadll93Recall}, ${devYadll93F},
+	                 ${testYadll93Precision}, ${testYadll93Recall}, ${testYadll93F},
+	                 
+	                 ${devYadll95Precision}, ${devYadll95Recall}, ${devYadll95F},
+	                 ${testYadll95Precision}, ${testYadll95Recall}, ${testYadll95F},
+	                 
+	                 ${devYadll97Precision}, ${devYadll97Recall}, ${devYadll97F},
+	                 ${testYadll97Precision}, ${testYadll97Recall}, ${testYadll97F},
+	                 
+	                 ${devYadll99Precision}, ${devYadll99Recall}, ${devYadll99F},
+	                 ${testYadll99Precision}, ${testYadll99Recall}, ${testYadll99F}
+                 ));

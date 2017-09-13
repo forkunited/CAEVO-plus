@@ -1,0 +1,14 @@
+context trainDevTestDataEventBinary = TokenSpansBoolean(initScript="/binaryEvent/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context methodEventBinary = TokenSpansBoolean(initScript="/binaryEvent/methods/StanfordLinear.ctx", initOnce="true", initOverrideByName="true");
+
+classify_eval devAccuracy = Accuracy(task=${trainDevTestDataEventBinary.devTask}, method=${methodEventBinary.method});
+classify_eval devF = F(task=${trainDevTestDataEventBinary.devTask}, method=${methodEventBinary.method}, Beta="1", filterLabel="true");
+classify_eval devPrecision = Precision(task=${trainDevTestDataEventBinary.devTask}, method=${methodEventBinary.method}, filterLabel="true");
+classify_eval devRecall = Recall(task=${trainDevTestDataEventBinary.devTask}, method=${methodEventBinary.method}, filterLabel="true");
+classify_eval devConfusionMatrix = ConfusionMatrix(task=${trainDevTestDataEventBinary.devTask}, method=${methodEventBinary.method});
+
+classify_eval testAccuracy = Accuracy(task=${trainDevTestDataEventBinary.testTask}, method=${methodEventBinary.method});       
+classify_eval testF = F(task=${trainDevTestDataEventBinary.testTask}, method=${methodEventBinary.method}, Beta="1", filterLabel="true");
+classify_eval testPrecision = Precision(task=${trainDevTestDataEventBinary.testTask}, method=${methodEventBinary.method}, filterLabel="true");
+classify_eval testRecall = Recall(task=${trainDevTestDataEventBinary.testTask}, method=${methodEventBinary.method}, filterLabel="true");
+classify_eval testConfusionMatrix = ConfusionMatrix(task=${trainDevTestDataEventBinary.testTask}, method=${methodEventBinary.method});

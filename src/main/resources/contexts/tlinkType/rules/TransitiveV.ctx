@@ -1,0 +1,35 @@
+rule b_b_b = (And(c1=BEFORE(r1=O(id=[id1]), r2=O(id=[id2])), c2=BEFORE(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule b_i_b = (And(c1=BEFORE(r1=O(id=[id1]), r2=O(id=[id2])), c2=INCLUDES(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule b_s_b = (And(c1=BEFORE(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule b_l_b = (And(c1=BEFORE(r1=O(id=[id1]), r2=O(id=[id2])), c2=OVERLAPS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule ii_b_b = (And(c1=IS_INCLUDED(r1=O(id=[id1]), r2=O(id=[id2])), c2=BEFORE(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule ii_ii_ii = (And(c1=IS_INCLUDED(r1=O(id=[id1]), r2=O(id=[id2])), c2=IS_INCLUDED(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (IS_INCLUDED(r1=O(id=${id1}), r2=O(id=${id3})));
+rule ii_s_ii = (And(c1=IS_INCLUDED(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (IS_INCLUDED(r1=O(id=${id1}), r2=O(id=${id3})));
+rule ii_a_a = (And(c1=IS_INCLUDED(r1=O(id=[id1]), r2=O(id=[id2])), c2=AFTER(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule i_i_i = (And(c1=INCLUDES(r1=O(id=[id1]), r2=O(id=[id2])), c2=INCLUDES(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (INCLUDES(r1=O(id=${id1}), r2=O(id=${id3})));
+rule i_s_i = (And(c1=INCLUDES(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (INCLUDES(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_b_b = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=BEFORE(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_ii_ii = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=IS_INCLUDED(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (IS_INCLUDED(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_i_i = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=INCLUDES(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (INCLUDES(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_s_s = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (SIMULTANEOUS(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_a_a = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=AFTER(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_l_l = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=OVERLAPS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (OVERLAPS(r1=O(id=${id1}), r2=O(id=${id3})));
+rule s_lb_lb = (And(c1=SIMULTANEOUS(r1=O(id=[id1]), r2=O(id=[id2])), c2=OVERLAPPED_BY(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (OVERLAPPED_BY(r1=O(id=${id1}), r2=O(id=${id3})));
+rule a_i_a = (And(c1=AFTER(r1=O(id=[id1]), r2=O(id=[id2])), c2=INCLUDES(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule a_s_a = (And(c1=AFTER(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule a_a_a = (And(c1=AFTER(r1=O(id=[id1]), r2=O(id=[id2])), c2=AFTER(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule a_lb_a = (And(c1=AFTER(r1=O(id=[id1]), r2=O(id=[id2])), c2=OVERLAPPED_BY(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule l_b_b = (And(c1=OVERLAPS(r1=O(id=[id1]), r2=O(id=[id2])), c2=BEFORE(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (BEFORE(r1=O(id=${id1}), r2=O(id=${id3})));
+rule l_s_l = (And(c1=OVERLAPS(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (OVERLAPS(r1=O(id=${id1}), r2=O(id=${id3})));
+rule lb_s_lb = (And(c1=OVERLAPPED_BY(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (OVERLAPPED_BY(r1=O(id=${id1}), r2=O(id=${id3})));
+rule lb_a_a = (And(c1=OVERLAPPED_BY(r1=O(id=[id1]), r2=O(id=[id2])), c2=AFTER(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (AFTER(r1=O(id=${id1}), r2=O(id=${id3})));
+rule v_s_v = (And(c1=VAGUE(r1=O(id=[id1]), r2=O(id=[id2])), c2=SIMULTANEOUS(r1=O(id=${id2}), r2=O(id=[id3])), c3=Not(c1=Equals(${id1},${id3})))) -> (VAGUE(r1=O(id=${id1}), r2=O(id=${id3})));
+
+
+rule_set rulesV = RuleSet(rules=(${b_b_b}, ${b_i_b}, ${b_s_b}, ${b_l_b}, ${ii_b_b}, 
+                             ${ii_ii_ii}, ${ii_s_ii}, ${ii_a_a}, ${i_i_i}, ${i_s_i},
+                             ${s_b_b}, ${s_ii_ii}, ${s_i_i}, ${s_s_s}, ${s_a_a}, ${s_l_l},
+                             ${s_lb_lb}, ${a_i_a}, ${a_s_a}, ${a_a_a}, ${a_lb_a}, ${l_b_b},
+                             ${l_s_l}, ${lb_s_lb}, ${lb_a_a}, ${v_s_v}));                          
+
+                         

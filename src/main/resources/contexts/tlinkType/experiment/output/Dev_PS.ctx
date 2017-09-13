@@ -1,0 +1,18 @@
+value strEvals = OutputStrings(id=${resultsId}, storage="EventString", collection="ExperimentEvaluationOutput", 
+                 refs=
+                 (
+                  ${evalPS.modelsTlinkTypePS.evalTlinkTypeYadll.devYadllDCTPrecision}, 
+                  ${evalPS.modelsTlinkTypePS.evalTlinkTypeYadll.devYadllDCTRecall},
+                  ${evalPS.modelsTlinkTypePS.evalTlinkTypeYadll.devYadllETWSPrecision}, 
+                  ${evalPS.modelsTlinkTypePS.evalTlinkTypeYadll.devYadllETWSRecall},
+                  ${evalPS.modelsTlinkTypePS.evalTlinkTypeYadll.devYadllEEWSPrecision}, 
+                  ${evalPS.modelsTlinkTypePS.evalTlinkTypeYadll.devYadllEEWSRecall},
+                  ${evalPS.modelsTlinkTypePS.evalTlinkTypeYadll.devYadllEEDPrecision}, 
+                  ${evalPS.modelsTlinkTypePS.evalTlinkTypeYadll.devYadllEEDRecall},
+                  ${evalPS.modelsTlinkTypePS.evalTlinkTypeYadll.devYadllEENDPrecision}, 
+                  ${evalPS.modelsTlinkTypePS.evalTlinkTypeYadll.devYadllEENDRecall},
+                 
+	              ${evalPS.multiDevPrecision}, 
+	              ${evalPS.multiDevRecall}
+                 )); 
+                 

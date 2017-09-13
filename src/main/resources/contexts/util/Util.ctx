@@ -1,0 +1,4 @@
+value randomSeed=SetRandomSeed(seed="1");
+value bowCleanFn=BuildCleanFn(name="BagOfWordsCleanFn", fns=("Trim", "ToLowerCase", "RemoveSymbols", "ReplaceNumbers", "UnderscoreToSpace", "Trim", "RemoveLongTokens", "Stem", "SpaceToUnderscore"));
+value lowerCleanFn=BuildCleanFn(name="LowerCaseCleanFn", fns=("Trim", "ToLowerCase" ));
+value trimCleanFn=BuildCleanFn(name="TrimCleanFn", fns=("Trim"));

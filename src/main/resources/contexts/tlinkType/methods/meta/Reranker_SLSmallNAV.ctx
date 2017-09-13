@@ -1,0 +1,29 @@
+context metaFeatures = MetaTLinkType(initScript="/tlinkType/MetaFeatures.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataMetaTlinkType = MetaTLinkType(initScript="/tlinkType/data/meta/LoadTrainDevTest_SL.ctx", initOnce="true", initOverrideByName="true");
+
+feature_set fs = FeatureSet(features=(${metaFeatures.fconstant}, 
+                                      ${metaFeatures.fpredLabel}, 
+                                      ${metaFeatures.fpredMethod},
+                                      ${metaFeatures.ftype},
+                                      ${metaFeatures.fposition},
+                                      ${metaFeatures.fsTense},
+                                      ${metaFeatures.ftTense},
+                                      ${metaFeatures.fsAspect},
+                                      ${metaFeatures.ftAspect},
+                                      ${metaFeatures.fsClass},
+                                      ${metaFeatures.ftClass},
+                                      ${metaFeatures.fsPos},
+                                      ${metaFeatures.ftPos},
+                                      ${metaFeatures.fstPos},
+                                      ${metaFeatures.fstTense},
+                                      ${metaFeatures.fstAspect},
+                                      ${metaFeatures.fstClass}), 
+							initData=(${trainDevTestDataMetaTlinkType.trainDataNAV}));
+
+data_features trainMatrix = DataFeatureMatrix(data=${trainDevTestDataMetaTlinkType.trainDataNAV}, features=${fs});
+
+model slm=StanfordLinear() { array validLabels=("true", "false"); };
+
+evaluation acc=Accuracy();
+classify_method rerankerInit = SupervisedModel(model=${slm}, data=${trainMatrix}, trainEvaluation=${acc});
+classify_method reranker = InitClassifyMethod(devData=${trainDevTestDataMetaTlinkType.devDataNAV}, method=${rerankerInit});

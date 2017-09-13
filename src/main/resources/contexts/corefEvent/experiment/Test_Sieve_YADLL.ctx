@@ -1,0 +1,7 @@
+value maxThreads="30";
+value resultsId = "CorefEvent_Test_Sieve_YADLL";
+value debug=Debug(file=${resultsId});
+
+context util = EventCoref(initScript="/util/Util.ctx", initOnce="true");
+context evalSieve = EventCoref(initScript="/corefEvent/evaluations/Sieve.ctx", initOnce="false");
+context results = EventCoref(initScript="/corefEvent/experiment/output/Test_Sieve.ctx", initOnce="false");

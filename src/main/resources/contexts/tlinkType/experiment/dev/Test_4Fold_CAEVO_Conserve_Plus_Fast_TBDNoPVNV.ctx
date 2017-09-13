@@ -1,0 +1,41 @@
+value maxThreads="30";
+value resultsId = "TLinkType_Test_4Fold_CAEVO_Conserve_Plus_Fast_TBDNoPVNV";
+value debug=Debug(file=${resultsId});
+context util = TLinkType(initScript="/util/Util.ctx", initOnce="true");
+
+context dataParamsTlinkType = TLinkType(initScript="/tlinkType/data/parameters/TBDNoPVNV.ctx", initOnce="false");
+
+value resultsId = "TLinkType_Test_4Fold_CAEVO_Conserve_Plus_Fast_TBDNoPVNV_0";
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD4Fold_0.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_Plus.ctx", initOnce="false");
+context modelsTlinkTypeYadll = TLinkType(initScript="/tlinkType/methods/YADLL_LR_CAEVO_Fast.ctx", initOnce="false");
+context modelsTlinkTypeSieve = TLinkType(initScript="/tlinkType/methods/CAEVO_Conserve.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Test_CAEVO.ctx", initOnce="false");
+
+
+value resultsId = "TLinkType_Test_4Fold_CAEVO_Conserve_Plus_Fast_TBDNoPVNV_1";
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD4Fold_1.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_Plus.ctx", initOnce="false");
+context modelsTlinkTypeYadll = TLinkType(initScript="/tlinkType/methods/YADLL_LR_CAEVO_Fast.ctx", initOnce="false");
+context modelsTlinkTypeSieve = TLinkType(initScript="/tlinkType/methods/CAEVO_Conserve.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Test_CAEVO.ctx", initOnce="false");
+
+
+value resultsId = "TLinkType_Test_4Fold_CAEVO_Conserve_Plus_Fast_TBDNoPVNV_2";
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD4Fold_2.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_Plus.ctx", initOnce="false");
+context modelsTlinkTypeYadll = TLinkType(initScript="/tlinkType/methods/YADLL_LR_CAEVO_Fast.ctx", initOnce="false");
+context modelsTlinkTypeSieve = TLinkType(initScript="/tlinkType/methods/CAEVO_Conserve.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Test_CAEVO.ctx", initOnce="false");
+
+
+value resultsId = "TLinkType_Test_4Fold_CAEVO_Conserve_Plus_Fast_TBDNoPVNV_3";
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD4Fold_3.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_Plus.ctx", initOnce="false");
+context modelsTlinkTypeYadll = TLinkType(initScript="/tlinkType/methods/YADLL_LR_CAEVO_Fast.ctx", initOnce="false");
+context modelsTlinkTypeSieve = TLinkType(initScript="/tlinkType/methods/CAEVO_Conserve.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Test_CAEVO.ctx", initOnce="false");

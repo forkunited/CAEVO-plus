@@ -1,0 +1,45 @@
+value maxThreads="30";
+value resultsId = "TLinkType_Test_CAEVO_Fixed_EventAttr_Ind_TrainTBDNoPVNV";
+value debug=Debug(file=${resultsId});
+
+context util = TLinkType(initScript="/util/Util.ctx", initOnce="true");
+
+context dataParamsTlinkType = TLinkType(initScript="/tlinkType/data/parameters/TrainTBDNoPVNV.ctx", initOnce="false");
+
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_Fixed_EventAttr.ctx", initOnce="false");
+context modelsTlinkTypeSl = TLinkType(initScript="/tlinkType/methods/SL_CAEVO_Fixed.ctx", initOnce="false");
+context modelsTlinkTypeSieve = TLinkType(initScript="/tlinkType/methods/CAEVO_Replicated_Ind.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Test_CAEVO_SL_Ind.ctx", initOnce="false");
+
+value resultsId = "TLinkType_Test_CAEVO_Fixed_EventAttr_Ind_TrainTBDNoPVNV_4Fold_0";
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD4Fold_0.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_Fixed_EventAttr.ctx", initOnce="false");
+context modelsTlinkTypeSl = TLinkType(initScript="/tlinkType/methods/SL_CAEVO_Fixed.ctx", initOnce="false");
+context modelsTlinkTypeSieve = TLinkType(initScript="/tlinkType/methods/CAEVO_Replicated_Ind.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Test_CAEVO_SL_Ind.ctx", initOnce="false");
+
+value resultsId = "TLinkType_Test_CAEVO_Fixed_EventAttr_Ind_TrainTBDNoPVNV_4Fold_1";
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD4Fold_1.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_Fixed_EventAttr.ctx", initOnce="false");
+context modelsTlinkTypeSl = TLinkType(initScript="/tlinkType/methods/SL_CAEVO_Fixed.ctx", initOnce="false");
+context modelsTlinkTypeSieve = TLinkType(initScript="/tlinkType/methods/CAEVO_Replicated_Ind.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Test_CAEVO_SL_Ind.ctx", initOnce="false");
+
+value resultsId = "TLinkType_Test_CAEVO_Fixed_EventAttr_Ind_TrainTBDNoPVNV_4Fold_2";
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD4Fold_2.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_Fixed_EventAttr.ctx", initOnce="false");
+context modelsTlinkTypeSl = TLinkType(initScript="/tlinkType/methods/SL_CAEVO_Fixed.ctx", initOnce="false");
+context modelsTlinkTypeSieve = TLinkType(initScript="/tlinkType/methods/CAEVO_Replicated_Ind.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Test_CAEVO_SL_Ind.ctx", initOnce="false");
+
+value resultsId = "TLinkType_Test_CAEVO_Fixed_EventAttr_Ind_TrainTBDNoPVNV_4Fold_3";
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD4Fold_3.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_Fixed_EventAttr.ctx", initOnce="false");
+context modelsTlinkTypeSl = TLinkType(initScript="/tlinkType/methods/SL_CAEVO_Fixed.ctx", initOnce="false");
+context modelsTlinkTypeSieve = TLinkType(initScript="/tlinkType/methods/CAEVO_Replicated_Ind.ctx", initOnce="false");
+context evalSieve = TLinkType(initScript="/tlinkType/evaluations/Sieve.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Test_CAEVO_SL_Ind.ctx", initOnce="false");

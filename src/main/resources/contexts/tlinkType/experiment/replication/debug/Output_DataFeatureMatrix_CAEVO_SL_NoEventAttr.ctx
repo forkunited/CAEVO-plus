@@ -1,0 +1,21 @@
+value maxThreads="30";
+value debug=Debug();
+
+context util = TLinkType(initScript="/util/Util.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_SL_NoEventAttr.ctx", initOnce="true", initOverrideByName="true");
+context modelsTlinkTypeSl = TLinkType(initScript="/tlinkType/methods/SL_CAEVO.ctx", initOnce="true", initOverrideByName="true");
+
+value strETWS = OutputStrings(id="Output_DataFeatureMatrix_CAEVO_SL_NoEventAttr_ETWS", storage="EventString", collection="ExperimentDebugOutput", 
+                 refs=(${modelsTlinkTypeSl.trainMatrixETWS}), serializer="DataTLinkTypeFeatureMatrixBSONString");
+                 
+value strEEWS = OutputStrings(id="Output_DataFeatureMatrix_CAEVO_SL_NoEventAttr_EEWS", storage="EventString", collection="ExperimentDebugOutput", 
+                 refs=(${modelsTlinkTypeSl.trainMatrixEEWS}), serializer="DataTLinkTypeFeatureMatrixBSONString");
+                 
+value strEED = OutputStrings(id="Output_DataFeatureMatrix_CAEVO_SL_NoEventAttr_EED", storage="EventString", collection="ExperimentDebugOutput", 
+                 refs=(${modelsTlinkTypeSl.trainMatrixEED}), serializer="DataTLinkTypeFeatureMatrixBSONString");
+
+value strDCT = OutputStrings(id="Output_DataFeatureMatrix_CAEVO_SL_NoEventAttr_DCT", storage="EventString", collection="ExperimentDebugOutput", 
+                 refs=(${modelsTlinkTypeSl.trainMatrixDCT}), serializer="DataTLinkTypeFeatureMatrixBSONString");
+
+value strTestEEWS = OutputStrings(id="Output_DataFeatureMatrix_CAEVO_SL_NoEventAttr_Test_EEWS", storage="EventString", collection="ExperimentDebugOutput", 
+                 refs=(${modelsTlinkTypeSl.testMatrixEEWS}), serializer="DataTLinkTypeFeatureMatrixBSONString");

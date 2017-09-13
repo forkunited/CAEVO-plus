@@ -1,0 +1,27 @@
+context trainDevTestDataEventTLink = EventTLink(initScript="/tlinkEvent/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context modelsEventTLinkDet = EventTLink(initScript="/tlinkEvent/methods/Deterministic_TBD.ctx", initOnce="true", initOverrideByName="true");
+
+classify_eval devGenGovPrecision = Precision(task=${trainDevTestDataEventTLink.devTask}, method=${modelsEventTLinkDet.genGov}, mode="MICRO");
+classify_eval devGenGovRecall = Recall(task=${trainDevTestDataEventTLink.devTask}, method=${modelsEventTLinkDet.genGov}, mode="MICRO");
+classify_eval testGenGovPrecision = Precision(task=${trainDevTestDataEventTLink.testTask}, method=${modelsEventTLinkDet.genGov}, mode="MICRO");
+classify_eval testGenGovRecall = Recall(task=${trainDevTestDataEventTLink.testTask}, method=${modelsEventTLinkDet.genGov}, mode="MICRO");
+
+classify_eval devReichenbachPrecision = Precision(task=${trainDevTestDataEventTLink.devTask}, method=${modelsEventTLinkDet.reichenbach}, mode="MICRO");
+classify_eval devReichenbachRecall = Recall(task=${trainDevTestDataEventTLink.devTask}, method=${modelsEventTLinkDet.reichenbach}, mode="MICRO");
+classify_eval testReichenbachPrecision = Precision(task=${trainDevTestDataEventTLink.testTask}, method=${modelsEventTLinkDet.reichenbach}, mode="MICRO");
+classify_eval testReichenbachRecall = Recall(task=${trainDevTestDataEventTLink.testTask}, method=${modelsEventTLinkDet.reichenbach}, mode="MICRO");
+
+classify_eval devRepGovPrecision = Precision(task=${trainDevTestDataEventTLink.devTask}, method=${modelsEventTLinkDet.repGov}, mode="MICRO");
+classify_eval devRepGovRecall = Recall(task=${trainDevTestDataEventTLink.devTask}, method=${modelsEventTLinkDet.repGov}, mode="MICRO");
+classify_eval testRepGovPrecision = Precision(task=${trainDevTestDataEventTLink.testTask}, method=${modelsEventTLinkDet.repGov}, mode="MICRO");
+classify_eval testRepGovRecall = Recall(task=${trainDevTestDataEventTLink.testTask}, method=${modelsEventTLinkDet.repGov}, mode="MICRO");
+
+classify_eval devWordNetPrecision = Precision(task=${trainDevTestDataEventTLink.devTask}, method=${modelsEventTLinkDet.wordNet}, mode="MICRO");
+classify_eval devWordNetRecall = Recall(task=${trainDevTestDataEventTLink.devTask}, method=${modelsEventTLinkDet.wordNet}, mode="MICRO");
+classify_eval testWordNetPrecision = Precision(task=${trainDevTestDataEventTLink.testTask}, method=${modelsEventTLinkDet.wordNet}, mode="MICRO");
+classify_eval testWordNetRecall = Recall(task=${trainDevTestDataEventTLink.testTask}, method=${modelsEventTLinkDet.wordNet}, mode="MICRO");
+
+classify_eval devAllVaguePrecision = Precision(task=${trainDevTestDataEventTLink.devTask}, method=${modelsEventTLinkDet.allVague}, mode="MICRO");
+classify_eval devAllVagueRecall = Recall(task=${trainDevTestDataEventTLink.devTask}, method=${modelsEventTLinkDet.allVague}, mode="MICRO");
+classify_eval testAllVaguePrecision = Precision(task=${trainDevTestDataEventTLink.testTask}, method=${modelsEventTLinkDet.allVague}, mode="MICRO");
+classify_eval testAllVagueRecall = Recall(task=${trainDevTestDataEventTLink.testTask}, method=${modelsEventTLinkDet.allVague}, mode="MICRO");

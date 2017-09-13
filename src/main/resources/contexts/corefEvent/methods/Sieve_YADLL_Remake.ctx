@@ -1,0 +1,33 @@
+context rulesEventCorefTransitive = EventCoref(initScript="/corefEvent/rules/Transitive.ctx", initOnce="true");
+context modelsEventCorefDet = EventCoref(initScript="/corefEvent/methods/Deterministic.ctx", initOnce="true", initOverrideByName="true");
+context modelsEventCorefYadllCT = EventCoref(initScript="/corefEvent/methods/YADLL_CTClone.ctx", initOnce="true", initOverrideByName="true");
+context evalEventCorefYadllCT = EventCoref(initScript="/corefEvent/evaluations/YADLL_CTClone.ctx", initOnce="true", initOverrideByName="true");
+context evalEventCorefDet = EventCoref(initScript="/corefEvent/evaluations/Deterministic.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataEventCoref = EventCoref(initScript="/corefEvent/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+
+structure_fn graphPaths2 = GraphPaths(length="2");
+structure_fn greedyTlinkTransitiveRules = GreedyStructureRules(rules=(${rulesEventCorefTransitive.rules}), 
+                                                               splitFns=(${graphPaths2}));
+
+
+multi_classify_method sieve = Sieve(methods=(${modelsEventCorefYadllCT.yadllCoref70}, 
+											 ${modelsEventCorefYadllCT.yadllCoref65}, 
+                                             ${modelsEventCorefYadllCT.yadllCoref60},
+                                             ${modelsEventCorefYadllCT.yadllCoref55},
+                                             ${modelsEventCorefYadllCT.yadllCoref50},
+                                             ${modelsEventCorefDet.allNotCoref}),                                   
+                                    structurizers=(${trainDevTestDataEventCoref.docStructConserve}, 
+                                                   ${trainDevTestDataEventCoref.docStructConserve},
+                                                   ${trainDevTestDataEventCoref.docStructConserve},
+                                                   ${trainDevTestDataEventCoref.docStructConserve},
+                                                   ${trainDevTestDataEventCoref.docStructConserve},
+                                                   ${trainDevTestDataEventCoref.docStructConserve}
+                                                   ),
+                                    permutationMeasures=(${evalEventCorefYadllCT.devYadllCoref70Precision}, 
+                                                         ${evalEventCorefYadllCT.devYadllCoref65Precision}, 
+                                                         ${evalEventCorefYadllCT.devYadllCoref60Precision}, 
+                                                         ${evalEventCorefYadllCT.devYadllCoref55Precision}, 
+                                                         ${evalEventCorefYadllCT.devYadllCoref50Precision},
+                                                         ${evalEventCorefDet.devZero}),
+                                    structureTransformFn=${greedyTlinkTransitiveRules},
+                                    remakeData="true");

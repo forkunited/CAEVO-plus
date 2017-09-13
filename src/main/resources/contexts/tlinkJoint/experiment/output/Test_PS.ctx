@@ -1,0 +1,35 @@
+value strEvals = OutputStrings(id=${resultsId}, storage="EventString", collection="ExperimentEvaluationOutput", 
+                 refs=
+                 (
+                  ${evalPS.modelsJointTLinkPS.evalTimeTLinkDet.devTimeTimePrecision}, 
+                  ${evalPS.modelsJointTLinkPS.evalTimeTLinkDet.devTimeTimeRecall},
+                  ${evalPS.modelsJointTLinkPS.evalEventTimeTLinkYadll.devYadllWSDCTPrecision}, 
+                  ${evalPS.modelsJointTLinkPS.evalEventTimeTLinkYadll.devYadllWSDCTRecall},
+                  ${evalPS.modelsJointTLinkPS.evalEventTimeTLinkYadll.devYadllWSPrecision}, 
+                  ${evalPS.modelsJointTLinkPS.evalEventTimeTLinkYadll.devYadllWSRecall},
+                  ${evalPS.modelsJointTLinkPS.evalEventTimeTLinkYadll.devYadllDCTPrecision}, 
+                  ${evalPS.modelsJointTLinkPS.evalEventTimeTLinkYadll.devYadllDCTRecall},
+                  ${evalPS.modelsJointTLinkPS.evalEventTLinkYadll.devYadllWSPrecision}, 
+                  ${evalPS.modelsJointTLinkPS.evalEventTLinkYadll.devYadllWSRecall},
+	              ${evalPS.modelsJointTLinkPS.evalEventTLinkYadll.devYadllEEDPrecision}, 
+                  ${evalPS.modelsJointTLinkPS.evalEventTLinkYadll.devYadllEEDRecall},
+	              
+	              ${evalPS.multiDevPrecision}, 
+	              ${evalPS.multiDevRecall},   
+	                 
+                  ${evalPS.modelsJointTLinkPS.evalTimeTLinkDet.testTimeTimePrecision}, 
+                  ${evalPS.modelsJointTLinkPS.evalTimeTLinkDet.testTimeTimeRecall},
+                  ${evalPS.modelsJointTLinkPS.evalEventTimeTLinkYadll.testYadllWSDCTPrecision}, 
+                  ${evalPS.modelsJointTLinkPS.evalEventTimeTLinkYadll.testYadllWSDCTRecall},
+                  ${evalPS.modelsJointTLinkPS.evalEventTimeTLinkYadll.testYadllWSPrecision}, 
+                  ${evalPS.modelsJointTLinkPS.evalEventTimeTLinkYadll.testYadllWSRecall},
+                  ${evalPS.modelsJointTLinkPS.evalEventTimeTLinkYadll.testYadllDCTPrecision}, 
+                  ${evalPS.modelsJointTLinkPS.evalEventTimeTLinkYadll.testYadllDCTRecall},
+                  ${evalPS.modelsJointTLinkPS.evalEventTLinkYadll.testYadllWSPrecision}, 
+                  ${evalPS.modelsJointTLinkPS.evalEventTLinkYadll.testYadllWSRecall},
+                  ${evalPS.modelsJointTLinkPS.evalEventTLinkYadll.testYadllEEDPrecision}, 
+                  ${evalPS.modelsJointTLinkPS.evalEventTLinkYadll.testYadllEEDRecall},
+                
+	              ${evalPS.multiTestPrecision}, 
+	              ${evalPS.multiTestRecall}
+                 )); 

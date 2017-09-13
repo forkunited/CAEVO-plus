@@ -1,0 +1,19 @@
+context fullDataParamsTlinkType = TLinkType(initScript="/tlinkType/data/parameters/TE3.ctx", initOnce="true", initOverrideByName="true");
+context docsTlinkType = TLinkType(initScript="/util/data/docs/TE3Small.ctx", initOnce="true", initOverrideByName="true");
+
+data data = TLinkType(storage="EventBson", documents=${fullDataParamsTlinkType.docs}, tlinks=${fullDataParamsTlinkType.tlinks}, labelMode=${fullDataParamsTlinkType.labelMode}, labelMapping="TBD", maxSentenceDistance=${fullDataParamsTlinkType.maxSentDist}, crossDocMode=${fullDataParamsTlinkType.crossDocMode}, clusterMode=${fullDataParamsTlinkType.clusterMode}, filter=${docsTlinkType.docs});
+
+value countTLinkTypeData = SizeData(data=${data});
+value debugData = OutputDebug(refs=(${countTLinkTypeData}));
+
+data dataEE = FilterData(data=${data}, datumIndicator="TypeEventEvent");
+data dataET = FilterData(data=${data}, datumIndicator="TypeEventTime");
+data dataTT = FilterData(data=${data}, datumIndicator="TypeTimeTime");
+
+data dataDCT = FilterData(data=${dataET}, datumIndicator="PositionDCT");
+data dataETWS = FilterData(data=${dataET}, datumIndicator="PositionWithinSentence");
+data dataETBS = FilterData(data=${dataET}, datumIndicator="PositionBetweenSentence");
+data dataEEWS = FilterData(data=${dataEE}, datumIndicator="PositionWithinSentence");
+data dataEEBS = FilterData(data=${dataEE}, datumIndicator="PositionBetweenSentence");
+data dataEED = FilterData(data=${dataEE}, datumIndicator="PositionWithinSentenceDominant");
+data dataEEND = FilterData(data=${dataEE}, datumIndicator="PositionWithinSentenceNotDominant");

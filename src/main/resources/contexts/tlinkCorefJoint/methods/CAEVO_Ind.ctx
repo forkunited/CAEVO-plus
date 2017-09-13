@@ -1,0 +1,318 @@
+context rulesJointTransitive = EventTLink(initScript="/tlinkCorefJoint/rules/Transitive.ctx", initOnce="true");
+context rulesJointTLinkConverse = EventTLink(initScript="/tlinkJoint/rules/Converse.ctx", initOnce="true");
+context rulesJoint = EventTLink(initScript="/tlinkCorefJoint/rules/Joint.ctx", initOnce="true");
+context modelsEventTLinkDetInd = EventTLink(initScript="/tlinkEvent/methods/Deterministic_TBD_Ind.ctx", initOnce="true", initOverrideByName="true");
+context modelsEventTLinkYadllInd = EventTLink(initScript="/tlinkEvent/methods/YADLL_Ind.ctx", initOnce="true", initOverrideByName="true");
+context modelsEventTimeTLinkDetInd = EventTimeTLink(initScript="/tlinkEventTime/methods/Deterministic_TBD_Ind.ctx", initOnce="true", initOverrideByName="true");
+context modelsEventTimeTLinkYadllInd = EventTimeTLink(initScript="/tlinkEventTime/methods/YADLL_Ind.ctx", initOnce="true", initOverrideByName="true");
+context modelsTimeTLinkDetInd = TimeTLink(initScript="/tlinkTime/methods/Deterministic_TBD_Ind.ctx", initOnce="true", initOverrideByName="true");
+context evalEventTLinkDetInd = EventTLink(initScript="/tlinkEvent/evaluations/Deterministic_TBD_Ind.ctx", initOnce="true", initOverrideByName="true");
+context evalEventTLinkYadllInd = EventTLink(initScript="/tlinkEvent/evaluations/YADLL_Ind.ctx", initOnce="true", initOverrideByName="true");
+context evalEventTimeTLinkDetInd = EventTimeTLink(initScript="/tlinkEventTime/evaluations/Deterministic_TBD_Ind.ctx", initOnce="true", initOverrideByName="true");
+context evalEventTimeTLinkYadllInd = EventTimeTLink(initScript="/tlinkEventTime/evaluations/YADLL_Ind.ctx", initOnce="true", initOverrideByName="true");
+context evalTimeTLinkDetInd = TimeTLink(initScript="/tlinkTime/evaluations/Deterministic_TBD_Ind.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataEventTLink = EventTLink(initScript="/tlinkEvent/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataEventTimeTLink = EventTimeTLink(initScript="/tlinkEventTime/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataTimeTLink = TimeTLink(initScript="/tlinkTime/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+
+context modelsEventCorefDet = EventCoref(initScript="/corefEvent/methods/Deterministic.ctx", initOnce="true", initOverrideByName="true");
+context modelsEventCorefYadllCT = EventCoref(initScript="/corefEvent/methods/YADLL_CTClone.ctx", initOnce="true", initOverrideByName="true");
+context evalEventCorefYadllCT = EventCoref(initScript="/corefEvent/evaluations/YADLL_CTClone.ctx", initOnce="true", initOverrideByName="true");
+context evalEventCorefDet = EventCoref(initScript="/corefEvent/evaluations/Deterministic.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataEventCoref = EventCoref(initScript="/corefEvent/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+
+
+structure_fn graphPaths2 = GraphPaths(length="2", ignoreTypes=("VAGUE"));
+structure_fn graphPaths1 = GraphPaths(length="1", ignoreTypes=("VAGUE"));
+structure_fn graphPaths1V = GraphPaths(length="1");
+structure_fn greedyTlinkTransitiveRules = GreedyStructureRules(rules=(${rulesJointTransitive.rules}, ${rulesJointTLinkConverse.rules}, ${rulesJoint.rules}), 
+                                                               splitFns=(${graphPaths2}, ${graphPaths1}, ${graphPaths1V}));
+
+multi_classify_method sieve = Sieve(methods=(${modelsEventCorefYadllCT.yadllCoref70}, 
+											 ${modelsEventCorefYadllCT.yadllCoref65}, 
+                                             ${modelsEventCorefYadllCT.yadllCoref60},
+                                             ${modelsEventCorefYadllCT.yadllCoref55},
+                                             ${modelsEventCorefYadllCT.yadllCoref50},
+                                             
+                                             ${modelsEventTLinkDetInd.repGovB}, 
+                                             ${modelsEventTLinkDetInd.repGovA}, 
+                                             ${modelsEventTLinkDetInd.repGovI}, 
+                                             ${modelsEventTLinkDetInd.repGovII}, 
+                                             ${modelsEventTLinkDetInd.repGovS}, 
+                                             ${modelsEventTLinkDetInd.repGovV}, 
+
+                                             ${modelsEventTLinkDetInd.reichenbachB}, 
+                                             ${modelsEventTLinkDetInd.reichenbachA}, 
+                                             ${modelsEventTLinkDetInd.reichenbachI}, 
+                                             ${modelsEventTLinkDetInd.reichenbachII}, 
+                                             ${modelsEventTLinkDetInd.reichenbachS}, 
+                                             ${modelsEventTLinkDetInd.reichenbachV}, 
+                                             
+                                             ${modelsEventTLinkDetInd.genGovB}, 
+                                             ${modelsEventTLinkDetInd.genGovA}, 
+                                             ${modelsEventTLinkDetInd.genGovI}, 
+                                             ${modelsEventTLinkDetInd.genGovII}, 
+                                             ${modelsEventTLinkDetInd.genGovS}, 
+                                             ${modelsEventTLinkDetInd.genGovV}, 
+                                             
+                                             ${modelsEventTLinkDetInd.wordNetB},
+                                             ${modelsEventTLinkDetInd.wordNetA},
+                                             ${modelsEventTLinkDetInd.wordNetI},
+                                             ${modelsEventTLinkDetInd.wordNetII},
+                                             ${modelsEventTLinkDetInd.wordNetS},
+                                             ${modelsEventTLinkDetInd.wordNetV},
+                                             
+                                             ${modelsTimeTLinkDetInd.wordNetB}, 
+                                             ${modelsTimeTLinkDetInd.wordNetA}, 
+                                             ${modelsTimeTLinkDetInd.wordNetI}, 
+                                             ${modelsTimeTLinkDetInd.wordNetII}, 
+                                             ${modelsTimeTLinkDetInd.wordNetS}, 
+                                             ${modelsTimeTLinkDetInd.wordNetV}, 
+                                             
+                                             ${modelsTimeTLinkDetInd.timeTimeB},
+                                             ${modelsTimeTLinkDetInd.timeTimeA},
+                                             ${modelsTimeTLinkDetInd.timeTimeI},
+                                             ${modelsTimeTLinkDetInd.timeTimeII},
+                                             ${modelsTimeTLinkDetInd.timeTimeS},
+                                             ${modelsTimeTLinkDetInd.timeTimeV},
+                                             
+                                             ${modelsEventTimeTLinkDetInd.adjETB}, 
+                                             ${modelsEventTimeTLinkDetInd.adjETA}, 
+                                             ${modelsEventTimeTLinkDetInd.adjETI}, 
+                                             ${modelsEventTimeTLinkDetInd.adjETII}, 
+                                             ${modelsEventTimeTLinkDetInd.adjETS}, 
+                                             ${modelsEventTimeTLinkDetInd.adjETV}, 
+                                             
+                                             ${modelsEventTimeTLinkDetInd.reportingDCTB}, 
+                                             ${modelsEventTimeTLinkDetInd.reportingDCTA},
+                                             ${modelsEventTimeTLinkDetInd.reportingDCTI},
+                                             ${modelsEventTimeTLinkDetInd.reportingDCTII},
+                                             ${modelsEventTimeTLinkDetInd.reportingDCTS},
+                                             ${modelsEventTimeTLinkDetInd.reportingDCTV},
+                                             
+                                             ${modelsEventTLinkDetInd.modelsEventTLinkDet.allVague}, 
+                                             
+                                             ${modelsTimeTLinkDetInd.modelsTimeTLinkDet.allVague},
+                                             
+                                             ${modelsEventTimeTLinkDetInd.modelsEventTimeTLinkDet.allVague},
+                                             
+                                             ${modelsEventTimeTLinkYadllInd.yadllWSB},
+                                             ${modelsEventTimeTLinkYadllInd.yadllWSA},
+                                             ${modelsEventTimeTLinkYadllInd.yadllWSI},
+                                             ${modelsEventTimeTLinkYadllInd.yadllWSII},
+                                             ${modelsEventTimeTLinkYadllInd.yadllWSS},
+                                             ${modelsEventTimeTLinkYadllInd.yadllWSV},    
+                                             
+                                             ${modelsEventTimeTLinkYadllInd.yadllDCTB},
+                                             ${modelsEventTimeTLinkYadllInd.yadllDCTA},
+                                             ${modelsEventTimeTLinkYadllInd.yadllDCTI},
+                                             ${modelsEventTimeTLinkYadllInd.yadllDCTII},
+                                             ${modelsEventTimeTLinkYadllInd.yadllDCTS},
+                                             ${modelsEventTimeTLinkYadllInd.yadllDCTV},   
+                                                                                         
+                                             ${modelsEventTLinkYadllInd.yadllWSB},
+                                             ${modelsEventTLinkYadllInd.yadllWSA},
+                                             ${modelsEventTLinkYadllInd.yadllWSI},
+                                             ${modelsEventTLinkYadllInd.yadllWSII},
+                                             ${modelsEventTLinkYadllInd.yadllWSS},
+                                             ${modelsEventTLinkYadllInd.yadllWSV},
+                                             
+                                             ${modelsEventTLinkYadllInd.yadllEEDB},
+                                             ${modelsEventTLinkYadllInd.yadllEEDA},
+                                             ${modelsEventTLinkYadllInd.yadllEEDI},
+                                             ${modelsEventTLinkYadllInd.yadllEEDII},
+                                             ${modelsEventTLinkYadllInd.yadllEEDS},
+                                             ${modelsEventTLinkYadllInd.yadllEEDV}
+                                             ),                                   
+                                    structurizers=(${trainDevTestDataEventCoref.docStructConserve}, 
+                                                   ${trainDevTestDataEventCoref.docStructConserve},
+                                                   ${trainDevTestDataEventCoref.docStructConserve},
+                                                   ${trainDevTestDataEventCoref.docStructConserve},
+                                                   ${trainDevTestDataEventCoref.docStructConserve},
+                                                   
+                                                   ${trainDevTestDataEventTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                    
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   
+                                                   ${trainDevTestDataEventTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   
+                                                   ${trainDevTestDataTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataTimeTLink.docStructConserve}, 
+                                                   
+                                                   ${trainDevTestDataTimeTLink.docStructConserve},
+                                                   ${trainDevTestDataTimeTLink.docStructConserve},
+                                                   ${trainDevTestDataTimeTLink.docStructConserve},
+                                                   ${trainDevTestDataTimeTLink.docStructConserve},
+                                                   ${trainDevTestDataTimeTLink.docStructConserve},
+                                                   ${trainDevTestDataTimeTLink.docStructConserve},
+                                                   
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve},
+                                                   
+                                                   ${trainDevTestDataEventTLink.docStructConserve}, 
+                                                   
+                                                   ${trainDevTestDataTimeTLink.docStructConserve},
+                                                   
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTimeTLink.docStructConserve},
+                                                   
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   
+                                                   ${trainDevTestDataEventTLink.docStructConserve},
+                                                   ${trainDevTestDataEventTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTLink.docStructConserve}, 
+                                                   ${trainDevTestDataEventTLink.docStructConserve}),
+                                    permutationMeasures=(${evalEventCorefYadllCT.devYadllCoref70Precision}, 
+                                                         ${evalEventCorefYadllCT.devYadllCoref65Precision}, 
+                                                         ${evalEventCorefYadllCT.devYadllCoref60Precision}, 
+                                                         ${evalEventCorefYadllCT.devYadllCoref55Precision}, 
+                                                         ${evalEventCorefYadllCT.devYadllCoref50Precision},
+                                    
+                                                         ${evalEventTLinkDetInd.devRepGovBPrecision}, 
+                                                         ${evalEventTLinkDetInd.devRepGovAPrecision}, 
+                                                         ${evalEventTLinkDetInd.devRepGovIPrecision}, 
+                                                         ${evalEventTLinkDetInd.devRepGovIIPrecision}, 
+                                                         ${evalEventTLinkDetInd.devRepGovSPrecision}, 
+                                                         ${evalEventTLinkDetInd.devRepGovVPrecision}, 
+                                    
+                                                         ${evalEventTLinkDetInd.devReichenbachBPrecision},
+                                                         ${evalEventTLinkDetInd.devReichenbachAPrecision},
+                                                         ${evalEventTLinkDetInd.devReichenbachIPrecision},
+                                                         ${evalEventTLinkDetInd.devReichenbachIIPrecision},
+                                                         ${evalEventTLinkDetInd.devReichenbachSPrecision},
+                                                         ${evalEventTLinkDetInd.devReichenbachVPrecision},
+                                                         
+                                                         ${evalEventTLinkDetInd.devGenGovBPrecision}, 
+                                                         ${evalEventTLinkDetInd.devGenGovAPrecision},
+                                                         ${evalEventTLinkDetInd.devGenGovIPrecision},
+                                                         ${evalEventTLinkDetInd.devGenGovIIPrecision},
+                                                         ${evalEventTLinkDetInd.devGenGovSPrecision},
+                                                         ${evalEventTLinkDetInd.devGenGovVPrecision},
+                                                         
+                                                         ${evalEventTLinkDetInd.devWordNetBPrecision},
+                                                         ${evalEventTLinkDetInd.devWordNetAPrecision},
+                                                         ${evalEventTLinkDetInd.devWordNetIPrecision},
+                                                         ${evalEventTLinkDetInd.devWordNetIIPrecision},
+                                                         ${evalEventTLinkDetInd.devWordNetSPrecision},
+                                                         ${evalEventTLinkDetInd.devWordNetVPrecision},
+                                                         
+                                                         ${evalTimeTLinkDetInd.devWordNetBPrecision}, 
+                                                         ${evalTimeTLinkDetInd.devWordNetAPrecision}, 
+                                                         ${evalTimeTLinkDetInd.devWordNetIPrecision}, 
+                                                         ${evalTimeTLinkDetInd.devWordNetIIPrecision}, 
+                                                         ${evalTimeTLinkDetInd.devWordNetSPrecision}, 
+                                                         ${evalTimeTLinkDetInd.devWordNetVPrecision}, 
+                                                         
+                                                         ${evalTimeTLinkDetInd.devTimeTimeBPrecision},
+                                                         ${evalTimeTLinkDetInd.devTimeTimeAPrecision},
+                                                         ${evalTimeTLinkDetInd.devTimeTimeIPrecision},
+                                                         ${evalTimeTLinkDetInd.devTimeTimeIIPrecision},
+                                                         ${evalTimeTLinkDetInd.devTimeTimeSPrecision},
+                                                         ${evalTimeTLinkDetInd.devTimeTimeVPrecision},
+                                                         
+                                                         ${evalEventTimeTLinkDetInd.devAdjETBPrecision},   
+                                                         ${evalEventTimeTLinkDetInd.devAdjETAPrecision},
+                                                         ${evalEventTimeTLinkDetInd.devAdjETIPrecision},
+                                                         ${evalEventTimeTLinkDetInd.devAdjETIIPrecision},
+                                                         ${evalEventTimeTLinkDetInd.devAdjETSPrecision},
+                                                         ${evalEventTimeTLinkDetInd.devAdjETVPrecision},
+                                                         
+                                                         ${evalEventTimeTLinkDetInd.devReportingDCTBPrecision},
+                                                         ${evalEventTimeTLinkDetInd.devReportingDCTAPrecision},
+                                                         ${evalEventTimeTLinkDetInd.devReportingDCTIPrecision},
+                                                         ${evalEventTimeTLinkDetInd.devReportingDCTIIPrecision},
+                                                         ${evalEventTimeTLinkDetInd.devReportingDCTSPrecision},
+                                                         ${evalEventTimeTLinkDetInd.devReportingDCTVPrecision},
+                                                          
+                                                         ${evalEventTLinkDetInd.devAllVaguePrecision}, 
+                                                         
+                                                         ${evalTimeTLinkDetInd.devAllVaguePrecision}, 
+                                                         
+                                                         ${evalEventTimeTLinkDetInd.devAllVaguePrecision}, 
+                                                         
+                                                         ${evalEventTimeTLinkYadllInd.devYadllWSBPrecision}, 
+                                                         ${evalEventTimeTLinkYadllInd.devYadllWSAPrecision},
+                                                         ${evalEventTimeTLinkYadllInd.devYadllWSIPrecision},
+                                                         ${evalEventTimeTLinkYadllInd.devYadllWSIIPrecision},
+                                                         ${evalEventTimeTLinkYadllInd.devYadllWSSPrecision},
+                                                         ${evalEventTimeTLinkYadllInd.devYadllWSVPrecision},
+                                                         
+                                                         ${evalEventTimeTLinkYadllInd.devYadllDCTBPrecision}, 
+                                                         ${evalEventTimeTLinkYadllInd.devYadllDCTAPrecision},
+                                                         ${evalEventTimeTLinkYadllInd.devYadllDCTIPrecision},
+                                                         ${evalEventTimeTLinkYadllInd.devYadllDCTIIPrecision},
+                                                         ${evalEventTimeTLinkYadllInd.devYadllDCTSPrecision},
+                                                         ${evalEventTimeTLinkYadllInd.devYadllDCTVPrecision},
+                                                         
+                                                         ${evalEventTLinkYadllInd.devYadllWSBPrecision},
+                                                         ${evalEventTLinkYadllInd.devYadllWSAPrecision},
+                                                         ${evalEventTLinkYadllInd.devYadllWSIPrecision},
+                                                         ${evalEventTLinkYadllInd.devYadllWSIIPrecision},
+                                                         ${evalEventTLinkYadllInd.devYadllWSSPrecision},
+                                                         ${evalEventTLinkYadllInd.devYadllWSVPrecision},
+                                                         
+                                                         ${evalEventTLinkYadllInd.devYadllEEDBPrecision},
+                                                         ${evalEventTLinkYadllInd.devYadllEEDAPrecision},
+                                                         ${evalEventTLinkYadllInd.devYadllEEDIPrecision},
+                                                         ${evalEventTLinkYadllInd.devYadllEEDIIPrecision},
+                                                         ${evalEventTLinkYadllInd.devYadllEEDSPrecision},
+                                                         ${evalEventTLinkYadllInd.devYadllEEDVPrecision}
+                                    ),
+                                    structureTransformFn=${greedyTlinkTransitiveRules});

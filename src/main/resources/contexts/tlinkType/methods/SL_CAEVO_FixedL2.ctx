@@ -1,0 +1,51 @@
+context dataParamsTlinkType = TLinkType(initScript="/tlinkType/data/parameters/TBD.ctx", initOnce="true", initOverrideByName="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/CAEVO_SL_Fixed.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataTlinkType = TLinkType(initScript="/tlinkType/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+
+data_features trainMatrixDCT = DataFeatureMatrix(data=${trainDevTestDataTlinkType.trainDataDCT}, features=${featureSetsTlinkType.fsDCT});
+data_features trainMatrixETWS = DataFeatureMatrix(data=${trainDevTestDataTlinkType.trainDataETWS}, features=${featureSetsTlinkType.fsETWS});
+data_features trainMatrixEEWS = DataFeatureMatrix(data=${trainDevTestDataTlinkType.trainDataEEWS}, features=${featureSetsTlinkType.fsEEWS});
+data_features trainMatrixEED = DataFeatureMatrix(data=${trainDevTestDataTlinkType.trainDataEED}, features=${featureSetsTlinkType.fsEED});
+data_features trainMatrixEEBS = DataFeatureMatrix(data=${trainDevTestDataTlinkType.trainDataEEBS}, features=${featureSetsTlinkType.fsEEBS});
+
+model slDCTm=StanfordLinear() { array validLabels=${dataParamsTlinkType.labels}; };
+model slETWSm=StanfordLinear() { array validLabels=${dataParamsTlinkType.labels}; };
+model slEEWSm=StanfordLinear() { array validLabels=${dataParamsTlinkType.labels}; };
+model slEEDm=StanfordLinear() { array validLabels=${dataParamsTlinkType.labels}; };
+model slEEBSm=StanfordLinear() { array validLabels=${dataParamsTlinkType.labels}; };
+
+evaluation acc=Accuracy();
+classify_method slDCTUnfiltered = SupervisedModel(model=${slDCTm}, data=${trainMatrixDCT}, trainEvaluation=${acc});
+classify_method slETWSUnfiltered = SupervisedModel(model=${slETWSm}, data=${trainMatrixETWS}, trainEvaluation=${acc});
+classify_method slEEWSUnfiltered = SupervisedModel(model=${slEEWSm}, data=${trainMatrixEEWS}, trainEvaluation=${acc});
+classify_method slEEDUnfiltered = SupervisedModel(model=${slEEDm}, data=${trainMatrixEED}, trainEvaluation=${acc});
+classify_method slEEBSUnfiltered = SupervisedModel(model=${slEEBSm}, data=${trainMatrixEEBS}, trainEvaluation=${acc});
+
+classify_method slDCTSub = FilterDatumIndicator(method=${slDCTUnfiltered}, datumIndicator="ETDCT");
+classify_method slETWSSub = FilterDatumIndicator(method=${slETWSUnfiltered}, datumIndicator="ETWS");
+classify_method slEEWSSub = FilterDatumIndicator(method=${slEEWSUnfiltered}, datumIndicator="EEWS");
+classify_method slEEDSub = FilterDatumIndicator(method=${slEEDUnfiltered}, datumIndicator="EED");
+classify_method slEEBSSub = FilterDatumIndicator(method=${slEEBSUnfiltered}, datumIndicator="EEBS");
+
+search l2DCT = Grid() { dimension l2=Enumerated(values=("1.0", "2.0", "4.0", "8.0", "16.0", "32.0", "64.0"), stageIndex="0"); };
+search l2ETWS = Grid() { dimension l2=Enumerated(values=("1.0", "2.0", "4.0", "8.0", "16.0", "32.0", "64.0"), stageIndex="0"); };
+search l2EEWS = Grid() { dimension l2=Enumerated(values=("1.0", "2.0", "4.0", "8.0", "16.0", "32.0", "64.0"), stageIndex="0"); };
+search l2EED = Grid() { dimension l2=Enumerated(values=("1.0", "2.0", "4.0", "8.0", "16.0", "32.0", "64.0"), stageIndex="0"); };
+search l2EEBS = Grid() { dimension l2=Enumerated(values=("1.0", "2.0", "4.0", "8.0", "16.0", "32.0", "64.0"), stageIndex="0"); };
+
+classify_eval evalDCT = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${slDCTSub}, mode="MICRO");
+classify_eval evalETWS = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${slETWSSub}, mode="MICRO");
+classify_eval evalEEWS = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${slEEWSSub}, mode="MICRO");
+classify_eval evalEED = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${slEEDSub}, mode="MICRO");
+classify_eval evalEEBS = Precision(task=${trainDevTestDataTlinkType.devTask}, method=${slEEBSSub}, mode="MICRO");
+
+classify_method slDCT = RunClassifyMethodSearch(fn=${evalDCT}, search=${l2DCT});
+classify_method slETWS = RunClassifyMethodSearch(fn=${evalETWS}, search=${l2ETWS});
+classify_method slEEWS = RunClassifyMethodSearch(fn=${evalEEWS}, search=${l2EEWS});
+classify_method slEED = RunClassifyMethodSearch(fn=${evalEED}, search=${l2EED});
+classify_method slEEBS = RunClassifyMethodSearch(fn=${evalEEBS}, search=${l2EEBS});
+
+
+
+
+

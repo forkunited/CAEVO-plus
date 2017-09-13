@@ -1,0 +1,16 @@
+data trainData = EventCoref(storage="EventBson", documents="ace_docs", filter=${dataACE2005.devTestDocs}, filterType="EXCLUDE", labelMode="ONLY_LABELED");
+data devData = EventCoref(storage="EventBson", documents="ace_docs", filter=${dataACE2005.devDocs}, filterType="INTERSECT", labelMode="ONLY_LABELED");
+data testData = EventCoref(storage="EventBson", documents="ace_docs", filter=${dataACE2005.testDocs}, filterType="INTERSECT", labelMode="ONLY_LABELED");
+
+value countACE2005EventCorefTrainData = SizeData(data=${trainData});
+value countACE2005EventCorefDevData = SizeData(data=${devData});
+value countACE2005EventCorefTestData = SizeData(data=${testData});
+value debugTrainData = OutputDebug(refs=(${countACE2005EventCorefTrainData}));
+value debugDevData = OutputDebug(refs=(${countACE2005EventCorefDevData}));
+value debugTestData = OutputDebug(refs=(${countACE2005EventCorefTestData}));
+
+classify_task devTask = Classification(data=${devData});
+classify_task testTask = Classification(data=${testData});
+  
+structurizer docStruct = DocumentNLPGraphEventMentionPair();
+structurizer docStructMulti = DocumentNLPGraphEventMentionPair(graphEdgeMode="MULTI", graphNodeMode="MULTI");

@@ -1,0 +1,7 @@
+value maxThreads="30";
+value resultsId = "BinaryEvent_Test_StanfordLinear";
+value debug=Debug(file=${resultsId});
+
+context util = TokenSpansBoolean(initScript="/util/Util.ctx", initOnce="true");
+context eval = TokenSpansBoolean(initScript="/binaryEvent/evaluations/Default.ctx", initOnce="false");
+context results = TokenSpansBoolean(initScript="/binaryEvent/experiment/output/Test_Default.ctx", initOnce="false");

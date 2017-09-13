@@ -1,0 +1,16 @@
+context dataParamsEventBinary = TokenSpansBoolean(initScript="/binaryEvent/data/parameters/TBD.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDocsEventBinary = TokenSpansBoolean(initScript="/util/data/docs/TBD.ctx", initOnce="true", initOverrideByName="true");
+
+data trainData = TokenSpanAnnotationIndicator(annotationType="ev_mention", storage="EventBson", documents=${dataParamsEventBinary.trainDocs}, filter=${trainDevTestDocsEventBinary.devTestDocs}, filterType="EXCLUDE", labelMode=${dataParamsEventBinary.trainLabelMode}, clusterMode=${dataParamsEventBinary.trainClusterMode});
+data devData = TokenSpanAnnotationIndicator(annotationType="ev_mention", storage="EventBson", documents=${dataParamsEventBinary.devDocs}, filter=${trainDevTestDocsEventBinary.devDocs}, filterType="INTERSECT", labelMode=${dataParamsEventBinary.devLabelMode}, clusterMode=${dataParamsEventBinary.devClusterMode});
+data testData = TokenSpanAnnotationIndicator(annotationType="ev_mention", storage="EventBson", documents=${dataParamsEventBinary.testDocs}, filter=${trainDevTestDocsEventBinary.testDocs}, filterType="INTERSECT", labelMode=${dataParamsEventBinary.testLabelMode}, clusterMode=${dataParamsEventBinary.testClusterMode});
+
+value countTBDEventBinaryTrainData = SizeData(data=${trainData});
+value countTBDEventBinaryDevData = SizeData(data=${devData});
+value countTBDEventBinaryTestData = SizeData(data=${testData});
+value debugTrainData = OutputDebug(refs=(${countTBDEventBinaryTrainData}));
+value debugDevData = OutputDebug(refs=(${countTBDEventBinaryDevData}));
+value debugTestData = OutputDebug(refs=(${countTBDEventBinaryTestData}));
+
+classify_task devTask = Classification(data=${devData});
+classify_task testTask = Classification(data=${testData});

@@ -1,0 +1,39 @@
+context trainDevTestDataTlinkType = TLinkType(initScript="/tlinkType/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context rulesTlinkTypeTransitive = TLinkType(initScript="/tlinkType/rules/Transitive.ctx", initOnce="true");
+context rulesTlinkTypeConverse = TLinkType(initScript="/tlinkType/rules/Converse.ctx", initOnce="true");
+context modelsTlinkTypeDet = TLinkType(initScript="/tlinkType/methods/Deterministic_TBD.ctx", initOnce="true", initOverrideByName="true");
+context modelsTlinkTypeYadll = TLinkType(initScript="/tlinkType/methods/YADLL_LR_CAEVO.ctx", initOnce="true", initOverrideByName="true");
+context evalTlinkTypeDet = TLinkType(initScript="/tlinkType/evaluations/Deterministic_TBD.ctx", initOnce="true", initOverrideByName="true");
+context evalTlinkTypeYadll = TLinkType(initScript="/tlinkType/evaluations/YADLL.ctx", initOnce="true", initOverrideByName="true");
+
+structure_fn graphPaths2 = GraphPaths(length="2", ignoreTypes=("VAGUE"));
+structure_fn graphPaths1 = GraphPaths(length="1", ignoreTypes=("VAGUE"));
+structure_fn greedyTlinkTransitiveRules = GreedyStructureRules(rules=(${rulesTlinkTypeTransitive.rules}, ${rulesTlinkTypeConverse.rules}), 
+                                                               splitFns=(${graphPaths2}, ${graphPaths1}));
+
+multi_classify_method sieve = Sieve(methods=(${modelsTlinkTypeDet.adjET}, ${modelsTlinkTypeDet.timeTime},
+                                             ${modelsTlinkTypeDet.repGov}, ${modelsTlinkTypeDet.reichenbach}, 
+                                             ${modelsTlinkTypeDet.genGov}, ${modelsTlinkTypeDet.wordNet},
+                                             ${modelsTlinkTypeDet.reportingDCT}, ${modelsTlinkTypeDet.allVague},
+                                             ${modelsTlinkTypeYadll.yadllETWS}, 
+                                             ${modelsTlinkTypeYadll.yadllEED},
+                                             ${modelsTlinkTypeYadll.yadllEEWS}, 
+                                             ${modelsTlinkTypeYadll.yadllDCT}),                                   
+                                    structurizers=(${trainDevTestDataTlinkType.docStructConserve}, ${trainDevTestDataTlinkType.docStructConserve},
+                                                   ${trainDevTestDataTlinkType.docStructConserve}, ${trainDevTestDataTlinkType.docStructConserve},
+                                                   ${trainDevTestDataTlinkType.docStructConserve}, ${trainDevTestDataTlinkType.docStructConserve},
+                                                   ${trainDevTestDataTlinkType.docStructConserve}, ${trainDevTestDataTlinkType.docStructConserve},
+                                                   ${trainDevTestDataTlinkType.docStructConserve}, 
+                                                   ${trainDevTestDataTlinkType.docStructConserve},
+                                                   ${trainDevTestDataTlinkType.docStructConserve}, 
+                                                   ${trainDevTestDataTlinkType.docStructConserve}),
+                                    permutationMeasures=(${evalTlinkTypeDet.devAdjETPrecision}, ${evalTlinkTypeDet.devTimeTimePrecision},
+                                                      ${evalTlinkTypeDet.devRepGovPrecision}, ${evalTlinkTypeDet.devReichenbachPrecision},
+                                                      ${evalTlinkTypeDet.devGenGovPrecision}, ${evalTlinkTypeDet.devWordNetPrecision},
+                                                      ${evalTlinkTypeDet.devReportingDCTPrecision}, ${evalTlinkTypeDet.devAllVaguePrecision}, 
+                                                      ${evalTlinkTypeYadll.devYadllETWSPrecision}, 
+                                                      ${evalTlinkTypeYadll.devYadllEEDPrecision}, 
+                                                      ${evalTlinkTypeYadll.devYadllEEWSPrecision}, 
+                                                      ${evalTlinkTypeYadll.devYadllDCTPrecision}
+                                    ),
+                                    structureTransformFn=${greedyTlinkTransitiveRules});

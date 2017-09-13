@@ -1,0 +1,13 @@
+context modelsTlinkTypePS = TLinkType(initScript="/tlinkType/methods/PrecedenceScore_EEND.ctx", initOnce="true", initOverrideByName="true");
+context unlabeledData = TLinkType(initScript="/tlinkType/data/Load.ctx", initOnce="true");
+context evalPS = TLinkType(initScript="/tlinkType/evaluations/PrecedenceScore.ctx", initOnce="true");
+
+multi_classify_method st = SelfTrain(method=${modelsTlinkTypePS.ps}, 
+                                     unlabeledData=(${unlabeledData.data}), 
+                                     trainIters="8",
+                                     trainOnInit="true", 
+                                     evaluations=(${evalPS.multiDevPrecision}, ${evalPS.multiDevRecall}),
+                                     weightData="true",
+                                     dataScoreThreshold=".6");
+                                     
+multi_classify_method stInit = InitMultiClassifyMethod(method=${st}, devTask=${evalPS.multiDevTask});

@@ -1,0 +1,9 @@
+value maxThreads="30";
+value resultsId = "TLinkType_Dev_PS_EEND_TBDNoPVNV";
+value debug=Debug(file=${resultsId});
+
+context util = TLinkType(initScript="/util/Util.ctx", initOnce="true");
+context dataParamsTlinkType = TLinkType(initScript="/tlinkType/data/parameters/TBDNoPVNV.ctx", initOnce="false");
+context modelsTlinkTypePS= TLinkType(initScript="/tlinkType/methods/PrecedenceScore_EEND.ctx", initOnce="true", initOverrideByName="true");
+context evalPS = TLinkType(initScript="/tlinkType/evaluations/PrecedenceScore.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Dev_PS.ctx", initOnce="false");

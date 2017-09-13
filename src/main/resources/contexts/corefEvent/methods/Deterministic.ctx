@@ -1,0 +1,4 @@
+classify_method wordNetSynsetSieve = Det(rule="WORD_NET_SYNSET");
+classify_method wordNetLemmaSieve = Det(rule="WORD_NET_LEMMA");
+
+classify_method allNotCoref = Constant(label="NOT_COREF");

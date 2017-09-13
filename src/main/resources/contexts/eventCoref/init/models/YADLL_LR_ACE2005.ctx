@@ -1,0 +1,47 @@
+feature_set fs = FeatureSet(features=(${featuresEventCoref.fheadPosPair},
+									  ${featuresEventCoref.fheadLemmaPair},
+									  ${featuresEventCoref.fheadPosSame},
+									  ${featuresEventCoref.fheadLemmaSame},
+									  ${featuresEventCoref.fpredSenseSame},
+									  ${featuresEventCoref.fw2vHeadSimilarity},
+									  ${featuresEventCoref.fheadSynsetSimilarity},
+									  ${featuresEventCoref.fextentSimilarity},
+									  ${featuresEventCoref.fcontextB3Similarity},
+									  ${featuresEventCoref.fcontextA3Similarity},
+									  ${featuresEventCoref.fArg0LemmaSimilarity},
+									  ${featuresEventCoref.fArg1LemmaSimilarity},
+									  ${featuresEventCoref.fArg2LemmaSimilarity},
+									  ${featuresEventCoref.fArg3LemmaSimilarity},
+									  ${featuresEventCoref.fArg4LemmaSimilarity},
+									  ${featuresEventCoref.fArg5LemmaSimilarity},
+									  ${featuresEventCoref.fArgTmpLemmaSimilarity},
+									  ${featuresEventCoref.fArgLocLemmaSimilarity},
+									  ${featuresEventCoref.fArgMnrLemmaSimilarity},
+									  ${featuresEventCoref.fw2vArg0HeadSimilarity},
+									  ${featuresEventCoref.fw2vArg1HeadSimilarity},
+									  ${featuresEventCoref.fw2vArg2HeadSimilarity},
+									  ${featuresEventCoref.fw2vArg3HeadSimilarity},
+									  ${featuresEventCoref.fw2vArg4HeadSimilarity},
+									  ${featuresEventCoref.fw2vArg5HeadSimilarity},
+									  ${featuresEventCoref.fw2vArgTmpHeadSimilarity},
+									  ${featuresEventCoref.fw2vArgLocHeadSimilarity},
+									  ${featuresEventCoref.fw2vArgMnrHeadSimilarity}), 
+								initData=(${dataEventCorefACE2005.trainData}));
+
+data_features trainMatrix = DataFeatureMatrix(data=${dataEventCorefACE2005.trainData}, features=${fs});
+
+model yadllModel=YADLL(numEpochs="80", stepSize="2", 
+				  fnNodes=("Softmax", "NegativeLogLoss"), 
+				  fnParameters=("FanIn", "Zeros"), 
+				  Softmax_0_input="FanIn_0*x+Zeros_1", 
+				  Softmax_0_size=${labelsEventCorefACE2005.count}, 
+				  NegativeLogLoss_1_input="Softmax_0", 
+				  NegativeLogLoss_1_size="1", 
+				  targetFnNode="Softmax_0",
+				  lossFnNode="NegativeLogLoss_1") {
+	array validLabels=${labelsEventCorefACE2005.labels};
+};
+
+evaluation acc=Accuracy();
+classify_method yadllLR_Init = SupervisedModel(model=${yadllModel}, data=${trainMatrix}, trainEvaluation=${acc});
+classify_method yadll = InitClassifyMethod(devData=${dataEventCorefACE2005.devData}, method=${yadllLR_Init});

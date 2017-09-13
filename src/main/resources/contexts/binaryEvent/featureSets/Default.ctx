@@ -1,0 +1,21 @@
+context features = TokenSpansBoolean(initScript="/binaryEvent/Features.ctx", initOnce="true");
+context trainDevTestDataEventBinary = TokenSpansBoolean(initScript="/binaryEvent/data/LoadTrainDevTest.ctx", initOnce="true");
+
+feature_set fs = FeatureSet(features=(${features.fTokenB}, 
+										${features.fTokenA},
+										${features.fPos},
+										${features.fPosB},
+										${features.fPosBI}, 
+										${features.fPosB2}, 
+										${features.fPosA}, 
+										${features.fPosAI}, 
+										${features.fPosA2},
+										${features.fPrep},
+										${features.fLemma},
+										${features.fSynset},
+										${features.fSentPos},  
+										${features.fW2v}, 
+										${features.fPred}, 
+										${features.fDep}, 
+										${features.fDepRel}), 
+							initData=(${trainDevTestDataEventBinary.trainData}));

@@ -1,0 +1,29 @@
+value trainDocs="tbd_docs";
+value devDocs="tbd_docs";
+value testDocs="tbd_docs";
+value trainLabelMode="ONLY_LABELED";
+value devLabelMode="ONLY_LABELED";
+value testLabelMode="ONLY_LABELED";
+value trainClusterMode="POST";
+value devClusterMode="POST";
+value testClusterMode="POST";
+
+array labelsTense = ("FUTURE", "INFINITIVE", "PAST",
+                     "PASTPART", "PRESENT", "PRESPART",
+                     "PASSIVE", "NONE");
+value labelCountTense = SizeArray(array=${labelsTense});
+
+array labelsAspect = ("PROGRESSIVE", "PERFECTIVE", "PERFECTIVE_PROGRESSIVE", "NONE");
+value labelCountAspect = SizeArray(array=${labelsAspect});
+
+array labelsClass = ("OCCURRENCE", "PERCEPTION", "REPORTING",
+                     "ASPECTUAL", "STATE", "I_STATE", "I_ACTION",
+                     "NONE");
+value labelCountClass = SizeArray(array=${labelsClass});
+
+array labelsPolarity = ("POS", "NEG");
+value labelCountPolarity = SizeArray(array=${labelsPolarity});
+	
+array labelsModality = ("", "can", "could", "'d", "delete", "may", "might", "must", "none",
+                        "possible", "should", "to", "until", "would");
+value labelCountModality = SizeArray(array=${labelsModality});

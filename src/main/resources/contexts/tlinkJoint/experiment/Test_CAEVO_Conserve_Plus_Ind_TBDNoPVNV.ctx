@@ -1,0 +1,11 @@
+value maxThreads="30";
+value resultsId = "TLinkJoint_Test_CAEVO_Conserve_Plus_Ind_TBDNoPVNV";
+value debug=Debug(file=${resultsId});
+
+context util = EventTimeTLink(initScript="/util/Util.ctx", initOnce="true");
+context dataParamsTimeTLink = TLinkType(initScript="/tlinkTime/data/parameters/TBDNoPVNV.ctx", initOnce="false");
+context dataParamsEventTLink = TLinkType(initScript="/tlinkEvent/data/parameters/TBDNoPVNV.ctx", initOnce="false");
+context dataParamsEventTimeTLink = TLinkType(initScript="/tlinkEventTime/data/parameters/TBDNoPVNV.ctx", initOnce="false");
+context modelsJointTLinkSieve = EventTimeTLink(initScript="/tlinkJoint/methods/CAEVO_Conserve_Ind.ctx", initOnce="false");
+context evalSieve = EventTimeTLink(initScript="/tlinkJoint/evaluations/Sieve.ctx", initOnce="false");
+context results = EventTimeTLink(initScript="/tlinkJoint/experiment/output/Test_Sieve_Ind.ctx", initOnce="false");

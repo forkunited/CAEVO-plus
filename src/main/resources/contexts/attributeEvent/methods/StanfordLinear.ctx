@@ -1,0 +1,28 @@
+context dataParamsEventAttribute = EventMentionString(initScript="/attributeEvent/data/parameters/TBD.ctx", initOnce="true", initOverrideByName="true");
+context featureSetsEventAttribute = EventMentionString(initScript="/attributeEvent/featureSets/Default.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDataEventAttribute = EventMentionString(initScript="/attributeEvent/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+
+data_features trainMatrixTense = DataFeatureMatrix(data=${trainDevTestDataEventAttribute.trainDataTense}, features=${featureSetsEventAttribute.fsTense});
+data_features trainMatrixAspect = DataFeatureMatrix(data=${trainDevTestDataEventAttribute.trainDataAspect}, features=${featureSetsEventAttribute.fsAspect});
+data_features trainMatrixClass = DataFeatureMatrix(data=${trainDevTestDataEventAttribute.trainDataClass}, features=${featureSetsEventAttribute.fsClass});
+data_features trainMatrixPolarity = DataFeatureMatrix(data=${trainDevTestDataEventAttribute.trainDataPolarity}, features=${featureSetsEventAttribute.fsPolarity});
+data_features trainMatrixModality = DataFeatureMatrix(data=${trainDevTestDataEventAttribute.trainDataModality}, features=${featureSetsEventAttribute.fsModality});
+
+model slTense=StanfordLinear() { array validLabels=${dataParamsEventAttribute.labelsTense}; };
+model slAspect=StanfordLinear() { array validLabels=${dataParamsEventAttribute.labelsAspect}; };
+model slClass=StanfordLinear() { array validLabels=${dataParamsEventAttribute.labelsClass}; };
+model slPolarity=StanfordLinear() { array validLabels=${dataParamsEventAttribute.labelsPolarity}; };
+model slModality=StanfordLinear() { array validLabels=${dataParamsEventAttribute.labelsModality}; };
+
+evaluation acc=Accuracy();
+classify_method methodTenseInit = SupervisedModel(model=${slTense}, data=${trainMatrixTense}, trainEvaluation=${acc});
+classify_method methodAspectInit = SupervisedModel(model=${slAspect}, data=${trainMatrixAspect}, trainEvaluation=${acc});
+classify_method methodClassInit = SupervisedModel(model=${slClass}, data=${trainMatrixClass}, trainEvaluation=${acc});
+classify_method methodPolarityInit = SupervisedModel(model=${slPolarity}, data=${trainMatrixPolarity}, trainEvaluation=${acc});
+classify_method methodModalityInit = SupervisedModel(model=${slModality}, data=${trainMatrixModality}, trainEvaluation=${acc});
+
+classify_method methodTense = InitClassifyMethod(devData=${trainDevTestDataEventAttribute.devDataTense}, method=${methodTenseInit});
+classify_method methodAspect = InitClassifyMethod(devData=${trainDevTestDataEventAttribute.devDataAspect}, method=${methodAspectInit});
+classify_method methodClass = InitClassifyMethod(devData=${trainDevTestDataEventAttribute.devDataClass}, method=${methodClassInit});
+classify_method methodPolarity = InitClassifyMethod(devData=${trainDevTestDataEventAttribute.devDataPolarity}, method=${methodPolarityInit});
+classify_method methodModality = InitClassifyMethod(devData=${trainDevTestDataEventAttribute.devDataModality}, method=${methodModalityInit});

@@ -1,0 +1,9 @@
+value docs="te3_minus_tbd_docs";
+value tlinks="te3_minus_tbd_tlinks";
+value labelMode="ALL";
+value maxSentDist="1";
+value crossDocMode="NONE";
+value clusterMode="POST";
+
+array labels = ("BEFORE", "AFTER", "INCLUDES", "IS_INCLUDED", "SIMULTANEOUS", "VAGUE");
+value labelCount = SizeArray(array=${labels});

@@ -1,0 +1,44 @@
+context dataParamsEventAttribute = EventMentionString(initScript="/attributeEvent/data/parameters/TBD.ctx", initOnce="true", initOverrideByName="true");
+context trainDevTestDocsEventAttribute = EventMentionString(initScript="/util/data/docs/TBD.ctx", initOnce="true", initOverrideByName="true");
+
+data trainDataTense = EventMentionAttribute(attribute="TIMEML_TENSE", storage="EventBson", documents=${dataParamsEventAttribute.trainDocs}, filter=${trainDevTestDocsEventAttribute.devTestDocs}, filterType="EXCLUDE", labelMode=${dataParamsEventAttribute.trainLabelMode}, clusterMode=${dataParamsEventAttribute.trainClusterMode});
+data devDataTense = EventMentionAttribute(attribute="TIMEML_TENSE", storage="EventBson", documents=${dataParamsEventAttribute.devDocs}, filter=${trainDevTestDocsEventAttribute.devDocs}, filterType="INTERSECT", labelMode=${dataParamsEventAttribute.devLabelMode}, clusterMode=${dataParamsEventAttribute.devClusterMode});
+data testDataTense = EventMentionAttribute(attribute="TIMEML_TENSE", storage="EventBson", documents=${dataParamsEventAttribute.testDocs}, filter=${trainDevTestDocsEventAttribute.testDocs}, filterType="INTERSECT", labelMode=${dataParamsEventAttribute.testLabelMode}, clusterMode=${dataParamsEventAttribute.testClusterMode});
+
+data trainDataAspect = EventMentionAttribute(attribute="TIMEML_ASPECT", storage="EventBson", documents=${dataParamsEventAttribute.trainDocs}, filter=${trainDevTestDocsEventAttribute.devTestDocs}, filterType="EXCLUDE", labelMode=${dataParamsEventAttribute.trainLabelMode}, clusterMode=${dataParamsEventAttribute.trainClusterMode});
+data devDataAspect = EventMentionAttribute(attribute="TIMEML_ASPECT", storage="EventBson", documents=${dataParamsEventAttribute.devDocs}, filter=${trainDevTestDocsEventAttribute.devDocs}, filterType="INTERSECT", labelMode=${dataParamsEventAttribute.devLabelMode}, clusterMode=${dataParamsEventAttribute.devClusterMode});
+data testDataAspect = EventMentionAttribute(attribute="TIMEML_ASPECT", storage="EventBson", documents=${dataParamsEventAttribute.testDocs}, filter=${trainDevTestDocsEventAttribute.testDocs}, filterType="INTERSECT", labelMode=${dataParamsEventAttribute.testLabelMode}, clusterMode=${dataParamsEventAttribute.testClusterMode});
+
+data trainDataClass = EventMentionAttribute(attribute="TIMEML_CLASS", storage="EventBson", documents=${dataParamsEventAttribute.trainDocs}, filter=${trainDevTestDocsEventAttribute.devTestDocs}, filterType="EXCLUDE", labelMode=${dataParamsEventAttribute.trainLabelMode}, clusterMode=${dataParamsEventAttribute.trainClusterMode});
+data devDataClass = EventMentionAttribute(attribute="TIMEML_CLASS", storage="EventBson", documents=${dataParamsEventAttribute.devDocs}, filter=${trainDevTestDocsEventAttribute.devDocs}, filterType="INTERSECT", labelMode=${dataParamsEventAttribute.devLabelMode}, clusterMode=${dataParamsEventAttribute.devClusterMode});
+data testDataClass = EventMentionAttribute(attribute="TIMEML_CLASS", storage="EventBson", documents=${dataParamsEventAttribute.testDocs}, filter=${trainDevTestDocsEventAttribute.testDocs}, filterType="INTERSECT", labelMode=${dataParamsEventAttribute.testLabelMode}, clusterMode=${dataParamsEventAttribute.testClusterMode});
+
+data trainDataPolarity = EventMentionAttribute(attribute="TIMEML_POLARITY", storage="EventBson", documents=${dataParamsEventAttribute.trainDocs}, filter=${trainDevTestDocsEventAttribute.devTestDocs}, filterType="EXCLUDE", labelMode=${dataParamsEventAttribute.trainLabelMode}, clusterMode=${dataParamsEventAttribute.trainClusterMode});
+data devDataPolarity = EventMentionAttribute(attribute="TIMEML_POLARITY", storage="EventBson", documents=${dataParamsEventAttribute.devDocs}, filter=${trainDevTestDocsEventAttribute.devDocs}, filterType="INTERSECT", labelMode=${dataParamsEventAttribute.devLabelMode}, clusterMode=${dataParamsEventAttribute.devClusterMode});
+data testDataPolarity = EventMentionAttribute(attribute="TIMEML_POLARITY", storage="EventBson", documents=${dataParamsEventAttribute.testDocs}, filter=${trainDevTestDocsEventAttribute.testDocs}, filterType="INTERSECT", labelMode=${dataParamsEventAttribute.testLabelMode}, clusterMode=${dataParamsEventAttribute.testClusterMode});
+
+data trainDataModality = EventMentionAttribute(attribute="MODALITY", storage="EventBson", documents=${dataParamsEventAttribute.trainDocs}, filter=${trainDevTestDocsEventAttribute.devTestDocs}, filterType="EXCLUDE", labelMode=${dataParamsEventAttribute.trainLabelMode}, clusterMode=${dataParamsEventAttribute.trainClusterMode});
+data devDataModality = EventMentionAttribute(attribute="MODALITY", storage="EventBson", documents=${dataParamsEventAttribute.devDocs}, filter=${trainDevTestDocsEventAttribute.devDocs}, filterType="INTERSECT", labelMode=${dataParamsEventAttribute.devLabelMode}, clusterMode=${dataParamsEventAttribute.devClusterMode});
+data testDataModality = EventMentionAttribute(attribute="MODALITY", storage="EventBson", documents=${dataParamsEventAttribute.testDocs}, filter=${trainDevTestDocsEventAttribute.testDocs}, filterType="INTERSECT", labelMode=${dataParamsEventAttribute.testLabelMode}, clusterMode=${dataParamsEventAttribute.testClusterMode});
+
+value countTBDEventAttributeTrainData = SizeData(data=${trainDataTense});
+value countTBDEventAttributeDevData = SizeData(data=${devDataTense});
+value countTBDEventAttributeTestData = SizeData(data=${testDataTense});
+value debugTrainData = OutputDebug(refs=(${countTBDEventAttributeTrainData}));
+value debugDevData = OutputDebug(refs=(${countTBDEventAttributeDevData}));
+value debugTestData = OutputDebug(refs=(${countTBDEventAttributeTestData}));
+
+classify_task devTaskTense = Classification(data=${devDataTense});
+classify_task testTaskTense = Classification(data=${testDataTense});
+
+classify_task devTaskAspect = Classification(data=${devDataAspect});
+classify_task testTaskAspect = Classification(data=${testDataAspect});
+
+classify_task devTaskClass = Classification(data=${devDataClass});
+classify_task testTaskClass = Classification(data=${testDataClass});
+
+classify_task devTaskPolarity = Classification(data=${devDataPolarity});
+classify_task testTaskPolarity = Classification(data=${testDataPolarity});
+
+classify_task devTaskModality = Classification(data=${devDataModality});
+classify_task testTaskModality = Classification(data=${testDataModality});

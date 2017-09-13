@@ -1,0 +1,12 @@
+value trainDocs="tbd_docs";
+value devDocs="tbd_docs";
+value testDocs="tbd_docs";
+value trainLabelMode="ONLY_LABELED";
+value devLabelMode="ONLY_LABELED";
+value testLabelMode="ONLY_LABELED";
+value trainClusterMode="POST";
+value devClusterMode="POST";
+value testClusterMode="POST";
+
+array labels = ("true", "false");
+value labelCount = SizeArray(array=${labels});

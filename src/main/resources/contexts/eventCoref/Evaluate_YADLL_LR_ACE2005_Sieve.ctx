@@ -1,0 +1,37 @@
+value maxThreads="30";
+value debug=Debug(file="EventCoref_YADLL_LR_ACE2005_Sieve.out");
+value randomSeed=SetRandomSeed(seed="1");
+value cleanFn=BuildCleanFn(name="BagOfWordsCleanFn", fns=("Trim", "RemoveSymbols", "ReplaceNumbers", "UnderscoreToSpace", "Trim", "RemoveLongTokens", "Stem", "SpaceToUnderscore"));
+
+context dataACE2005 = EventMentionPairCoref(initScript="/util/init/data/ACE2005.ctx");
+context dataEventCorefACE2005 = EventMentionPairCoref(initScript="/eventCoref/init/data/ACE2005.ctx");
+context labelsEventCorefACE2005 = EventMentionPairCoref(initScript="/eventCoref/init/labels/ACE2005.ctx");
+
+context featuresEventCoref = EventMentionPairCoref(initScript="/eventCoref/init/Features.ctx");
+
+context modelsEventCorefYadllLr = EventMentionPairCoref(initScript="/eventCoref/init/models/YADLL_LR_ACE2005.ctx");
+context modelsEventCorefYadllLrCtClone = EventMentionPairCoref(initScript="/eventCoref/init/models/YADLL_LR_ACE2005_CTClone.ctx");
+
+context evalEventCorefYadllLr = EventMentionPairCoref(initScript="/eventCoref/init/evaluations/YADLL_LR_ACE2005.ctx");
+context evalEventCorefYadllLrCtClone = EventMentionPairCoref(initScript="/eventCoref/init/evaluations/YADLL_LR_ACE2005_CTClone.ctx");
+
+context rulesEventCorefTransitive = EventMentionPairCoref(initScript="/eventCoref/init/rules/Transitive.ctx");
+context modelsEventCorefYadllLrSieve = EventMentionPairCoref(initScript="/eventCoref/init/models/YADLL_LR_ACE2005_Sieve.ctx");
+
+multi_classify_task multiDevTask = MultiClassification(tasks=(${dataEventCorefACE2005.devTask}));
+multi_classify_task multiTestTask = MultiClassification(tasks=(${dataEventCorefACE2005.testTask}));
+
+multi_classify_eval multiDevPrecision = Precision(task=${multiDevTask}, method=${modelsEventCorefYadllLrSieve.sieve}, mode="MICRO", filterLabels=("COREF"));
+multi_classify_eval multiDevRecall = Recall(task=${multiDevTask}, method=${modelsEventCorefYadllLrSieve.sieve}, mode="MICRO", filterLabels=("COREF"));
+multi_classify_eval multiDevF = F(task=${multiDevTask}, method=${modelsEventCorefYadllLrSieve.sieve}, mode="MICRO", Beta="1", filterLabels=("COREF"));
+
+multi_classify_eval multiTestPrecision = Precision(task=${multiTestTask}, method=${modelsEventCorefYadllLrSieve.sieve}, mode="MICRO", filterLabels=("COREF"));
+multi_classify_eval multiTestRecall = Recall(task=${multiTestTask}, method=${modelsEventCorefYadllLrSieve.sieve}, mode="MICRO", filterLabels=("COREF"));
+multi_classify_eval multiTestF = F(task=${multiTestTask}, method=${modelsEventCorefYadllLrSieve.sieve}, mode="MICRO", Beta="1", filterLabels=("COREF"));
+
+value strEvals = OutputStrings(id="Evaluation_EventCoref_YADLL_LR_ACE2005_Sieve", storage="EventString", collection="ExperimentEvaluationOutput", 
+                 refs=
+                 (
+	                 ${multiDevPrecision}, ${multiDevRecall}, ${multiDevF},
+	                 ${multiTestPrecision}, ${multiTestRecall}, ${multiTestF}
+                 ));

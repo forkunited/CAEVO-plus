@@ -1,0 +1,18 @@
+value strEvals = OutputStrings(id=${resultsId}, storage="EventString", collection="ExperimentEvaluationOutput", 
+                 refs=
+                 (
+                  ${eval.devAccuracy}, 
+                  ${eval.devPrecision}, 
+                  ${eval.devRecall}, 
+                  ${eval.devF},
+
+                  ${eval.testAccuracy}, 
+                  ${eval.testPrecision}, 
+                  ${eval.testRecall}, 
+                  ${eval.testF},
+                  
+                  ${eval.devConfusionMatrix}, 
+                  ${eval.testConfusionMatrix}
+                 ));
+                 
+value strCtx = OutputContext(id=${resultsId}, storage="EventString", collection="ExperimentModelOutput");

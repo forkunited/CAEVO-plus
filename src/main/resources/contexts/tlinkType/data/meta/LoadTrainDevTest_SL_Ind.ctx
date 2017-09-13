@@ -1,0 +1,374 @@
+context trainDevTestDataTlinkType = TLinkType(initScript="/tlinkType/data/LoadTrainDevTest.ctx", initOnce="true", initOverrideByName="true");
+context modelsTlinkTypeDetInd = TLinkType(initScript="/tlinkType/methods/Deterministic_TBD_Ind.ctx", initOnce="true", initOverrideByName="true");
+context modelsTlinkTypeSlInd = TLinkType(initScript="/tlinkType/methods/SL_Ind.ctx", initOnce="true", initOverrideByName="true");
+
+data adjETATrainData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETA}, task=${trainDevTestDataTlinkType.trainTask});
+data timeTimeATrainData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeA}, task=${trainDevTestDataTlinkType.trainTask});
+data repGovATrainData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovA}, task=${trainDevTestDataTlinkType.trainTask});
+data reichenbachATrainData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachA}, task=${trainDevTestDataTlinkType.trainTask});
+data genGovATrainData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovA}, task=${trainDevTestDataTlinkType.trainTask});
+data wordNetATrainData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetA}, task=${trainDevTestDataTlinkType.trainTask});
+data reportingDCTATrainData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTA}, task=${trainDevTestDataTlinkType.trainTask});
+
+data adjETBTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETB}, task=${trainDevTestDataTlinkType.trainTask});
+data timeTimeBTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeB}, task=${trainDevTestDataTlinkType.trainTask});
+data repGovBTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovB}, task=${trainDevTestDataTlinkType.trainTask});
+data reichenbachBTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachB}, task=${trainDevTestDataTlinkType.trainTask});
+data genGovBTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovB}, task=${trainDevTestDataTlinkType.trainTask});
+data wordNetBTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetB}, task=${trainDevTestDataTlinkType.trainTask});
+data reportingDCTBTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTB}, task=${trainDevTestDataTlinkType.trainTask});
+
+data adjETITrainData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETI}, task=${trainDevTestDataTlinkType.trainTask});
+data timeTimeITrainData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeI}, task=${trainDevTestDataTlinkType.trainTask});
+data repGovITrainData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovI}, task=${trainDevTestDataTlinkType.trainTask});
+data reichenbachITrainData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachI}, task=${trainDevTestDataTlinkType.trainTask});
+data genGovITrainData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovI}, task=${trainDevTestDataTlinkType.trainTask});
+data wordNetITrainData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetI}, task=${trainDevTestDataTlinkType.trainTask});
+data reportingDCTITrainData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTI}, task=${trainDevTestDataTlinkType.trainTask});
+
+data adjETIITrainData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETII}, task=${trainDevTestDataTlinkType.trainTask});
+data timeTimeIITrainData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeII}, task=${trainDevTestDataTlinkType.trainTask});
+data repGovIITrainData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovII}, task=${trainDevTestDataTlinkType.trainTask});
+data reichenbachIITrainData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachII}, task=${trainDevTestDataTlinkType.trainTask});
+data genGovIITrainData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovII}, task=${trainDevTestDataTlinkType.trainTask});
+data wordNetIITrainData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetII}, task=${trainDevTestDataTlinkType.trainTask});
+data reportingDCTIITrainData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTII}, task=${trainDevTestDataTlinkType.trainTask});
+
+data adjETSTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETS}, task=${trainDevTestDataTlinkType.trainTask});
+data timeTimeSTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeS}, task=${trainDevTestDataTlinkType.trainTask});
+data repGovSTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovS}, task=${trainDevTestDataTlinkType.trainTask});
+data reichenbachSTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachS}, task=${trainDevTestDataTlinkType.trainTask});
+data genGovSTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovS}, task=${trainDevTestDataTlinkType.trainTask});
+data wordNetSTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetS}, task=${trainDevTestDataTlinkType.trainTask});
+data reportingDCTSTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTS}, task=${trainDevTestDataTlinkType.trainTask});
+
+data adjETVTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETV}, task=${trainDevTestDataTlinkType.trainTask});
+data timeTimeVTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeV}, task=${trainDevTestDataTlinkType.trainTask});
+data repGovVTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovV}, task=${trainDevTestDataTlinkType.trainTask});
+data reichenbachVTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachV}, task=${trainDevTestDataTlinkType.trainTask});
+data genGovVTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovV}, task=${trainDevTestDataTlinkType.trainTask});
+data wordNetVTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetV}, task=${trainDevTestDataTlinkType.trainTask});
+data reportingDCTVTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTV}, task=${trainDevTestDataTlinkType.trainTask});
+
+data allVagueTrainData = MetaClassification(method=${modelsTlinkTypeDetInd.modelsTlinkTypeDet.allVague}, task=${trainDevTestDataTlinkType.trainTask});
+
+
+
+data adjETADevData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETA}, task=${trainDevTestDataTlinkType.devTask});
+data timeTimeADevData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeA}, task=${trainDevTestDataTlinkType.devTask});
+data repGovADevData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovA}, task=${trainDevTestDataTlinkType.devTask});
+data reichenbachADevData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachA}, task=${trainDevTestDataTlinkType.devTask});
+data genGovADevData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovA}, task=${trainDevTestDataTlinkType.devTask});
+data wordNetADevData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetA}, task=${trainDevTestDataTlinkType.devTask});
+data reportingDCTADevData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTA}, task=${trainDevTestDataTlinkType.devTask});
+data slETWSADevData = MetaClassification(method=${modelsTlinkTypeSlInd.slETWSA}, task=${trainDevTestDataTlinkType.devTask});
+data slEEDADevData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEDA}, task=${trainDevTestDataTlinkType.devTask});
+data slEEWSADevData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEWSA}, task=${trainDevTestDataTlinkType.devTask});
+data slDCTADevData = MetaClassification(method=${modelsTlinkTypeSlInd.slDCTA}, task=${trainDevTestDataTlinkType.devTask});
+
+data adjETBDevData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETB}, task=${trainDevTestDataTlinkType.devTask});
+data timeTimeBDevData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeB}, task=${trainDevTestDataTlinkType.devTask});
+data repGovBDevData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovB}, task=${trainDevTestDataTlinkType.devTask});
+data reichenbachBDevData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachB}, task=${trainDevTestDataTlinkType.devTask});
+data genGovBDevData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovB}, task=${trainDevTestDataTlinkType.devTask});
+data wordNetBDevData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetB}, task=${trainDevTestDataTlinkType.devTask});
+data reportingDCTBDevData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTB}, task=${trainDevTestDataTlinkType.devTask});
+data slETWSBDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slETWSB}, task=${trainDevTestDataTlinkType.devTask});
+data slEEDBDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEDB}, task=${trainDevTestDataTlinkType.devTask});
+data slEEWSBDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEWSB}, task=${trainDevTestDataTlinkType.devTask});
+data slDCTBDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slDCTB}, task=${trainDevTestDataTlinkType.devTask});
+
+data adjETIDevData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETI}, task=${trainDevTestDataTlinkType.devTask});
+data timeTimeIDevData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeI}, task=${trainDevTestDataTlinkType.devTask});
+data repGovIDevData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovI}, task=${trainDevTestDataTlinkType.devTask});
+data reichenbachIDevData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachI}, task=${trainDevTestDataTlinkType.devTask});
+data genGovIDevData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovI}, task=${trainDevTestDataTlinkType.devTask});
+data wordNetIDevData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetI}, task=${trainDevTestDataTlinkType.devTask});
+data reportingDCTIDevData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTI}, task=${trainDevTestDataTlinkType.devTask});
+data slETWSIDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slETWSI}, task=${trainDevTestDataTlinkType.devTask});
+data slEEDIDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEDI}, task=${trainDevTestDataTlinkType.devTask});
+data slEEWSIDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEWSI}, task=${trainDevTestDataTlinkType.devTask});
+data slDCTIDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slDCTI}, task=${trainDevTestDataTlinkType.devTask});
+
+data adjETIIDevData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETII}, task=${trainDevTestDataTlinkType.devTask});
+data timeTimeIIDevData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeII}, task=${trainDevTestDataTlinkType.devTask});
+data repGovIIDevData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovII}, task=${trainDevTestDataTlinkType.devTask});
+data reichenbachIIDevData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachII}, task=${trainDevTestDataTlinkType.devTask});
+data genGovIIDevData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovII}, task=${trainDevTestDataTlinkType.devTask});
+data wordNetIIDevData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetII}, task=${trainDevTestDataTlinkType.devTask});
+data reportingDCTIIDevData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTII}, task=${trainDevTestDataTlinkType.devTask});
+data slETWSIIDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slETWSII}, task=${trainDevTestDataTlinkType.devTask});
+data slEEDIIDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEDII}, task=${trainDevTestDataTlinkType.devTask});
+data slEEWSIIDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEWSII}, task=${trainDevTestDataTlinkType.devTask});
+data slDCTIIDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slDCTII}, task=${trainDevTestDataTlinkType.devTask});
+
+data adjETSDevData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETS}, task=${trainDevTestDataTlinkType.devTask});
+data timeTimeSDevData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeS}, task=${trainDevTestDataTlinkType.devTask});
+data repGovSDevData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovS}, task=${trainDevTestDataTlinkType.devTask});
+data reichenbachSDevData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachS}, task=${trainDevTestDataTlinkType.devTask});
+data genGovSDevData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovS}, task=${trainDevTestDataTlinkType.devTask});
+data wordNetSDevData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetS}, task=${trainDevTestDataTlinkType.devTask});
+data reportingDCTSDevData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTS}, task=${trainDevTestDataTlinkType.devTask});
+data slETWSSDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slETWSS}, task=${trainDevTestDataTlinkType.devTask});
+data slEEDSDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEDS}, task=${trainDevTestDataTlinkType.devTask});
+data slEEWSSDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEWSS}, task=${trainDevTestDataTlinkType.devTask});
+data slDCTSDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slDCTS}, task=${trainDevTestDataTlinkType.devTask});
+
+data adjETVDevData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETV}, task=${trainDevTestDataTlinkType.devTask});
+data timeTimeVDevData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeV}, task=${trainDevTestDataTlinkType.devTask});
+data repGovVDevData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovV}, task=${trainDevTestDataTlinkType.devTask});
+data reichenbachVDevData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachV}, task=${trainDevTestDataTlinkType.devTask});
+data genGovVDevData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovV}, task=${trainDevTestDataTlinkType.devTask});
+data wordNetVDevData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetV}, task=${trainDevTestDataTlinkType.devTask});
+data reportingDCTVDevData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTV}, task=${trainDevTestDataTlinkType.devTask});
+data slETWSVDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slETWSV}, task=${trainDevTestDataTlinkType.devTask});
+data slEEDVDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEDV}, task=${trainDevTestDataTlinkType.devTask});
+data slEEWSVDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEWSV}, task=${trainDevTestDataTlinkType.devTask});
+data slDCTVDevData = MetaClassification(method=${modelsTlinkTypeSlInd.slDCTV}, task=${trainDevTestDataTlinkType.devTask});
+
+data allVagueDevData = MetaClassification(method=${modelsTlinkTypeDetInd.modelsTlinkTypeDet.allVague}, task=${trainDevTestDataTlinkType.devTask});
+
+
+
+
+data adjETATestData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETA}, task=${trainDevTestDataTlinkType.testTask});
+data timeTimeATestData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeA}, task=${trainDevTestDataTlinkType.testTask});
+data repGovATestData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovA}, task=${trainDevTestDataTlinkType.testTask});
+data reichenbachATestData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachA}, task=${trainDevTestDataTlinkType.testTask});
+data genGovATestData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovA}, task=${trainDevTestDataTlinkType.testTask});
+data wordNetATestData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetA}, task=${trainDevTestDataTlinkType.testTask});
+data reportingDCTATestData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTA}, task=${trainDevTestDataTlinkType.testTask});
+data slETWSATestData = MetaClassification(method=${modelsTlinkTypeSlInd.slETWSA}, task=${trainDevTestDataTlinkType.testTask});
+data slEEDATestData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEDA}, task=${trainDevTestDataTlinkType.testTask});
+data slEEWSATestData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEWSA}, task=${trainDevTestDataTlinkType.testTask});
+data slDCTATestData = MetaClassification(method=${modelsTlinkTypeSlInd.slDCTA}, task=${trainDevTestDataTlinkType.testTask});
+
+data adjETBTestData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETB}, task=${trainDevTestDataTlinkType.testTask});
+data timeTimeBTestData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeB}, task=${trainDevTestDataTlinkType.testTask});
+data repGovBTestData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovB}, task=${trainDevTestDataTlinkType.testTask});
+data reichenbachBTestData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachB}, task=${trainDevTestDataTlinkType.testTask});
+data genGovBTestData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovB}, task=${trainDevTestDataTlinkType.testTask});
+data wordNetBTestData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetB}, task=${trainDevTestDataTlinkType.testTask});
+data reportingDCTBTestData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTB}, task=${trainDevTestDataTlinkType.testTask});
+data slETWSBTestData = MetaClassification(method=${modelsTlinkTypeSlInd.slETWSB}, task=${trainDevTestDataTlinkType.testTask});
+data slEEDBTestData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEDB}, task=${trainDevTestDataTlinkType.testTask});
+data slEEWSBTestData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEWSB}, task=${trainDevTestDataTlinkType.testTask});
+data slDCTBTestData = MetaClassification(method=${modelsTlinkTypeSlInd.slDCTB}, task=${trainDevTestDataTlinkType.testTask});
+
+data adjETITestData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETI}, task=${trainDevTestDataTlinkType.testTask});
+data timeTimeITestData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeI}, task=${trainDevTestDataTlinkType.testTask});
+data repGovITestData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovI}, task=${trainDevTestDataTlinkType.testTask});
+data reichenbachITestData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachI}, task=${trainDevTestDataTlinkType.testTask});
+data genGovITestData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovI}, task=${trainDevTestDataTlinkType.testTask});
+data wordNetITestData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetI}, task=${trainDevTestDataTlinkType.testTask});
+data reportingDCTITestData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTI}, task=${trainDevTestDataTlinkType.testTask});
+data slETWSITestData = MetaClassification(method=${modelsTlinkTypeSlInd.slETWSI}, task=${trainDevTestDataTlinkType.testTask});
+data slEEDITestData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEDI}, task=${trainDevTestDataTlinkType.testTask});
+data slEEWSITestData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEWSI}, task=${trainDevTestDataTlinkType.testTask});
+data slDCTITestData = MetaClassification(method=${modelsTlinkTypeSlInd.slDCTI}, task=${trainDevTestDataTlinkType.testTask});
+
+data adjETIITestData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETII}, task=${trainDevTestDataTlinkType.testTask});
+data timeTimeIITestData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeII}, task=${trainDevTestDataTlinkType.testTask});
+data repGovIITestData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovII}, task=${trainDevTestDataTlinkType.testTask});
+data reichenbachIITestData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachII}, task=${trainDevTestDataTlinkType.testTask});
+data genGovIITestData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovII}, task=${trainDevTestDataTlinkType.testTask});
+data wordNetIITestData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetII}, task=${trainDevTestDataTlinkType.testTask});
+data reportingDCTIITestData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTII}, task=${trainDevTestDataTlinkType.testTask});
+data slETWSIITestData = MetaClassification(method=${modelsTlinkTypeSlInd.slETWSII}, task=${trainDevTestDataTlinkType.testTask});
+data slEEDIITestData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEDII}, task=${trainDevTestDataTlinkType.testTask});
+data slEEWSIITestData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEWSII}, task=${trainDevTestDataTlinkType.testTask});
+data slDCTIITestData = MetaClassification(method=${modelsTlinkTypeSlInd.slDCTII}, task=${trainDevTestDataTlinkType.testTask});
+
+data adjETSTestData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETS}, task=${trainDevTestDataTlinkType.testTask});
+data timeTimeSTestData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeS}, task=${trainDevTestDataTlinkType.testTask});
+data repGovSTestData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovS}, task=${trainDevTestDataTlinkType.testTask});
+data reichenbachSTestData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachS}, task=${trainDevTestDataTlinkType.testTask});
+data genGovSTestData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovS}, task=${trainDevTestDataTlinkType.testTask});
+data wordNetSTestData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetS}, task=${trainDevTestDataTlinkType.testTask});
+data reportingDCTSTestData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTS}, task=${trainDevTestDataTlinkType.testTask});
+data slETWSSTestData = MetaClassification(method=${modelsTlinkTypeSlInd.slETWSS}, task=${trainDevTestDataTlinkType.testTask});
+data slEEDSTestData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEDS}, task=${trainDevTestDataTlinkType.testTask});
+data slEEWSSTestData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEWSS}, task=${trainDevTestDataTlinkType.testTask});
+data slDCTSTestData = MetaClassification(method=${modelsTlinkTypeSlInd.slDCTS}, task=${trainDevTestDataTlinkType.testTask});
+
+data adjETVTestData = MetaClassification(method=${modelsTlinkTypeDetInd.adjETV}, task=${trainDevTestDataTlinkType.testTask});
+data timeTimeVTestData = MetaClassification(method=${modelsTlinkTypeDetInd.timeTimeV}, task=${trainDevTestDataTlinkType.testTask});
+data repGovVTestData = MetaClassification(method=${modelsTlinkTypeDetInd.repGovV}, task=${trainDevTestDataTlinkType.testTask});
+data reichenbachVTestData = MetaClassification(method=${modelsTlinkTypeDetInd.reichenbachV}, task=${trainDevTestDataTlinkType.testTask});
+data genGovVTestData = MetaClassification(method=${modelsTlinkTypeDetInd.genGovV}, task=${trainDevTestDataTlinkType.testTask});
+data wordNetVTestData = MetaClassification(method=${modelsTlinkTypeDetInd.wordNetV}, task=${trainDevTestDataTlinkType.testTask});
+data reportingDCTVTestData = MetaClassification(method=${modelsTlinkTypeDetInd.reportingDCTV}, task=${trainDevTestDataTlinkType.testTask});
+data slETWSVTestData = MetaClassification(method=${modelsTlinkTypeSlInd.slETWSV}, task=${trainDevTestDataTlinkType.testTask});
+data slEEDVTestData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEDV}, task=${trainDevTestDataTlinkType.testTask});
+data slEEWSVTestData = MetaClassification(method=${modelsTlinkTypeSlInd.slEEWSV}, task=${trainDevTestDataTlinkType.testTask});
+data slDCTVTestData = MetaClassification(method=${modelsTlinkTypeSlInd.slDCTV}, task=${trainDevTestDataTlinkType.testTask});
+
+data allVagueTestData = MetaClassification(method=${modelsTlinkTypeDetInd.modelsTlinkTypeDet.allVague}, task=${trainDevTestDataTlinkType.testTask});
+
+data detTrainData = UnionData(data=(${adjETATrainData}, ${timeTimeATrainData}, ${repGovATrainData}, 
+                                    ${reichenbachATrainData}, ${genGovATrainData}, ${wordNetATrainData}, 
+                                    ${reportingDCTATrainData}, 
+                                    
+                                    ${adjETBTrainData}, ${timeTimeBTrainData}, ${repGovBTrainData}, 
+                                    ${reichenbachBTrainData}, ${genGovBTrainData}, ${wordNetBTrainData}, 
+                                    ${reportingDCTBTrainData}, 
+                                    
+                                    ${adjETITrainData}, ${timeTimeITrainData}, ${repGovITrainData}, 
+                                    ${reichenbachITrainData}, ${genGovITrainData}, ${wordNetITrainData}, 
+                                    ${reportingDCTITrainData}, 
+                                    
+                                    ${adjETIITrainData}, ${timeTimeIITrainData}, ${repGovIITrainData}, 
+                                    ${reichenbachIITrainData}, ${genGovIITrainData}, ${wordNetIITrainData}, 
+                                    ${reportingDCTIITrainData}, 
+                                    
+                                    ${adjETSTrainData}, ${timeTimeSTrainData}, ${repGovSTrainData}, 
+                                    ${reichenbachSTrainData}, ${genGovSTrainData}, ${wordNetSTrainData}, 
+                                    ${reportingDCTSTrainData}, 
+                                    
+                                    ${adjETVTrainData}, ${timeTimeVTrainData}, ${repGovVTrainData}, 
+                                    ${reichenbachVTrainData}, ${genGovVTrainData}, ${wordNetVTrainData}, 
+                                    ${reportingDCTVTrainData}, 
+                                    
+                                    ${allVagueTrainData}));
+
+data fullDevData = UnionData(data=(${adjETADevData}, ${timeTimeADevData}, ${repGovADevData},
+                                   ${reichenbachADevData}, ${genGovADevData}, ${wordNetADevData}, 
+                                   ${reportingDCTADevData}, ${slETWSADevData}, ${slEEDADevData}, 
+                                   ${slEEWSADevData}, ${slDCTADevData},
+                                   
+                                   ${adjETBDevData}, ${timeTimeBDevData}, ${repGovBDevData},
+                                   ${reichenbachBDevData}, ${genGovBDevData}, ${wordNetBDevData}, 
+                                   ${reportingDCTBDevData}, ${slETWSBDevData}, ${slEEDBDevData}, 
+                                   ${slEEWSBDevData}, ${slDCTBDevData},
+                                   
+                                   ${adjETIDevData}, ${timeTimeIDevData}, ${repGovIDevData},
+                                   ${reichenbachIDevData}, ${genGovIDevData}, ${wordNetIDevData}, 
+                                   ${reportingDCTIDevData}, ${slETWSIDevData}, ${slEEDIDevData}, 
+                                   ${slEEWSIDevData}, ${slDCTIDevData},
+                                   
+                                   ${adjETIIDevData}, ${timeTimeIIDevData}, ${repGovIIDevData},
+                                   ${reichenbachIIDevData}, ${genGovIIDevData}, ${wordNetIIDevData}, 
+                                   ${reportingDCTIIDevData}, ${slETWSIIDevData}, ${slEEDIIDevData}, 
+                                   ${slEEWSIIDevData}, ${slDCTIIDevData},
+                                   
+                                   ${adjETSDevData}, ${timeTimeSDevData}, ${repGovSDevData},
+                                   ${reichenbachSDevData}, ${genGovSDevData}, ${wordNetSDevData}, 
+                                   ${reportingDCTSDevData}, ${slETWSSDevData}, ${slEEDSDevData}, 
+                                   ${slEEWSSDevData}, ${slDCTSDevData},
+                                   
+                                   ${adjETVDevData}, ${timeTimeVDevData}, ${repGovVDevData},
+                                   ${reichenbachVDevData}, ${genGovVDevData}, ${wordNetVDevData}, 
+                                   ${reportingDCTVDevData}, ${slETWSVDevData}, ${slEEDVDevData}, 
+                                   ${slEEWSVDevData}, ${slDCTVDevData},
+                                   
+                                   ${allVagueDevData}));
+
+value devPartition = PartitionData(data=${fullDevData}, distribution=(".5", ".5"));
+
+data trainData = UnionData(data=(${detTrainData}, ${fullDevData}));
+data devData = UnionData(data=(${fullDevData}));
+data testData = UnionData(data=(${adjETATestData}, ${timeTimeATestData}, ${repGovATestData},
+                                   ${reichenbachATestData}, ${genGovATestData}, ${wordNetATestData}, 
+                                   ${reportingDCTATestData}, ${slETWSATestData}, ${slEEDATestData}, 
+                                   ${slEEWSATestData}, ${slDCTATestData},
+                                   
+                                   ${adjETBTestData}, ${timeTimeBTestData}, ${repGovBTestData},
+                                   ${reichenbachBTestData}, ${genGovBTestData}, ${wordNetBTestData}, 
+                                   ${reportingDCTBTestData}, ${slETWSBTestData}, ${slEEDBTestData}, 
+                                   ${slEEWSBTestData}, ${slDCTBTestData},
+                                   
+                                   ${adjETITestData}, ${timeTimeITestData}, ${repGovITestData},
+                                   ${reichenbachITestData}, ${genGovITestData}, ${wordNetITestData}, 
+                                   ${reportingDCTITestData}, ${slETWSITestData}, ${slEEDITestData}, 
+                                   ${slEEWSITestData}, ${slDCTITestData},
+                                   
+                                   ${adjETIITestData}, ${timeTimeIITestData}, ${repGovIITestData},
+                                   ${reichenbachIITestData}, ${genGovIITestData}, ${wordNetIITestData}, 
+                                   ${reportingDCTIITestData}, ${slETWSIITestData}, ${slEEDIITestData}, 
+                                   ${slEEWSIITestData}, ${slDCTIITestData},
+                                   
+                                   ${adjETSTestData}, ${timeTimeSTestData}, ${repGovSTestData},
+                                   ${reichenbachSTestData}, ${genGovSTestData}, ${wordNetSTestData}, 
+                                   ${reportingDCTSTestData}, ${slETWSSTestData}, ${slEEDSTestData}, 
+                                   ${slEEWSSTestData}, ${slDCTSTestData},
+                                   
+                                   ${adjETVTestData}, ${timeTimeVTestData}, ${repGovVTestData},
+                                   ${reichenbachVTestData}, ${genGovVTestData}, ${wordNetVTestData}, 
+                                   ${reportingDCTVTestData}, ${slETWSVTestData}, ${slEEDVTestData}, 
+                                   ${slEEWSVTestData}, ${slDCTVTestData},
+                                   
+                                   ${allVagueTestData}));
+
+
+classify_task fullDevTask = Classification(data=${fullDevData});
+classify_task devTask = Classification(data=${devData});
+classify_task testTask = Classification(data=${testData});
+
+data fullDevDataNAV = UnionData(data=(${adjETADevData}, ${timeTimeADevData}, ${repGovADevData},
+                                   ${reichenbachADevData}, ${genGovADevData}, ${wordNetADevData}, 
+                                   ${reportingDCTADevData}, ${slETWSADevData}, ${slEEDADevData}, 
+                                   ${slEEWSADevData}, ${slDCTADevData},
+                                   
+                                   ${adjETBDevData}, ${timeTimeBDevData}, ${repGovBDevData},
+                                   ${reichenbachBDevData}, ${genGovBDevData}, ${wordNetBDevData}, 
+                                   ${reportingDCTBDevData}, ${slETWSBDevData}, ${slEEDBDevData}, 
+                                   ${slEEWSBDevData}, ${slDCTBDevData},
+                                   
+                                   ${adjETIDevData}, ${timeTimeIDevData}, ${repGovIDevData},
+                                   ${reichenbachIDevData}, ${genGovIDevData}, ${wordNetIDevData}, 
+                                   ${reportingDCTIDevData}, ${slETWSIDevData}, ${slEEDIDevData}, 
+                                   ${slEEWSIDevData}, ${slDCTIDevData},
+                                   
+                                   ${adjETIIDevData}, ${timeTimeIIDevData}, ${repGovIIDevData},
+                                   ${reichenbachIIDevData}, ${genGovIIDevData}, ${wordNetIIDevData}, 
+                                   ${reportingDCTIIDevData}, ${slETWSIIDevData}, ${slEEDIIDevData}, 
+                                   ${slEEWSIIDevData}, ${slDCTIIDevData},
+                                   
+                                   ${adjETSDevData}, ${timeTimeSDevData}, ${repGovSDevData},
+                                   ${reichenbachSDevData}, ${genGovSDevData}, ${wordNetSDevData}, 
+                                   ${reportingDCTSDevData}, ${slETWSSDevData}, ${slEEDSDevData}, 
+                                   ${slEEWSSDevData}, ${slDCTSDevData},
+                                   
+                                   ${adjETVDevData}, ${timeTimeVDevData}, ${repGovVDevData},
+                                   ${reichenbachVDevData}, ${genGovVDevData}, ${wordNetVDevData}, 
+                                   ${reportingDCTVDevData}, ${slETWSVDevData}, ${slEEDVDevData}, 
+                                   ${slEEWSVDevData}, ${slDCTVDevData}));
+
+value devPartitionNAV = PartitionData(data=${fullDevDataNAV}, distribution=(".5", ".5"));
+
+data trainDataNAV = UnionData(data=(${fullDevDataNAV}));
+data devDataNAV = UnionData(data=(${fullDevDataNAV}));
+data testDataNAV = UnionData(data=(${adjETATestData}, ${timeTimeATestData}, ${repGovATestData},
+                                   ${reichenbachATestData}, ${genGovATestData}, ${wordNetATestData}, 
+                                   ${reportingDCTATestData}, ${slETWSATestData}, ${slEEDATestData}, 
+                                   ${slEEWSATestData}, ${slDCTATestData},
+                                   
+                                   ${adjETBTestData}, ${timeTimeBTestData}, ${repGovBTestData},
+                                   ${reichenbachBTestData}, ${genGovBTestData}, ${wordNetBTestData}, 
+                                   ${reportingDCTBTestData}, ${slETWSBTestData}, ${slEEDBTestData}, 
+                                   ${slEEWSBTestData}, ${slDCTBTestData},
+                                   
+                                   ${adjETITestData}, ${timeTimeITestData}, ${repGovITestData},
+                                   ${reichenbachITestData}, ${genGovITestData}, ${wordNetITestData}, 
+                                   ${reportingDCTITestData}, ${slETWSITestData}, ${slEEDITestData}, 
+                                   ${slEEWSITestData}, ${slDCTITestData},
+                                   
+                                   ${adjETIITestData}, ${timeTimeIITestData}, ${repGovIITestData},
+                                   ${reichenbachIITestData}, ${genGovIITestData}, ${wordNetIITestData}, 
+                                   ${reportingDCTIITestData}, ${slETWSIITestData}, ${slEEDIITestData}, 
+                                   ${slEEWSIITestData}, ${slDCTIITestData},
+                                   
+                                   ${adjETSTestData}, ${timeTimeSTestData}, ${repGovSTestData},
+                                   ${reichenbachSTestData}, ${genGovSTestData}, ${wordNetSTestData}, 
+                                   ${reportingDCTSTestData}, ${slETWSSTestData}, ${slEEDSTestData}, 
+                                   ${slEEWSSTestData}, ${slDCTSTestData},
+                                   
+                                   ${adjETVTestData}, ${timeTimeVTestData}, ${repGovVTestData},
+                                   ${reichenbachVTestData}, ${genGovVTestData}, ${wordNetVTestData}, 
+                                   ${reportingDCTVTestData}, ${slETWSVTestData}, ${slEEDVTestData}, 
+                                   ${slEEWSVTestData}, ${slDCTVTestData}));
+
+classify_task fullDevTaskNAV = Classification(data=${fullDevDataNAV});
+classify_task devTaskNAV = Classification(data=${devDataNAV});
+classify_task testTaskNAV = Classification(data=${testDataNAV});
+
