@@ -1,0 +1,3 @@
+{ "collection" : "ExperimentEvaluationOutput", "serializer" : "NamedIterableToString" }
+{ "collection" : "ExperimentModelOutput", "serializer" : "AssignmentListString" }
+{ "collection" : "ExperimentDebugOutput", "serializer" : "DataFeatureMatrixBSONString" }
