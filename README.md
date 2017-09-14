@@ -30,7 +30,7 @@ Below are the steps to setup the system.
 
 2. Clone the repository 
 
-	git clone https://github.com/forkunited/CAEVO-plus.git
+    git clone https://github.com/forkunited/CAEVO-plus.git
 
 3. Download the stand-alone micro-util jar from 
 [here](https://drive.google.com/file/d/0B6nD4za_hvG1UXltNWJVSS1aRjQ/view?usp=sharing) 
@@ -39,7 +39,7 @@ you've cloned.
 
 4. From the root directory of the CAEVO-plus repository run the setup script:
 
-	./setup.sh
+    ./setup.sh
 
 5. Download the 300-dimensional pretrained Google News 
 [word embeddings](https://code.google.com/archive/p/word2vec/) to an appropriate 
@@ -48,7 +48,7 @@ directory.
 6. Download [WordNet](http://wordnetcode.princeton.edu/wn3.1.dict.tar.gz) to
 an appropriate directory.  Untar the WordNet *dict* directory with:
 
-	tar xvf wn3.1.dict.tar.gz
+    tar xvf wn3.1.dict.tar.gz
 
 7. Copy the *src/main/resources/wordnet/jwnl_properties.xml* WordNet Java configuration file
 template to somewhere appropriate (e.g. in the directory where you placed WordNet), and 
@@ -61,7 +61,7 @@ Word2Vec vectors file and the *jwnl_properties.xml* file that you've edited from
 
 9. Build the project by compiling from the root directory of the CAEVO-plus repository:
 
-	mvn clean compile
+    mvn clean compile
 
 Experiments
 -----------
