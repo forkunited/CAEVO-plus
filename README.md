@@ -4,7 +4,11 @@ CAEVO (Cascading EVent Ordering System) is TempEval-style system for extracting
 temporal entities (events and time expressions), and labeling the temporal relations 
 between the temporal entities.  This repository contains the code for a reproduction 
 and improvement of the original CAEVO system [here](https://github.com/nchambers/caevo).  
-The details of the improvements are described in a forthcoming paper.
+The details of the improvements are described in the paper:
+
+Event Ordering with a Generalized Model for Sieve Prediction Ranking
+Bill McDowell, Nathanael Chambers, Alexander G. Ororbia II, and David Reitter
+IJCNLP-2017, Taipei, Taiwan. 2017.
 
 License and Dependencies
 ------------------------
