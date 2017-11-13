@@ -6,7 +6,7 @@ between the temporal entities.  This repository contains the code for a reproduc
 and improvement of the original CAEVO system [here](https://github.com/nchambers/caevo).  
 The details of the improvements are described in the paper:
 
-Event Ordering with a Generalized Model for Sieve Prediction Ranking
+Event Ordering with a Generalized Model for Sieve Prediction Ranking. 
 Bill McDowell, Nathanael Chambers, Alexander G. Ororbia II, and David Reitter
 IJCNLP-2017, Taipei, Taiwan. 2017.
 
