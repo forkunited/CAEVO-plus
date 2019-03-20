@@ -23,29 +23,29 @@ CONTEXT_DIR=src/main/resources/contexts/paper/
 mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_CAEVO_Final.ctx"
 
 # Model name: Ev
-mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_CAEVO_Final_EventAttr.ctx"
+#mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_CAEVO_Final_EventAttr.ctx"
 
 # Model name: SRL
-mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_CAEVO_Final_SRL.ctx"
+#mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_CAEVO_Final_SRL.ctx"
 
 # Model name: W2V
-mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_CAEVO_Final_W2VAll.ctx"
+#mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_CAEVO_Final_W2VAll.ctx"
 
 # Model name: R+
-mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_PSM_Final_Full_Evaluation.ctx"
+#mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_PSM_Final_Full_Evaluation.ctx"
 
 # Model name: F+
-mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_PSM_Final_Full_Evaluation_Fixed.ctx"
+#mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_PSM_Final_Full_Evaluation_Fixed.ctx"
 
 # Model name: F+L
-mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_PSM_Final_Full_Evaluation_Ind_Fixed.ctx"
+#mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_PSM_Final_Full_Evaluation_Ind_Fixed.ctx"
 
 # Model name: F+S
-mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_PSM_Final_Full_EvaluationScore_Fixed.ctx"
+#mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_PSM_Final_Full_EvaluationScore_Fixed.ctx"
 
 # Model name: F+LU
-mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_CAEVO_Final_Full_Ind_Unlabeled_Fixed.ctx"
+#mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_CAEVO_Final_Full_Ind_Unlabeled_Fixed.ctx"
 
 # Model name: F*
-mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_PSM_Final_Full_Perfect_Fixed.ctx"
+#mvn exec:java -Dexec.mainClass="edu.psu.ist.acs.micro.event.scratch.RunEventContext" -Dexec.args="${CONTEXT_DIR}/Test_PSM_Final_Full_Perfect_Fixed.ctx"
 

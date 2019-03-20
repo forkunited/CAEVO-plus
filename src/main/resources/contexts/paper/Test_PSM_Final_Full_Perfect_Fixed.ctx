@@ -1,0 +1,53 @@
+value maxThreads="30";
+value resultsId = "TLinkType_Test_PSM_Final_Full_Perfect_Fixed";
+value debug=Debug(file=${resultsId});
+
+context util = TLinkType(initScript="/util/Util.ctx", initOnce="true");
+
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/final/CAEVO_Full.ctx", initOnce="false");
+context modelsTlinkTypeSl = TLinkType(initScript="/tlinkType/methods/SL_CAEVO_Fixed.ctx", initOnce="false");
+context methodRerankerTlinkType = MetaTLinkType(initScript="/tlinkType/methods/meta/Reranker_Perfect.ctx", initOnce="false");
+context modelsTlinkTypePS = TLinkType(initScript="/tlinkType/methods/PrecedenceScoreByModel_SL.ctx", initOnce="false");
+context evalPS = TLinkType(initScript="/tlinkType/evaluations/PrecedenceScore.ctx", initOnce="false");
+context evalRerankerTlinkType = MetaTLinkType(initScript="/tlinkType/evaluations/Reranker.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Test_PSM_SL.ctx", initOnce="false");
+
+value resultsId = "TLinkType_Test_PSM_Final_Full_Perfect_Fixed_4Fold_0";
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD4Fold_0.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/final/CAEVO_Full.ctx", initOnce="false");
+context modelsTlinkTypeSl = TLinkType(initScript="/tlinkType/methods/SL_CAEVO_Fixed.ctx", initOnce="false");
+context methodRerankerTlinkType = MetaTLinkType(initScript="/tlinkType/methods/meta/Reranker_Perfect.ctx", initOnce="false");
+context modelsTlinkTypePS = TLinkType(initScript="/tlinkType/methods/PrecedenceScoreByModel_SL.ctx", initOnce="false");
+context evalPS = TLinkType(initScript="/tlinkType/evaluations/PrecedenceScore.ctx", initOnce="false");
+context evalRerankerTlinkType = MetaTLinkType(initScript="/tlinkType/evaluations/Reranker.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Test_PSM_SL.ctx", initOnce="false");
+
+value resultsId = "TLinkType_Test_PSM_Final_Full_Perfect_Fixed_4Fold_1";
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD4Fold_1.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/final/CAEVO_Full.ctx", initOnce="false");
+context modelsTlinkTypeSl = TLinkType(initScript="/tlinkType/methods/SL_CAEVO_Fixed.ctx", initOnce="false");
+context methodRerankerTlinkType = MetaTLinkType(initScript="/tlinkType/methods/meta/Reranker_Perfect.ctx", initOnce="false");
+context modelsTlinkTypePS = TLinkType(initScript="/tlinkType/methods/PrecedenceScoreByModel_SL.ctx", initOnce="false");
+context evalPS = TLinkType(initScript="/tlinkType/evaluations/PrecedenceScore.ctx", initOnce="false");
+context evalRerankerTlinkType = MetaTLinkType(initScript="/tlinkType/evaluations/Reranker.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Test_PSM_SL.ctx", initOnce="false");
+
+value resultsId = "TLinkType_Test_PSM_Final_Full_Perfect_Fixed_4Fold_2";
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD4Fold_2.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/final/CAEVO_Full.ctx", initOnce="false");
+context modelsTlinkTypeSl = TLinkType(initScript="/tlinkType/methods/SL_CAEVO_Fixed.ctx", initOnce="false");
+context methodRerankerTlinkType = MetaTLinkType(initScript="/tlinkType/methods/meta/Reranker_Perfect.ctx", initOnce="false");
+context modelsTlinkTypePS = TLinkType(initScript="/tlinkType/methods/PrecedenceScoreByModel_SL.ctx", initOnce="false");
+context evalPS = TLinkType(initScript="/tlinkType/evaluations/PrecedenceScore.ctx", initOnce="false");
+context evalRerankerTlinkType = MetaTLinkType(initScript="/tlinkType/evaluations/Reranker.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Test_PSM_SL.ctx", initOnce="false");
+
+value resultsId = "TLinkType_Test_PSM_Final_Full_Perfect_Fixed_4Fold_3";
+context trainDevTestDocsTlinkType = TLinkType(initScript="/util/data/docs/TBD4Fold_3.ctx", initOnce="true");
+context featureSetsTlinkType = TLinkType(initScript="/tlinkType/featureSets/final/CAEVO_Full.ctx", initOnce="false");
+context modelsTlinkTypeSl = TLinkType(initScript="/tlinkType/methods/SL_CAEVO_Fixed.ctx", initOnce="false");
+context methodRerankerTlinkType = MetaTLinkType(initScript="/tlinkType/methods/meta/Reranker_Perfect.ctx", initOnce="false");
+context modelsTlinkTypePS = TLinkType(initScript="/tlinkType/methods/PrecedenceScoreByModel_SL.ctx", initOnce="false");
+context evalPS = TLinkType(initScript="/tlinkType/evaluations/PrecedenceScore.ctx", initOnce="false");
+context evalRerankerTlinkType = MetaTLinkType(initScript="/tlinkType/evaluations/Reranker.ctx", initOnce="false");
+context results = TLinkType(initScript="/tlinkType/experiment/output/Test_PSM_SL.ctx", initOnce="false");
