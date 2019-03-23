@@ -1,0 +1,13 @@
+value docs="tbd_docs";
+value tlinks="tbd_tlinks";
+value labelMode="ONLY_LABELED";
+value maxSentDist="1";
+value crossDocMode="NONE";
+value clusterMode="POST";
+
+array labels = ("BEFORE", "AFTER", "INCLUDES", "IS_INCLUDED", "SIMULTANEOUS", "VAGUE");
+
+data data = TLinkType(storage="RawEventBson", documents=${docs}, filterType="NONE", tlinks=${tlinks}, labelMode=${labelMode}, labelMapping="TBD", maxSentenceDistance=${maxSentDist}, crossDocMode=${crossDocMode}, clusterMode=${clusterMode});
+
+classify_task initTask = Classification(data=${data});
+multi_classify_task task = MultiClassification(tasks=(${initTask}));

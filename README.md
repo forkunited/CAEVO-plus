@@ -67,15 +67,16 @@ Word2Vec vectors file and the *jwnl_properties.xml* file that you've edited from
 ```
     mvn clean compile
 ```
+
 Experiments
 -----------
-You can run all the experiments from the paper using the *run.sh* script.  Look at the contents
+You can run all the experiments from the paper using the *test.sh* script.  Look at the contents
 of the script for more documentation on the specific commands and scripts that are run.  The results
 will be output to *src/main/resources/output/event_string/ExperimentEvaluationOutput*.
 
 Code structure
 --------------
-Note that all the commands run in *run.sh* to produce the results from the paper execute *ctx*
+Note that all the commands run in *test.sh* to produce the results from the paper execute *ctx*
 scripts in *src/main/resources/contexts/*.  These scripts are implemented in a domain-specific 
 language for specifying machine learning models and features.  The language is implemented in the
 [micro-util](https://github.com/forkunited/micro-util/tree/standalone-caevo/) library, which also
@@ -91,4 +92,41 @@ of a more generic never-ending learning system.  If you're trying to understand 
 and it seems confusing, then please contact Bill McDowell (forkunited@gmail.com) and he will try
 to clarify things.  
 
+Running on raw text
+-------------------
+You can run the system on raw text using the *runraw.sh* script after following the instructions
+below.  Note that by default, this script will run the F+ version of the model given in the paper,
+but you can switch to F+L or any other version by editing it to reference a different *ctx* script.
+Also, we apologize that this process is a bit messy, and was quickly hacked together after
+requests from multiple people.  Please raise an issue if you run into bugs or problems.
+
+Here are the steps for running on a raw text file:
+
+1. Setup the CAEVO-plus system by following the instructions given above.
+
+2. Setup the original CAEVO system from [here](https://github.com/nchambers/caevo).
+
+3. Download the *mate-tools*  CoNLL2009 English SRL, parsing, POS-tagging, and lemmatizing models from
+[here](https://code.google.com/archive/p/mate-tools/downloads?page=2).
+
+4. Point the path variables in *event.properties* to the locations where you downloaded the 
+*mate-tools* models.
+
+5. Edit the *runraw.sh* script, and fill in the location of the directory containing the original
+[CAEVO](https://github.com/nchambers/caevo) in the *CAEVO_DIR* variable.  
+
+6. Run *runraw.sh <text-file>* on some text file from your system. Output will be stored in
+*src/main/resources/data/raw_event_bson/* with links output by CAEVO-plus stored in 
+the *plus_tlinks* sub-directory.  Other sub-directories will contain pre-processing output
+by the original CAEVO system.
+
+Note that this process will not take into account document-creation times for the input text
+documents.  If you want to include these, they will need to be added to the XML output from
+the original CAEVO system that the *runraw.sh* uses as input to CAEVO-plus.  Also, note that the
+system is memory intensive and slow to initialize due to loading in word-embeddings and
+re-training prior to running.  If you want to produce decent temporal annotations using fewer
+resources, then we recommend resorting to the original CAEVO system (sorry, this inconvenience
+is partially due to hacking this raw-text option together quickly). Also, you may receive
+"illegal thread state exceptions" after the system runs due to some threading issue with Maven,
+but you can safely ignore these.
 

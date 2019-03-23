@@ -915,25 +915,29 @@ public class ConstructTimeBankDense {
 				targetId = ((EventMention)targetObj).getSourceId();
 			}
 			
-			if (!tlinkTypes.containsKey(document.getName()) 
-					|| !tlinkTypes.get(document.getName()).containsKey(sourceId) 
-					|| !tlinkTypes.get(document.getName()).get(sourceId).containsKey(targetId)) {
-				System.out.println("ERROR: Missing link " + document.getName() + " " + sourceId + " " + targetId);
-				System.exit(0);
+			TimeMLRelType fineGrainedType = null;
+			if (tlinkTypes.containsKey(document.getName()) 
+					&& tlinkTypes.get(document.getName()).containsKey(sourceId) 
+					&& tlinkTypes.get(document.getName()).get(sourceId).containsKey(targetId)) {
+				 fineGrainedType = tlinkTypes.get(document.getName()).get(sourceId).get(targetId);
 			}
 			
-			TimeMLRelType fineGrainedType = tlinkTypes.get(document.getName()).get(sourceId).get(targetId);
+			
 			TimeMLRelType coarseGrainedType = TimeMLRelType.valueOf(element.getAttributeValue("relation"));
 			
-			if (fineGrainedType.equals(coarseGrainedType)
-					|| (coarseGrainedType.equals(TimeMLRelType.VAGUE)
-							&& (fineGrainedType.equals(TimeMLRelType.MUTUAL_VAGUE)
-									|| fineGrainedType.equals(TimeMLRelType.PARTIAL_VAGUE)
-									|| fineGrainedType.equals(TimeMLRelType.NONE_VAGUE)))) {
-				timeMLRelType = fineGrainedType;
+			if (fineGrainedType != null) {
+				if (fineGrainedType.equals(coarseGrainedType)
+						|| (coarseGrainedType.equals(TimeMLRelType.VAGUE)
+								&& (fineGrainedType.equals(TimeMLRelType.MUTUAL_VAGUE)
+										|| fineGrainedType.equals(TimeMLRelType.PARTIAL_VAGUE)
+										|| fineGrainedType.equals(TimeMLRelType.NONE_VAGUE)))) {
+					timeMLRelType = fineGrainedType;
+				} else {
+					System.out.println("ERROR: TLink type mismatch " + document.getName() + sourceId + " " + targetId);
+					System.exit(0);
+				}
 			} else {
-				System.out.println("ERROR: TLink type mismatch " + document.getName() + sourceId + " " + targetId);
-				System.exit(0);
+				timeMLRelType = coarseGrainedType;
 			}
 		}
 			

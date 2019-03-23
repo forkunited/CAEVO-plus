@@ -10,7 +10,10 @@ import edu.psu.ist.acs.micro.event.data.annotation.nlp.event.LinkableTimeExpress
 
 public class DetReportingDCT {
 	public static TimeMLRelType determineRelation(EventMention event, LinkableTimeExpression time) {
-		if (!time.getValue().getValue().equals(time.getTokenSpan().getDocument().getDocumentAnnotation(AnnotationTypeNLP.CREATION_TIME).getValue().getValue()) 
+		
+		if (!time.getTokenSpan().getDocument().hasAnnotationType(AnnotationTypeNLP.CREATION_TIME)
+				||
+				!time.getValue().getValue().equals(time.getTokenSpan().getDocument().getDocumentAnnotation(AnnotationTypeNLP.CREATION_TIME).getValue().getValue()) 
 				|| 
 				!event.getTokenSpan().getDocument().getName().equals(time.getTokenSpan().getDocument().getName())
 				||
